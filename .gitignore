@@ -1,0 +1,30 @@
+# Environment files & Secrets
+.env
+.env.local
+.env.*
+!.env.example
+
+# Runtime data (leads PII, activity log, settings, backups)
+backend/telegram-leads/data/
+
+# SQLite Databases & Backups
+*.db
+*.db-shm
+*.db-wal
+data/*.db
+data/backup-*.db
+backend/telegram-leads/data/*.db
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+
+# WordPress & Standalone PHP Packages
+php-website/
+wordpress-theme/
+*.zip
+UPLOAD_AND_INSTALLATION_GUIDE.md
+
+# Operating System Files
+Thumbs.db
+.DS_Store

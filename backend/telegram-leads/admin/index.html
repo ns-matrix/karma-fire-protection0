@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin CRM &amp; Website Intelligence | Karma Fire Protection LLP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --card-bg: #181b23;
+      --card-border: #282d3c;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-sub: #6b7280;
+      --brand-red: #d9232d;
+      --brand-red-hover: #b91c1c;
+      --brand-red-glow: rgba(217, 35, 45, 0.15);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --sidebar-width: 250px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Login Screen */
+    #login-screen {
+      position: fixed; inset: 0; background: var(--bg);
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+    }
+    .login-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 36px; width: 100%; max-width: 420px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .login-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .fire-icon { width: 36px; height: 36px; background: var(--brand-red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .login-title { font-size: 20px; font-weight: 700; color: #fff; }
+    .login-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 6px; }
+    .form-control {
+      width: 100%; padding: 12px 14px; background: #12141a; border: 1px solid var(--card-border);
+      border-radius: 6px; color: #fff; font-size: 14px; font-family: inherit; transition: border-color 0.2s;
+    }
+    .form-control:focus { outline: none; border-color: var(--brand-red); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 20px; border-radius: 6px; font-size: 14px; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.2s; font-family: inherit;
+    }
+    .btn-primary { background: var(--brand-red); color: #fff; width: 100%; }
+    .btn-primary:hover { background: var(--brand-red-hover); }
+    .btn-secondary { background: #222736; color: var(--text-main); }
+    .btn-secondary:hover { background: #2d3345; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 4px; }
+    .login-error { color: #ef4444; font-size: 13px; margin-top: 12px; display: none; }
+
+    /* App Layout */
+    #app-container { display: none; width: 100%; min-height: 100vh; }
+    .sidebar {
+      width: var(--sidebar-width); background: #141720; border-right: 1px solid var(--card-border);
+      display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100;
+    }
+    .sidebar-brand {
+      padding: 24px 20px; border-bottom: 1px solid var(--card-border);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .sidebar-brand h2 { font-size: 16px; font-weight: 700; color: #fff; }
+    .sidebar-brand span { font-size: 11px; color: var(--brand-red); font-weight: 600; text-transform: uppercase; }
+    .nav-list { list-style: none; padding: 16px 10px; flex: 1; overflow-y: auto; }
+    .nav-item {
+      padding: 10px 14px; border-radius: 6px; margin-bottom: 4px; display: flex; align-items: center; gap: 12px;
+      font-size: 13.5px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.15s;
+    }
+    .nav-item:hover { color: #fff; background: rgba(255,255,255,0.04); }
+    .nav-item.active { color: #fff; background: var(--brand-red); }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; }
+    .user-info { font-size: 13px; font-weight: 600; }
+    .btn-logout { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 12px; }
+    .btn-logout:hover { color: #ef4444; }
+
+    /* Main Content */
+    .main-content { margin-left: var(--sidebar-width); flex: 1; padding: 32px 40px; width: calc(100% - var(--sidebar-width)); }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .page-title { font-size: 24px; font-weight: 700; color: #fff; }
+    .page-desc { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+    /* Metric Cards Grid */
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 24px; }
+    .metric-card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 20px;
+      position: relative; overflow: hidden;
+    }
+    .metric-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: transparent; }
+    .metric-card.accent::after { background: var(--brand-red); }
+    .metric-title { font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
+    .metric-value { font-size: 28px; font-weight: 700; color: #fff; margin: 10px 0 4px; }
+    .metric-sub { font-size: 12px; color: var(--text-sub); }
+
+    /* Charts & Section Cards */
+    .card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px;
+      padding: 24px; margin-bottom: 24px;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .card-title { font-size: 16px; font-weight: 700; color: #fff; }
+
+    /* Mini CSS Bar Chart */
+    .chart-container { display: flex; align-items: flex-end; gap: 12px; height: 160px; padding-top: 20px; border-bottom: 1px solid var(--card-border); }
+    .chart-bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+    .chart-bar {
+      width: 100%; max-width: 28px; background: var(--brand-red); border-radius: 4px 4px 0 0;
+      transition: height 0.5s ease; position: relative;
+    }
+    .chart-bar:hover::after {
+      content: attr(data-val); position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
+      background: #111; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 3px; white-space: nowrap;
+    }
+    .chart-label { font-size: 10px; color: var(--text-sub); margin-top: 8px; }
+
+    /* Tables */
+    .table-responsive { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px; }
+    th { padding: 12px 14px; background: rgba(255,255,255,0.02); color: var(--text-muted); font-size: 11px; text-transform: uppercase; font-weight: 600; border-bottom: 1px solid var(--card-border); }
+    td { padding: 14px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-main); }
+    tr:hover td { background: rgba(255,255,255,0.015); }
+    .status-badge {
+      display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+    }
+    .badge-New { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .badge-Contacted { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .badge-Qualified { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-InProgress { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+    .badge-Converted { background: rgba(16, 185, 129, 0.25); color: #10b981; font-weight: 700; }
+    .badge-Closed { background: rgba(107, 114, 128, 0.2); color: #9ca3af; }
+
+    /* Filters Bar */
+    .filters-bar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+    .filter-item { flex: 1; min-width: 160px; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center; z-index: 1000;
+    }
+    .modal-content {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px;
+      width: 90%; max-width: 720px; max-height: 85vh; overflow-y: auto; padding: 28px;
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 14px; }
+    .modal-close { background: transparent; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; }
+    .lead-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; font-size: 13.5px; }
+    .detail-label { font-size: 11px; text-transform: uppercase; color: var(--text-sub); font-weight: 600; margin-bottom: 4px; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar { width: 70px; }
+      .sidebar-brand h2, .sidebar-brand span, .nav-item span, .user-info { display: none; }
+      .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Overlay -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="fire-icon">🔥</div>
+        <div>
+          <div class="login-title">Karma Fire Protection</div>
+          <div class="login-subtitle">CRM &amp; Website Intelligence</div>
+        </div>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label>Admin Username</label>
+          <input type="text" id="login-username" class="form-control" required autocomplete="username" value="Karma@Admin@123">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" class="form-control" required autocomplete="current-password" placeholder="Enter admin password">
+        </div>
+        <button type="submit" class="btn btn-primary" id="btn-login-submit">Log In to Dashboard</button>
+        <div class="login-error" id="login-error"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Authenticated CRM App -->
+  <div id="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="fire-icon">🔥</div>
+        <div>
+          <h2>Karma CRM</h2>
+          <span>Intelligence</span>
+        </div>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item active" data-tab="overview">📊 <span>Overview</span></li>
+        <li class="nav-item" data-tab="leads">📋 <span>Leads CRM</span></li>
+        <li class="nav-item" data-tab="visitors">👁 <span>Visitor Analytics</span></li>
+        <li class="nav-item" data-tab="sources">🎯 <span>Traffic Sources</span></li>
+        <li class="nav-item" data-tab="pages">📄 <span>Top Pages</span></li>
+        <li class="nav-item" data-tab="settings">⚙️ <span>Settings</span></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div class="user-info" id="sidebar-user">admin</div>
+        <button class="btn-logout" id="btn-logout" title="Log out">Logout ⏻</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div>
+          <h1 class="page-title" id="page-heading">Overview</h1>
+          <p class="page-desc" id="page-subheading">Live website traffic and lead performance</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a href="/" target="_blank" class="btn btn-secondary btn-sm">View Website ↗</a>
+          <button class="btn btn-primary btn-sm" id="btn-refresh">Refresh Data ⟳</button>
+        </div>
+      </div>
+
+      <!-- TAB: OVERVIEW -->
+      <section id="tab-overview" class="tab-pane">
+        <div class="grid-4" id="overview-metrics">
+          <div class="metric-card accent">
+            <div class="metric-title">Visitors Today</div>
+            <div class="metric-value" id="m-visitors-today">0</div>
+            <div class="metric-sub">Active sessions today</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Total Unique Visitors</div>
+            <div class="metric-value" id="m-unique-visitors">0</div>
+            <div class="metric-sub" id="m-returning-visitors">0 returning</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Page Views Today</div>
+            <div class="metric-value" id="m-views-today">0</div>
+            <div class="metric-sub" id="m-total-views">0 all-time</div>
+          </div>
+          <div class="metric-card accent">
+            <div class="metric-title">Enquiries &amp; Conversion</div>
+            <div class="metric-value" id="m-leads-total">0</div>
+            <div class="metric-sub" id="m-conversion-rate">0% conversion rate</div>
+          </div>
+        </div>
+
+        <!-- 14-Day Traffic & Enquiries Chart -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Daily Visitors (Past 14 Days)</div>
+          </div>
+          <div class="chart-container" id="daily-visitors-chart"></div>
+        </div>
+
+        <!-- Recent Leads Overview -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Recent Website Enquiries</div>
+            <button class="btn btn-secondary btn-sm" onclick="switchTab('leads')">View All Leads →</button>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lead ID</th>
+                  <th>Client</th>
+                  <th>Phone / Email</th>
+                  <th>Service</th>
+                  <th>Status</th>
+                  <th>Submitted</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="overview-recent-leads">
+                <tr><td colspan="7" style="text-align: center;">Loading enquiries...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: LEADS CRM -->
+      <section id="tab-leads" class="tab-pane" style="display: none;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Enquiries &amp; Lead Management</div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" id="btn-export-csv">Export CSV ↓</button>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="filters-bar">
+            <div class="filter-item">
+              <input type="text" id="lead-search" class="form-control" placeholder="Search name, phone, ID...">
+            </div>
+            <div class="filter-item">
+              <select id="lead-status-filter" class="form-control">
+                <option value="">All Statuses</option>
+                <option value="New">New</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Qualified">Qualified</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Converted">Converted</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <select id="lead-service-filter" class="form-control">
+                <option value="">All Services</option>
+                <option value="Fire Hydrant System">Fire Hydrant System</option>
+                <option value="Fire Alarm System">Fire Alarm System</option>
+                <option value="Fire Sprinkler System">Fire Sprinkler System</option>
+                <option value="Fire Suppression System">Fire Suppression System</option>
+                <option value="Installation">Installation</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Inspection">Inspection</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lead ID</th>
+                  <th>Client Name</th>
+                  <th>Contact</th>
+                  <th>Service</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Source</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leads-table-body">
+                <tr><td colspan="9" style="text-align: center;">Loading leads...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: VISITOR ANALYTICS -->
+      <section id="tab-visitors" class="tab-pane" style="display: none;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Recent Visitor Sessions &amp; Journey</div>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Visitor UUID</th>
+                  <th>Sessions</th>
+                  <th>Landing Page</th>
+                  <th>Source</th>
+                  <th>Device</th>
+                  <th>Views</th>
+                  <th>Consent</th>
+                  <th>Last Seen</th>
+                </tr>
+              </thead>
+              <tbody id="visitors-table-body">
+                <tr><td colspan="8" style="text-align: center;">Loading visitor logs...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: TRAFFIC SOURCES -->
+      <section id="tab-sources" class="tab-pane" style="display: none;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Traffic Sources &amp; Attribution (Past 30 Days)</div>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Traffic Source</th>
+                  <th>Sessions</th>
+                  <th>Share (%)</th>
+                </tr>
+              </thead>
+              <tbody id="sources-table-body">
+                <tr><td colspan="3" style="text-align: center;">Loading source distribution...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: TOP PAGES -->
+      <section id="tab-pages" class="tab-pane" style="display: none;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Most Visited Pages (Past 30 Days)</div>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Page Path</th>
+                  <th>Page Title</th>
+                  <th>Total Views</th>
+                  <th>Unique Sessions</th>
+                </tr>
+              </thead>
+              <tbody id="pages-table-body">
+                <tr><td colspan="4" style="text-align: center;">Loading page statistics...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: SETTINGS -->
+      <section id="tab-settings" class="tab-pane" style="display: none;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">System &amp; Integration Status</div>
+          </div>
+          <div class="lead-detail-grid" id="settings-status-grid">
+            <div>
+              <div class="detail-label">CSV Storage</div>
+              <div id="cfg-db">Checking...</div>
+            </div>
+            <div>
+              <div class="detail-label">Telegram CRM Bot</div>
+              <div id="cfg-tg">Checking...</div>
+            </div>
+            <div>
+              <div class="detail-label">Email Notification (SMTP)</div>
+              <div id="cfg-smtp">Checking...</div>
+            </div>
+            <div>
+              <div class="detail-label">Server Uptime</div>
+              <div id="cfg-uptime">Checking...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Media Settings -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Social Media &amp; Contact Links</div>
+          </div>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+            Pick a network, paste its link and click Save. Paste any link and the matching network is auto-detected.
+          </p>
+
+          <style>
+            .social-tabbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+            .social-tab { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 8px;
+              border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); color: var(--text-muted);
+              font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s ease; }
+            .social-tab svg { width: 16px; height: 16px; }
+            .social-tab:hover { border-color: rgba(255,255,255,.25); color: var(--text-main); }
+            .social-tab.active { background: var(--brand-red, #d9232d); border-color: var(--brand-red, #d9232d); color: #fff; }
+            .social-pane { display: none; align-items: center; gap: 14px; padding: 14px; border-radius: 10px;
+              background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); }
+            .social-pane.active { display: flex; }
+            .social-pane-logo { flex: 0 0 auto; width: 44px; height: 44px; display: flex; align-items: center;
+              justify-content: center; border-radius: 10px; background: rgba(255,255,255,.06); color: var(--brand-red, #d9232d); }
+            .social-pane-logo svg { width: 24px; height: 24px; }
+            .social-pane-body { flex: 1; min-width: 0; }
+            .social-pane-body .form-control { margin-bottom: 8px; }
+            .social-detect { font-size: 11.5px; color: #10b981; margin-left: 8px; }
+          </style>
+
+          <div class="social-tabbar" id="social-tabbar">
+            <button type="button" class="social-tab active" data-pane="social_whatsapp">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.14-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.12-.27-.2-.57-.34M12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.89 9.89-9.89 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.43 9.89-9.88 9.89m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.17-1.24-6.16-3.48-8.41"/></svg>
+              WhatsApp
+            </button>
+            <button type="button" class="social-tab" data-pane="social_instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor" stroke="none"/></svg>
+              Instagram
+            </button>
+            <button type="button" class="social-tab" data-pane="social_facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6c-.29-.04-1.27-.13-2.41-.13-2.39 0-4.03 1.46-4.03 4.13v2.3H7.5V13h2.76v8h3.24z"/></svg>
+              Facebook
+            </button>
+            <button type="button" class="social-tab" data-pane="social_youtube">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.85-.5-5.6a2.9 2.9 0 0 0-2.05-2.06C18.6 3.85 12 3.85 12 3.85s-6.6 0-8.45.49A2.9 2.9 0 0 0 1.5 6.4C1 8.15 1 12 1 12s0 3.85.5 5.6a2.9 2.9 0 0 0 2.05 2.06c1.85.49 8.45.49 8.45.49s6.6 0 8.45-.49A2.9 2.9 0 0 0 22.5 17.6C23 15.85 23 12 23 12zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+              YouTube
+            </button>
+            <button type="button" class="social-tab" data-pane="social_linkedin">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 8.5H3.56V21h3.38V8.5zM5.25 3A1.96 1.96 0 1 0 5.25 6.92 1.96 1.96 0 0 0 5.25 3zM21 13.7c0-3.32-1.77-4.87-4.13-4.87-1.9 0-2.75 1.05-3.22 1.78V8.5H10.3V21h3.35v-6.57c0-1.73.9-2.75 2.27-2.75 1.3 0 1.96.92 1.96 2.75V21H21v-7.3z"/></svg>
+              LinkedIn
+            </button>
+            <button type="button" class="social-tab" data-pane="social_email">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.5L20 7H4l8 5.5zM4 9.2V18h16V9.2l-8 5.5-8-5.5z"/></svg>
+              Email
+            </button>
+          </div>
+
+          <div class="social-pane active" id="pane-social_whatsapp">
+            <div class="social-pane-logo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.14-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.12-.27-.2-.57-.34M12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.89 9.89-9.89 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.43 9.89-9.88 9.89m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.17-1.24-6.16-3.48-8.41"/></svg></div>
+            <div class="social-pane-body">
+              <div class="detail-label">WhatsApp Link</div>
+              <input type="url" id="social_whatsapp" class="form-control" placeholder="https://wa.me/...">
+              <button class="btn btn-primary btn-sm" onclick="saveSingleSetting('social_whatsapp')">Save</button>
+              <span id="msg-social_whatsapp" style="font-size:11px; margin-left:8px;"></span>
+            </div>
+          </div>
+
+          <div class="social-pane" id="pane-social_instagram">
+            <div class="social-pane-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor" stroke="none"/></svg></div>
+            <div class="social-pane-body">
+              <div class="detail-label">Instagram Link</div>
+              <input type="url" id="social_instagram" class="form-control" placeholder="https://instagram.com/...">
+              <button class="btn btn-primary btn-sm" onclick="saveSingleSetting('social_instagram')">Save</button>
+              <span id="msg-social_instagram" style="font-size:11px; margin-left:8px;"></span>
+            </div>
+          </div>
+
+          <div class="social-pane" id="pane-social_facebook">
+            <div class="social-pane-logo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6c-.29-.04-1.27-.13-2.41-.13-2.39 0-4.03 1.46-4.03 4.13v2.3H7.5V13h2.76v8h3.24z"/></svg></div>
+            <div class="social-pane-body">
+              <div class="detail-label">Facebook Link</div>
+              <input type="url" id="social_facebook" class="form-control" placeholder="https://facebook.com/...">
+              <button class="btn btn-primary btn-sm" onclick="saveSingleSetting('social_facebook')">Save</button>
+              <span id="msg-social_facebook" style="font-size:11px; margin-left:8px;"></span>
+            </div>
+          </div>
+
+          <div class="social-pane" id="pane-social_youtube">
+            <div class="social-pane-logo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.85-.5-5.6a2.9 2.9 0 0 0-2.05-2.06C18.6 3.85 12 3.85 12 3.85s-6.6 0-8.45.49A2.9 2.9 0 0 0 1.5 6.4C1 8.15 1 12 1 12s0 3.85.5 5.6a2.9 2.9 0 0 0 2.05 2.06c1.85.49 8.45.49 8.45.49s6.6 0 8.45-.49A2.9 2.9 0 0 0 22.5 17.6C23 15.85 23 12 23 12zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg></div>
+            <div class="social-pane-body">
+              <div class="detail-label">YouTube Link</div>
+              <input type="url" id="social_youtube" class="form-control" placeholder="https://youtube.com/@...">
+              <button class="btn btn-primary btn-sm" onclick="saveSingleSetting('social_youtube')">Save</button>
+              <span id="msg-social_youtube" style="font-size:11px; margin-left:8px;"></span>
+            </div>
+          </div>
+
+          <div class="social-pane" id="pane-social_linkedin">
+            <div class="social-pane-logo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 8.5H3.56V21h3.38V8.5zM5.25 3A1.96 1.96 0 1 0 5.25 6.92 1.96 1.96 0 0 0 5.25 3zM21 13.7c0-3.32-1.77-4.87-4.13-4.87-1.9 0-2.75 1.05-3.22 1.78V8.5H10.3V21h3.35v-6.57c0-1.73.9-2.75 2.27-2.75 1.3 0 1.96.92 1.96 2.75V21H21v-7.3z"/></svg></div>
+            <div class="social-pane-body">
+              <div class="detail-label">LinkedIn Link</div>
+              <input type="url" id="social_linkedin" class="form-control" placeholder="https://linkedin.com/company/...">
+              <button class="btn btn-primary btn-sm" onclick="saveSingleSetting('social_linkedin')">Save</button>
+              <span id="msg-social_linkedin" style="font-size:11px; margin-left:8px;"></span>
+            </div>
+          </div>
+
+          <div class="social-pane" id="pane-social_email">
+            <div class="social-pane-logo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.5L20 7H4l8 5.5zM4 9.2V18h16V9.2l-8 5.5-8-5.5z"/></svg></div>
+            <div class="social-pane-body">
+              <div class="detail-label">Email Link</div>
+              <input type="text" id="social_email" class="form-control" placeholder="you@example.com">
+              <button class="btn btn-primary btn-sm" onclick="saveSingleSetting('social_email')">Save</button>
+              <span id="msg-social_email" style="font-size:11px; margin-left:8px;"></span>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.08);">
+            <div class="detail-label">Show Floating Action Buttons</div>
+            <select id="show_floating_buttons" class="form-control" style="max-width: 200px;">
+              <option value="true">Yes (Show)</option>
+              <option value="false">No (Hide)</option>
+            </select>
+            <button class="btn btn-primary btn-sm" onclick="saveSingleSetting('show_floating_buttons')">Save</button>
+            <span id="msg-show_floating_buttons" style="font-size:11px; margin-left:8px;"></span>
+          </div>
+        </div>
+
+        <!-- Google Sheets -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Google Sheets</div>
+          </div>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+            New leads are pushed to your sheet automatically. The sheet link below is what you see in the dashboard; the Sync URL is the Apps Script endpoint that writes rows (one-time setup — see <code>docs/GOOGLE_SHEETS.md</code>).
+          </p>
+          <div class="lead-detail-grid">
+            <div style="grid-column: 1 / -1;">
+              <div class="detail-label">Sheet Link</div>
+              <input type="url" id="googleSheetsUrl" class="form-control" placeholder="https://docs.google.com/spreadsheets/d/...">
+              <button class="btn btn-primary btn-sm" onclick="saveSheetsUrl()">Save</button>
+              <a class="btn btn-secondary btn-sm" id="open-sheet-link" href="#" target="_blank" rel="noopener noreferrer" style="margin-left: 8px;">Open Sheet ↗</a>
+              <span id="msg-googleSheetsUrl" style="font-size:11px; margin-left:8px;"></span>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <div class="detail-label">Sync URL (Apps Script web app)</div>
+              <input type="url" id="googleSheetsWebhook" class="form-control" placeholder="https://script.google.com/macros/s/.../exec">
+              <button class="btn btn-primary btn-sm" onclick="saveSheetsWebhook()">Save</button>
+              <button class="btn btn-secondary btn-sm" id="btn-sync-sheets" style="margin-left: 8px;">Sync All Leads Now</button>
+              <span id="msg-googleSheetsWebhook" style="font-size:11px; margin-left:8px;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Data Maintenance &amp; Backups</div>
+          </div>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+            Manage analytics data retention or trigger a live database snapshot.
+          </p>
+          <div style="display: flex; gap: 12px;">
+            <button class="btn btn-secondary btn-sm" id="btn-purge-analytics">Purge Analytics Older Than 90 Days</button>
+            <button class="btn btn-secondary btn-sm" id="btn-backup-db">Create Database Backup</button>
+          </div>
+          <div id="maintenance-msg" style="margin-top: 12px; font-size: 13px;"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Lead Detail Modal -->
+  <div class="modal-backdrop" id="lead-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-lead-title" style="font-size: 18px; color: #fff;">Lead Details</h2>
+        <button class="modal-close" onclick="closeLeadModal()">&times;</button>
+      </div>
+
+      <div class="lead-detail-grid">
+        <div>
+          <div class="detail-label">Client Name</div>
+          <div id="m-name" style="font-weight: 600;"></div>
+        </div>
+        <div>
+          <div class="detail-label">Phone</div>
+          <div id="m-phone"></div>
+        </div>
+        <div>
+          <div class="detail-label">Email</div>
+          <div id="m-email"></div>
+        </div>
+        <div>
+          <div class="detail-label">Service Interested</div>
+          <div id="m-service" style="color: var(--brand-red); font-weight: 600;"></div>
+        </div>
+        <div>
+          <div class="detail-label">Company</div>
+          <div id="m-company"></div>
+        </div>
+        <div>
+          <div class="detail-label">Building Type</div>
+          <div id="m-building"></div>
+        </div>
+        <div>
+          <div class="detail-label">Location</div>
+          <div id="m-location"></div>
+        </div>
+        <div>
+          <div class="detail-label">Preferred Contact</div>
+          <div id="m-contact-method"></div>
+        </div>
+        <div>
+          <div class="detail-label">Attribution Source</div>
+          <div id="m-source"></div>
+        </div>
+        <div>
+          <div class="detail-label">Landing Page</div>
+          <div id="m-landing" style="word-break: break-all;"></div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <div class="detail-label">Project Message / Requirements</div>
+        <div id="m-message" style="background: rgba(255,255,255,0.03); border-left: 3px solid var(--brand-red); padding: 12px; border-radius: 4px; font-size: 13.5px; margin-top: 4px;"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Update Status</label>
+        <select id="modal-update-status" class="form-control" style="max-width: 200px;">
+          <option value="New">New</option>
+          <option value="Contacted">Contacted</option>
+          <option value="Qualified">Qualified</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Converted">Converted</option>
+          <option value="Closed">Closed</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Admin Notes</label>
+        <textarea id="modal-update-notes" class="form-control" rows="3" placeholder="Add internal notes about this client..."></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="btn btn-secondary btn-sm" onclick="closeLeadModal()">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="btn-save-lead">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    'use strict';
+    let currentToken = localStorage.getItem('karma_admin_token') || '';
+    let currentLeadId = null;
+
+    // When opened directly from disk (file://), talk to the local server on port 3000
+    const API_BASE = location.protocol === 'file:' ? 'http://localhost:3000' : '';
+
+    // Check login state against the real session
+    window.addEventListener('DOMContentLoaded', () => {
+      if (currentToken) {
+        verifySession();
+      } else {
+        showLogin();
+      }
+    });
+
+    async function apiRequest(endpoint, options = {}) {
+      const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+      if (currentToken) {
+        headers['Authorization'] = 'Bearer ' + currentToken;
+      }
+      const res = await fetch(API_BASE + endpoint, { credentials: 'include', ...options, headers });
+      return res.json();
+    }
+
+    // Login Form Submit
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const u = document.getElementById('login-username').value;
+      const p = document.getElementById('login-password').value;
+      const errEl = document.getElementById('login-error');
+      errEl.style.display = 'none';
+
+      try {
+        const res = await fetch(API_BASE + '/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: u, password: p })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+          errEl.textContent = data.message || 'Login failed';
+          errEl.style.display = 'block';
+          return;
+        }
+
+        currentToken = data.token;
+        localStorage.setItem('karma_admin_token', data.token);
+        localStorage.setItem('karma_admin_user', data.user.userId);
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app-container').style.display = 'flex';
+        document.getElementById('sidebar-user').textContent = data.user.userId;
+        loadDashboard();
+      } catch (err) {
+        errEl.textContent = (API_BASE ? 'Cannot reach the server. Start it with: npm start (backend/telegram-leads)' : (err.message || 'Network error'));
+        errEl.style.display = 'block';
+      }
+    });
+
+    async function verifySession() {
+      try {
+        const data = await apiRequest('/api/admin/me');
+        if (data.ok) {
+          document.getElementById('login-screen').style.display = 'none';
+          document.getElementById('app-container').style.display = 'flex';
+          document.getElementById('sidebar-user').textContent = data.user.userId || localStorage.getItem('karma_admin_user') || 'admin';
+          loadDashboard();
+        } else {
+          showLogin();
+        }
+      } catch {
+        showLogin();
+      }
+    }
+
+    function showLogin() {
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('app-container').style.display = 'none';
+    }
+
+    function showApp() {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app-container').style.display = 'flex';
+      document.getElementById('sidebar-user').textContent = localStorage.getItem('karma_admin_user') || 'admin';
+      loadDashboard();
+    }
+
+    function logout() {
+      currentToken = '';
+      localStorage.removeItem('karma_admin_token');
+      localStorage.removeItem('karma_admin_user');
+      fetch(API_BASE + '/api/admin/logout', { method: 'POST' });
+      showLogin();
+    }
+    document.getElementById('btn-logout').addEventListener('click', logout);
+
+    // Tab Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const tab = item.dataset.tab;
+        switchTab(tab);
+      });
+    });
+
+    function switchTab(tab) {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.toggle('active', i.dataset.tab === tab));
+      document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+      const target = document.getElementById('tab-' + tab);
+      if (target) target.style.display = 'block';
+
+      const titles = {
+        overview: ['Overview', 'Live website traffic and lead performance'],
+        leads: ['Leads CRM', 'Manage and track customer fire protection enquiries'],
+        visitors: ['Visitor Analytics', 'Anonymous first-party visitor session tracking'],
+        sources: ['Traffic Sources', 'Campaign attribution and referral breakdown'],
+        pages: ['Top Pages', 'Most viewed services and landing pages'],
+        settings: ['Settings', 'Database integrity and system configuration']
+      };
+      if (titles[tab]) {
+        document.getElementById('page-heading').textContent = titles[tab][0];
+        document.getElementById('page-subheading').textContent = titles[tab][1];
+      }
+
+      if (tab === 'leads') loadLeads();
+      if (tab === 'visitors') loadVisitors();
+      if (tab === 'sources') loadSources();
+      if (tab === 'pages') loadPages();
+      if (tab === 'settings') loadSettings();
+    }
+
+    // Refresh Data
+    document.getElementById('btn-refresh').addEventListener('click', () => {
+      const activeTab = document.querySelector('.nav-item.active').dataset.tab;
+      switchTab(activeTab);
+      if (activeTab === 'overview') loadDashboard();
+    });
+
+    // Overview Loading
+    async function loadDashboard() {
+      try {
+        const res = await apiRequest('/api/admin/overview');
+        if (!res.ok) return;
+
+        const { overview, charts, recentLeads } = res.data;
+
+        document.getElementById('m-visitors-today').textContent = overview.visitorsToday;
+        document.getElementById('m-unique-visitors').textContent = overview.uniqueVisitors;
+        document.getElementById('m-returning-visitors').textContent = overview.returningVisitors + ' returning';
+        document.getElementById('m-views-today').textContent = overview.viewsToday;
+        document.getElementById('m-total-views').textContent = overview.totalViews + ' all-time views';
+        document.getElementById('m-leads-total').textContent = overview.totalLeads + ` (${overview.leadsToday} today)`;
+        document.getElementById('m-conversion-rate').textContent = overview.conversionRate + '% conversion rate';
+
+        // Render Bar Chart
+        const chartEl = document.getElementById('daily-visitors-chart');
+        chartEl.innerHTML = '';
+        const maxVal = Math.max(...charts.dailyVisitors.map(d => d.visitors), 1);
+        charts.dailyVisitors.forEach(d => {
+          const pct = Math.max((d.visitors / maxVal) * 100, 6);
+          const group = document.createElement('div');
+          group.className = 'chart-bar-group';
+          group.innerHTML = `
+            <div class="chart-bar" style="height: ${pct}%;" data-val="${d.visitors} visitors"></div>
+            <div class="chart-label">${d.date.slice(5)}</div>
+          `;
+          chartEl.appendChild(group);
+        });
+
+        // Render Recent Leads Table
+        const tb = document.getElementById('overview-recent-leads');
+        if (!recentLeads.length) {
+          tb.innerHTML = '<tr><td colspan="7" style="text-align: center;">No enquiries received yet.</td></tr>';
+        } else {
+          tb.innerHTML = recentLeads.map(l => `
+            <tr>
+              <td><strong>${escapeHtml(l.lead_id)}</strong></td>
+              <td>${escapeHtml(l.name)}</td>
+              <td><a href="tel:${escapeHtml(l.phone)}" style="color:var(--text-muted);">${escapeHtml(l.phone)}</a></td>
+              <td>${escapeHtml(l.service)}</td>
+              <td><span class="status-badge badge-${l.status.replace(/\s+/g,'')}">${escapeHtml(l.status)}</span></td>
+              <td>${l.created_at.slice(0, 16)}</td>
+              <td><button class="btn btn-secondary btn-sm" onclick="openLeadModal('${l.lead_id}')">View</button></td>
+            </tr>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('Error loading dashboard:', err);
+      }
+    }
+
+    // Leads Loading
+    async function loadLeads() {
+      const search = document.getElementById('lead-search').value;
+      const status = document.getElementById('lead-status-filter').value;
+      const service = document.getElementById('lead-service-filter').value;
+
+      const params = new URLSearchParams({ search, status, service, limit: 50 });
+      const res = await apiRequest('/api/admin/leads?' + params.toString());
+      const tb = document.getElementById('leads-table-body');
+
+      if (!res.ok || !res.leads.length) {
+        tb.innerHTML = '<tr><td colspan="9" style="text-align: center;">No matching leads found.</td></tr>';
+        return;
+      }
+
+      tb.innerHTML = res.leads.map(l => `
+        <tr>
+          <td><strong>${escapeHtml(l.lead_id)}</strong></td>
+          <td>${escapeHtml(l.name)}</td>
+          <td>${escapeHtml(l.phone)}<br><small style="color:var(--text-sub);">${escapeHtml(l.email)}</small></td>
+          <td>${escapeHtml(l.service)}</td>
+          <td>${escapeHtml(l.location)}</td>
+          <td>
+            <select onchange="updateLeadStatus('${l.lead_id}', this.value)" class="form-control" style="padding: 4px 8px; font-size: 12px; width: auto;">
+              ${['New', 'Contacted', 'Qualified', 'In Progress', 'Converted', 'Closed'].map(s => `
+                <option value="${s}" ${l.status === s ? 'selected' : ''}>${s}</option>
+              `).join('')}
+            </select>
+          </td>
+          <td>${escapeHtml(l.source || 'Website')}</td>
+          <td>${l.created_at.slice(0, 10)}</td>
+          <td>
+            <button class="btn btn-secondary btn-sm" onclick="openLeadModal('${l.lead_id}')">Details</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Lead Filter Events
+    document.getElementById('lead-search').addEventListener('input', debounce(loadLeads, 300));
+    document.getElementById('lead-status-filter').addEventListener('change', loadLeads);
+    document.getElementById('lead-service-filter').addEventListener('change', loadLeads);
+
+    // Export CSV
+    document.getElementById('btn-export-csv').addEventListener('click', () => {
+      window.location.href = '/api/admin/leads/export/csv';
+    });
+
+    // Update Lead Status Directly
+    async function updateLeadStatus(leadId, status) {
+      await apiRequest(`/api/admin/leads/${leadId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status })
+      });
+    }
+
+    // Lead Detail Modal
+    async function openLeadModal(leadId) {
+      currentLeadId = leadId;
+      const res = await apiRequest(`/api/admin/leads/${leadId}`);
+      if (!res.ok || !res.lead) return;
+      const l = res.lead;
+
+      document.getElementById('modal-lead-title').textContent = `Enquiry [${l.lead_id}]`;
+      document.getElementById('m-name').textContent = l.name;
+      document.getElementById('m-phone').innerHTML = `<a href="tel:${escapeHtml(l.phone)}" style="color:var(--brand-red);">${escapeHtml(l.phone)}</a>`;
+      document.getElementById('m-email').innerHTML = `<a href="mailto:${escapeHtml(l.email)}" style="color:var(--text-main);">${escapeHtml(l.email)}</a>`;
+      document.getElementById('m-service').textContent = l.service;
+      document.getElementById('m-company').textContent = l.company || '—';
+      document.getElementById('m-building').textContent = l.building_type || '—';
+      document.getElementById('m-location').textContent = l.location;
+      document.getElementById('m-contact-method').textContent = l.contact_method || 'Phone Call';
+      document.getElementById('m-source').textContent = l.source + (l.medium ? ` / ${l.medium}` : '') + (l.campaign ? ` (${l.campaign})` : '');
+      document.getElementById('m-landing').textContent = l.landing_page || 'Direct';
+      document.getElementById('m-message').textContent = l.message || 'No additional requirements provided.';
+
+      document.getElementById('modal-update-status').value = l.status;
+      document.getElementById('modal-update-notes').value = l.notes || '';
+
+      document.getElementById('lead-modal').style.display = 'flex';
+    }
+
+    function closeLeadModal() {
+      document.getElementById('lead-modal').style.display = 'none';
+      currentLeadId = null;
+    }
+
+    document.getElementById('btn-save-lead').addEventListener('click', async () => {
+      if (!currentLeadId) return;
+      const status = document.getElementById('modal-update-status').value;
+      const notes = document.getElementById('modal-update-notes').value;
+
+      await apiRequest(`/api/admin/leads/${currentLeadId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status, notes })
+      });
+      closeLeadModal();
+      loadLeads();
+    });
+
+    // Visitor Analytics View
+    async function loadVisitors() {
+      const res = await apiRequest('/api/admin/analytics/visitors');
+      const tb = document.getElementById('visitors-table-body');
+      if (!res.ok || !res.visitors.length) {
+        tb.innerHTML = '<tr><td colspan="8" style="text-align: center;">No visitors recorded yet.</td></tr>';
+        return;
+      }
+      tb.innerHTML = res.visitors.map(v => `
+        <tr>
+          <td><code>${v.visitor_uuid.slice(0, 16)}...</code></td>
+          <td>${v.total_sessions}</td>
+          <td><small>${escapeHtml(v.landing_page || '/')}</small></td>
+          <td>${escapeHtml(v.source || 'Direct')}</td>
+          <td>${escapeHtml(v.device_category || 'desktop')}</td>
+          <td>${v.total_views}</td>
+          <td><span style="font-size:11px; color:${v.consent_state === 'granted' ? '#10b981' : '#9ca3af'};">${v.consent_state}</span></td>
+          <td>${v.last_seen.slice(0, 16)}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Traffic Sources View
+    async function loadSources() {
+      const res = await apiRequest('/api/admin/analytics/sources');
+      const tb = document.getElementById('sources-table-body');
+      if (!res.ok || !res.sources.length) {
+        tb.innerHTML = '<tr><td colspan="3" style="text-align: center;">No traffic sources recorded yet.</td></tr>';
+        return;
+      }
+      tb.innerHTML = res.sources.map(s => `
+        <tr>
+          <td><strong>${escapeHtml(s.source)}</strong></td>
+          <td>${s.sessions}</td>
+          <td>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div style="background:#282d3c; border-radius:4px; height:8px; width:120px; overflow:hidden;">
+                <div style="background:var(--brand-red); height:100%; width:${s.percentage}%;"></div>
+              </div>
+              <span>${s.percentage}%</span>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Top Pages View
+    async function loadPages() {
+      const res = await apiRequest('/api/admin/analytics/pages');
+      const tb = document.getElementById('pages-table-body');
+      if (!res.ok || !res.pages.length) {
+        tb.innerHTML = '<tr><td colspan="4" style="text-align: center;">No page views recorded yet.</td></tr>';
+        return;
+      }
+      tb.innerHTML = res.pages.map(p => `
+        <tr>
+          <td><code>${escapeHtml(p.page_path)}</code></td>
+          <td>${escapeHtml(p.page_title || '—')}</td>
+          <td><strong>${p.views}</strong></td>
+          <td>${p.unique_views}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Settings View
+    async function loadSettings() {
+      const res = await apiRequest('/api/admin/settings');
+      if (!res.ok) return;
+      const s = res.settings;
+      document.getElementById('cfg-db').innerHTML = s.csvStorage === 'active' ? '🟢 CSV Storage (Healthy)' : '🔴 Storage Warning';
+      document.getElementById('cfg-tg').innerHTML = s.telegramConfigured ? '🟢 Active &amp; Connected' : '🟡 Not configured in .env';
+      document.getElementById('cfg-smtp').innerHTML = s.emailConfigured ? '🟢 SMTP Active' : '🟡 SMTP Not configured';
+      document.getElementById('cfg-uptime').textContent = Math.floor(s.uptime / 60) + ' minutes';
+
+      // Social links + Google Sheets settings (flat key/value store)
+      const allRes = await apiRequest('/api/admin/settings/all');
+      if (!allRes.ok || !allRes.settings) return;
+      const settings = allRes.settings;
+      const fields = ['social_whatsapp', 'social_instagram', 'social_facebook', 'social_youtube', 'social_linkedin', 'social_email', 'show_floating_buttons', 'googleSheetsUrl', 'googleSheetsWebhook'];
+      for (const field of fields) {
+        const el = document.getElementById(field);
+        if (el && settings[field] !== undefined) el.value = settings[field];
+      }
+      const openLink = document.getElementById('open-sheet-link');
+      if (openLink && settings.googleSheetsUrl) openLink.href = settings.googleSheetsUrl;
+    }
+
+    /* ---------- Social media tabs with auto-detect ---------- */
+    const SOCIAL_MATCHERS = [
+      { key: 'social_whatsapp', test: /(wa\.me|whatsapp\.com)/i },
+      { key: 'social_instagram', test: /instagram\.com/i },
+      { key: 'social_facebook', test: /(facebook\.com|fb\.com|fb\.page)/i },
+      { key: 'social_youtube', test: /(youtube\.com|youtu\.be)/i },
+      { key: 'social_linkedin', test: /linkedin\.com/i },
+      { key: 'social_email', test: /@/ }
+    ];
+
+    function activateSocialTab(key) {
+      document.querySelectorAll('.social-tab').forEach(t => t.classList.toggle('active', t.dataset.pane === key));
+      document.querySelectorAll('.social-pane').forEach(p => p.classList.toggle('active', p.id === 'pane-' + key));
+    }
+
+    document.querySelectorAll('.social-tab').forEach(tab => {
+      tab.addEventListener('click', () => activateSocialTab(tab.dataset.pane));
+    });
+
+    // Paste/type a link → the matching network tab is auto-detected and shown
+    SOCIAL_MATCHERS.forEach(({ key, test }) => {
+      const input = document.getElementById(key);
+      if (!input) return;
+      input.addEventListener('input', debounce(() => {
+        const v = input.value.trim();
+        if (v && test.test(v)) activateSocialTab(key);
+      }, 350));
+    });
+
+    /* ---------- Google Sheets ---------- */
+    function setMsg(el, text, isError) {
+      if (!el) return;
+      el.textContent = text;
+      el.style.color = isError ? '#ef4444' : '#10b981';
+      setTimeout(() => { el.textContent = ''; }, 3000);
+    }
+
+    async function saveSheetsUrl() {
+      const el = document.getElementById('googleSheetsUrl');
+      const msgEl = document.getElementById('msg-googleSheetsUrl');
+      try {
+        const res = await apiRequest('/api/admin/settings', {
+          method: 'PATCH',
+          body: JSON.stringify({ googleSheetsUrl: el.value.trim() })
+        });
+        if (res.ok) {
+          const openLink = document.getElementById('open-sheet-link');
+          if (openLink && res.settings.googleSheetsUrl) openLink.href = res.settings.googleSheetsUrl;
+          setMsg(msgEl, '✅ Saved');
+        } else {
+          setMsg(msgEl, '❌ ' + (res.message || 'Save failed'), true);
+        }
+      } catch (err) {
+        setMsg(msgEl, '❌ ' + err.message, true);
+      }
+    }
+
+    async function saveSheetsWebhook() {
+      const el = document.getElementById('googleSheetsWebhook');
+      const msgEl = document.getElementById('msg-googleSheetsWebhook');
+      try {
+        const res = await apiRequest('/api/admin/settings', {
+          method: 'PATCH',
+          body: JSON.stringify({ googleSheetsWebhook: el.value.trim() })
+        });
+        setMsg(msgEl, res.ok ? '✅ Saved' : '❌ ' + (res.message || 'Save failed'), !res.ok);
+      } catch (err) {
+        setMsg(msgEl, '❌ ' + err.message, true);
+      }
+    }
+
+    document.getElementById('btn-sync-sheets').addEventListener('click', async () => {
+      const msgEl = document.getElementById('msg-googleSheetsWebhook');
+      setMsg(msgEl, '⏳ Syncing…');
+      try {
+        const res = await apiRequest('/api/admin/google-sheets/sync', { method: 'POST' });
+        setMsg(msgEl, res.ok ? '✅ ' + res.message : '❌ ' + (res.message || 'Sync failed'), !res.ok);
+      } catch (err) {
+        setMsg(msgEl, '❌ ' + err.message, true);
+      }
+    });
+
+    document.getElementById('btn-purge-analytics').addEventListener('click', async () => {
+      const res = await apiRequest('/api/admin/settings/cleanup', { method: 'POST', body: JSON.stringify({ days: 90 }) });
+      document.getElementById('maintenance-msg').textContent = res.message || 'Cleanup failed.';
+    });
+
+    document.getElementById('btn-backup-db').addEventListener('click', async () => {
+      const res = await apiRequest('/api/admin/backup', { method: 'POST' });
+      document.getElementById('maintenance-msg').textContent = res.message || 'Backup failed.';
+    });
+
+    // Save single setting (individual save per field)
+    async function saveSingleSetting(key) {
+      const el = document.getElementById(key);
+      const msgEl = document.getElementById('msg-' + key);
+      if (!el) return;
+      const value = el.value;
+      try {
+        const res = await apiRequest('/api/admin/settings/update', {
+          method: 'POST',
+          body: JSON.stringify({ key, value })
+        });
+        if (res.ok) {
+          if (key === 'social_email' && res.value) el.value = res.value;
+          setMsg(msgEl, '✅ Saved');
+        } else {
+          setMsg(msgEl, '❌ ' + (res.message || 'Save failed'), true);
+        }
+      } catch (err) {
+        setMsg(msgEl, '❌ ' + err.message, true);
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function debounce(fn, wait) {
+      let t;
+      return function(...args) {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      };
+    }
+  </script>
+</body>
+</html>

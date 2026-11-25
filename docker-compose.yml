@@ -1,0 +1,28 @@
+services:
+  karma-backend:
+    build:
+      context: ./backend/telegram-leads
+      dockerfile: Dockerfile
+    container_name: karma-fire-protection-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DB_PATH=/app/data/leads.db
+      - ALLOWED_ORIGINS=https://www.karmafireprotection.com,https://karmafireprotection.com
+    env_file:
+      - ./backend/telegram-leads/.env
+    volumes:
+      # Persistent volume for SQLite database
+      - karma-db-data:/app/data
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  karma-db-data:
+    driver: local
