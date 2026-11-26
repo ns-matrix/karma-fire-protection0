@@ -6,7 +6,7 @@ See README.md for the concise checklist. Run `supabase/schema.sql` in Supabase S
 The frontend uses only the Supabase publishable/anon key. RLS policies permit unauthenticated users to insert a lead with explicit consent, while select/update/delete are restricted to a user whose auth UUID is present in `public.admin_users`. Do not expose a Supabase service_role key.
 
 ## Admin provisioning
-Create an Auth user first, then insert its UUID and email into `public.admin_users` using the SQL Editor. Removing the row revokes CRM access; deleting the Auth user also cascades the allow-list row.
+Create the initial owner Auth user first, then provision the Super Admin once from a trusted SQL Editor session using placeholders (never hard-code the real email in repository files):\n\n```sql\ninsert into public.admin_users(user_id,email,role,display_name)\nvalues ('OWNER-AUTH-USER-UUID','OWNER-EMAIL','super_admin',null);\n```\n\nRemoving the row revokes CRM access; deleting the Auth user also cascades the allow-list row.
 
 ## Verify
 1. Submit a test enquiry from the public contact page.
