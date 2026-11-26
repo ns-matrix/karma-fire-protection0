@@ -615,7 +615,7 @@ do $
 declare t text;
 begin
   foreach t in array array[
-    'customers','customer_sites','customer_contacts','site_surveys','survey_responses',
+    'customers','customer_sites','customer_contacts','survey_templates','site_surveys','survey_responses',
     'quotations','quotation_items','quotation_approvals','projects','project_milestones',
     'project_tasks','amc_contracts','service_visits','defects','assets','suppliers','warehouses',
     'inventory_items','stock_movements','purchase_orders','purchase_order_items',
