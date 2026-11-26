@@ -42,11 +42,11 @@ export function dashboardMetrics(role, permissions = []) {
   }
 
   const available = [
-    { key: "tasks", label: "My visible tasks", table: "tasks", module: "tasks" },
-    { key: "visits", label: "My visible visits", table: "service_visits", module: "service" },
-    { key: "surveys", label: "My visible surveys", table: "site_surveys", module: "surveys" },
-    { key: "projects", label: "My visible projects", table: "projects", module: "projects" },
-    { key: "leads", label: "My visible enquiries", table: "leads", module: "leads" }
+    { key: "tasks", label: "Visible tasks", table: "tasks", module: "tasks" },
+    { key: "visits", label: "Visible visits", table: "service_visits", module: "service" },
+    { key: "surveys", label: "Visible surveys", table: "site_surveys", module: "surveys" },
+    { key: "projects", label: "Visible projects", table: "projects", module: "projects" },
+    { key: "leads", label: "Visible enquiries", table: "leads", module: "leads" }
   ];
   return available.filter((metric) => hasDashboardPermission(role, permissions, metric.module));
 }
