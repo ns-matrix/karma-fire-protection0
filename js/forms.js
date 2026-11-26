@@ -123,8 +123,6 @@
           window.dispatchEvent(new CustomEvent('karma_lead_submitted', { detail: { leadId: result.leadId } }));
         } catch (_) {}
       }
-        console.info('Lead saved:', result.leadId);
-      }
     } catch (err) {
       setStatus('error', err.message || 'Something went wrong. Please try again or call us directly.');
     } finally {
