@@ -797,3 +797,11 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* Supabase managed content additions */
+.managed-empty,.managed-loading{grid-column:1/-1;color:var(--text-gray,#6b7280);padding:12px 0}
+.managed-link{display:inline-flex;margin-top:12px;font-weight:700;color:var(--fire-red,#d92c32);text-decoration:none}
+.managed-link:hover{text-decoration:underline}
+.managed-specs{font-size:.86rem;color:var(--text-gray,#6b7280);padding-left:18px;margin:10px 0}
+.review-card .managed-body{padding:24px}
+.review-card .review-stars{color:#d79b20;letter-spacing:.08em;margin-bottom:12px;font-size:1.15rem}
+.review-card p{font-style:italic;line-height:1.7}
