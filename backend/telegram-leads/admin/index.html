@@ -716,7 +716,7 @@
     // or localStorage.setItem('karma_api_base', 'https://your-api-host').
     const queryApi = new URLSearchParams(location.search).get('api');
     const savedApi = localStorage.getItem('karma_api_base') || '';
-    const configuredApi = (queryApi || savedApi).trim().replace(/\\/+$/, '');
+    const configuredApi = (queryApi || savedApi).trim().replace(/\/+$/, '');
     if (queryApi) localStorage.setItem('karma_api_base', configuredApi);
     const isGitHubPages = location.hostname.endsWith('github.io');
     const API_BASE = configuredApi || (location.protocol === 'file:' ? 'http://localhost:3000' : (isGitHubPages ? '' : location.origin));
@@ -755,6 +755,9 @@
       const p = document.getElementById('login-password').value;
       const errEl = document.getElementById('login-error');
       errEl.style.display = 'none';
+      const loginButton = document.getElementById('btn-login-submit');
+      loginButton.disabled = true;
+      loginButton.textContent = 'Connecting…';
 
       try {
         if (!API_BASE) throw new Error(API_CONFIG_ERROR);
@@ -785,6 +788,9 @@
       } catch (err) {
         errEl.textContent = err.message || 'Cannot reach the API server. Start the backend and verify its URL.';
         errEl.style.display = 'block';
+      } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = 'Log In to Dashboard';
       }
     });
 
