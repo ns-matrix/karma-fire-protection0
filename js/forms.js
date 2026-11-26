@@ -67,17 +67,17 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
     if (submitBtn) submitBtn.disabled = true;
     status('', 'Submitting your enquiry…');
     try {
-      const { data: saved, error } = await supabase.from('leads').insert(payload).select('id,lead_number').single();
+      const { error } = await supabase.from('leads').insert(payload);
       if (error) throw error;
       safeStorageSet(RATE_KEY, String(Date.now()));
-      status('success', 'Thank you. Your enquiry has been received. Our team will contact you shortly. Reference: KP-' + saved.lead_number);
+      status('success', 'Thank you. Your enquiry has been received. Our team will contact you shortly.');
       form.reset();
       form.querySelectorAll('.form-group').forEach(group => {
         group.classList.remove('invalid');
         const err = group.querySelector('.field-error');
         if (err) err.textContent = '';
       });
-      window.dispatchEvent(new CustomEvent('karma_lead_submitted', { detail: { leadId: saved.id } }));
+      window.dispatchEvent(new CustomEvent('karma_lead_submitted')); 
     } catch (error) {
       console.error('Karma lead submission failed:', error);
       status('error', 'We could not submit your enquiry right now. Please call +91 95949 67751 or try again later.');
