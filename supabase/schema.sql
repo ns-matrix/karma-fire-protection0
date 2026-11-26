@@ -123,3 +123,111 @@ for each row execute function public.set_updated_at();
 -- run this with that user's actual UUID and email:
 -- insert into public.admin_users(user_id,email)
 -- values ('AUTH-USER-UUID-HERE','admin@example.com');
+
+
+-- ============================================================
+-- ROLE-BASED ADMINISTRATION + WEBSITE CONTENT MANAGEMENT
+-- Applied to the connected Supabase project on 2026-11-26.
+-- ============================================================
+alter table public.admin_users add column if not exists role text not null default 'admin';
+alter table public.admin_users drop constraint if exists admin_users_role_check;
+alter table public.admin_users add constraint admin_users_role_check check (role in ('super_admin','admin'));
+alter table public.admin_users add column if not exists display_name text;
+alter table public.admin_users add column if not exists created_by uuid references auth.users(id) on delete set null;
+
+create or replace function private.is_karma_admin()
+returns boolean language sql stable security definer set search_path = ''
+as $$ select exists(select 1 from public.admin_users where user_id=(select auth.uid())); $$;
+create or replace function private.is_karma_super_admin()
+returns boolean language sql stable security definer set search_path = ''
+as $$ select exists(select 1 from public.admin_users where user_id=(select auth.uid()) and role='super_admin'); $$;
+revoke all on function private.is_karma_admin() from public, anon;
+revoke all on function private.is_karma_super_admin() from public, anon;
+grant execute on function private.is_karma_admin() to authenticated;
+grant execute on function private.is_karma_super_admin() to authenticated;
+
+-- Promote the initial, verified owner account when it exists.
+insert into public.admin_users(user_id,email,role,display_name)
+select id,lower(email),'super_admin','Secret Developer Super Admin'
+from auth.users where lower(email)='ns077751@gmail.com'
+on conflict(user_id) do update set role=excluded.role,email=excluded.email,display_name=excluded.display_name;
+
+create table if not exists public.team_members (
+ id uuid primary key default gen_random_uuid(), name text not null, role_title text not null,
+ bio text, image_url text, sort_order integer not null default 0, is_active boolean not null default true,
+ created_at timestamptz not null default now(), updated_at timestamptz not null default now()
+);
+create table if not exists public.products (
+ id uuid primary key default gen_random_uuid(), name text not null, slug text not null unique,
+ category text, description text, specifications jsonb not null default '{}'::jsonb,
+ image_url text, price_label text, sort_order integer not null default 0,
+ is_active boolean not null default true, created_at timestamptz not null default now(),
+ updated_at timestamptz not null default now()
+);
+create table if not exists public.services (
+ id uuid primary key default gen_random_uuid(), name text not null, slug text not null unique,
+ short_description text, description text, image_url text, sort_order integer not null default 0,
+ is_active boolean not null default true, created_at timestamptz not null default now(),
+ updated_at timestamptz not null default now()
+);
+create table if not exists public.social_links (
+ id uuid primary key default gen_random_uuid(), platform text not null, label text,
+ url text not null, icon_url text, sort_order integer not null default 0,
+ is_active boolean not null default true, updated_at timestamptz not null default now()
+);
+create table if not exists public.site_settings (
+ setting_key text primary key, setting_value jsonb not null default '{}'::jsonb,
+ updated_at timestamptz not null default now(), updated_by uuid references auth.users(id)
+);
+
+alter table public.team_members enable row level security;
+alter table public.products enable row level security;
+alter table public.services enable row level security;
+alter table public.social_links enable row level security;
+alter table public.site_settings enable row level security;
+
+drop policy if exists "Admins can read admin list" on public.admin_users;
+create policy "Admins can read admin list" on public.admin_users
+for select to authenticated using((select private.is_karma_admin()));
+drop policy if exists "Super admins manage admin list" on public.admin_users;
+create policy "Super admins manage admin list" on public.admin_users
+for all to authenticated using((select private.is_karma_super_admin()))
+with check((select private.is_karma_super_admin()));
+
+drop policy if exists "Public reads active team" on public.team_members;
+create policy "Public reads active team" on public.team_members for select to anon,authenticated using(is_active=true);
+drop policy if exists "Admins manage team" on public.team_members;
+create policy "Admins manage team" on public.team_members for all to authenticated using((select private.is_karma_admin())) with check((select private.is_karma_admin()));
+drop policy if exists "Public reads active products" on public.products;
+create policy "Public reads active products" on public.products for select to anon,authenticated using(is_active=true);
+drop policy if exists "Admins manage products" on public.products;
+create policy "Admins manage products" on public.products for all to authenticated using((select private.is_karma_admin())) with check((select private.is_karma_admin()));
+drop policy if exists "Public reads active services" on public.services;
+create policy "Public reads active services" on public.services for select to anon,authenticated using(is_active=true);
+drop policy if exists "Admins manage services" on public.services;
+create policy "Admins manage services" on public.services for all to authenticated using((select private.is_karma_admin())) with check((select private.is_karma_admin()));
+drop policy if exists "Public reads active social links" on public.social_links;
+create policy "Public reads active social links" on public.social_links for select to anon,authenticated using(is_active=true);
+drop policy if exists "Admins manage social links" on public.social_links;
+create policy "Admins manage social links" on public.social_links for all to authenticated using((select private.is_karma_admin())) with check((select private.is_karma_admin()));
+drop policy if exists "Admins manage site settings" on public.site_settings;
+create policy "Admins manage site settings" on public.site_settings for all to authenticated using((select private.is_karma_admin())) with check((select private.is_karma_admin()));
+
+grant select on public.team_members,public.products,public.services,public.social_links to anon,authenticated;
+grant select,insert,update,delete on public.team_members,public.products,public.services,public.social_links,public.site_settings to authenticated;
+grant select on public.admin_users to authenticated;
+revoke all on public.admin_users from anon;
+
+insert into storage.buckets(id,name,public,file_size_limit,allowed_mime_types)
+values('site-media','site-media',true,10485760,array['image/jpeg','image/png','image/webp','image/avif'])
+on conflict(id) do update set public=true,file_size_limit=10485760,allowed_mime_types=array['image/jpeg','image/png','image/webp','image/avif'];
+drop policy if exists "Public can view site media" on storage.objects;
+create policy "Public can view site media" on storage.objects for select to anon,authenticated using(bucket_id='site-media');
+drop policy if exists "Admins upload site media" on storage.objects;
+create policy "Admins upload site media" on storage.objects for insert to authenticated with check(bucket_id='site-media' and (select private.is_karma_admin()));
+drop policy if exists "Admins update site media" on storage.objects;
+create policy "Admins update site media" on storage.objects for update to authenticated using(bucket_id='site-media' and (select private.is_karma_admin())) with check(bucket_id='site-media' and (select private.is_karma_admin()));
+drop policy if exists "Admins delete site media" on storage.objects;
+create policy "Admins delete site media" on storage.objects for delete to authenticated using(bucket_id='site-media' and (select private.is_karma_admin()));
+
+drop function if exists public.is_karma_admin();
