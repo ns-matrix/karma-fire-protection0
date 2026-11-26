@@ -73,14 +73,31 @@ function parseCsvLine(line) {
 
 function readCsv(filePath) {
   if (!fs.existsSync(filePath)) return [];
-  const content = fs.readFileSync(filePath, 'utf-8');
-  const lines = content.trim().split('\n');
-  if (lines.length <= 1) return [];
-  const headers = parseCsvLine(lines[0]);
-  return lines.slice(1).map(line => {
-    const values = parseCsvLine(line);
+  const content = fs.readFileSync(filePath, 'utf-8').replace(/^\\uFEFF/, '');
+  const records = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < content.length; i++) {
+    const ch = content[i];
+    if (ch === '"') {
+      if (inQuotes && content[i + 1] === '"') { field += '"'; i++; }
+      else inQuotes = !inQuotes;
+    } else if (ch === ',' && !inQuotes) {
+      row.push(field); field = '';
+    } else if ((ch === '\\n' || ch === '\\r') && !inQuotes) {
+      if (ch === '\\r' && content[i + 1] === '\\n') i++;
+      row.push(field); field = '';
+      if (row.some(value => value !== '')) records.push(row);
+      row = [];
+    } else {
+      field += ch;
+    }
+  }
+  if (field !== '' || row.length) { row.push(field); if (row.some(value => value !== '')) records.push(row); }
+  if (records.length <= 1) return [];
+  const headers = records[0];
+  return records.slice(1).map(values => {
     const obj = {};
-    headers.forEach((h, i) => obj[h] = values[i] || '');
+    headers.forEach((h, i) => obj[h] = values[i] === undefined ? '' : values[i]);
     return obj;
   });
 }
@@ -96,9 +113,8 @@ function writeCsvAtomic(filePath, headers, rows) {
 }
 
 function acquireLock(filePath) {
-  while (fileLocks.get(filePath)) {
-    // Spin wait - in production, use proper file locking
-  }
+  // Writes are serialized through writeQueue; fail fast if a lock is unexpectedly held.
+  if (fileLocks.get(filePath)) throw new Error('CSV file is already being modified: ' + path.basename(filePath));
   fileLocks.set(filePath, true);
 }
 
@@ -108,10 +124,14 @@ function releaseLock(filePath) {
 
 function generateLeadId() {
   const year = new Date().getFullYear();
+  const prefix = `KP-${year}-`;
   const leads = readCsv(getLeadsCsv());
-  const yearLeads = leads.filter(l => l.id.startsWith(`KP-${year}-`));
-  const seq = yearLeads.length + 1;
-  return `KP-${year}-${String(seq).padStart(4, '0')}`;
+  const maxSeq = leads.reduce((max, lead) => {
+    if (!lead.id.startsWith(prefix)) return max;
+    const seq = Number(lead.id.slice(prefix.length));
+    return Number.isInteger(seq) && seq > max ? seq : max;
+  }, 0);
+  return `${prefix}${String(maxSeq + 1).padStart(4, '0')}`;
 }
 
 function generateActivityId() {
