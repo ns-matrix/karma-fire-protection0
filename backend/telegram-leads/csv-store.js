@@ -73,7 +73,7 @@ function parseCsvLine(line) {
 
 function readCsv(filePath) {
   if (!fs.existsSync(filePath)) return [];
-  const content = fs.readFileSync(filePath, 'utf-8').replace(/^\\uFEFF/, '');
+  const content = fs.readFileSync(filePath, 'utf-8').replace(/^\uFEFF/, '');
   const records = [];
   let row = [], field = '', inQuotes = false;
   for (let i = 0; i < content.length; i++) {
@@ -83,8 +83,8 @@ function readCsv(filePath) {
       else inQuotes = !inQuotes;
     } else if (ch === ',' && !inQuotes) {
       row.push(field); field = '';
-    } else if ((ch === '\\n' || ch === '\\r') && !inQuotes) {
-      if (ch === '\\r' && content[i + 1] === '\\n') i++;
+    } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+      if (ch === '\r' && content[i + 1] === '\n') i++;
       row.push(field); field = '';
       if (row.some(value => value !== '')) records.push(row);
       row = [];
