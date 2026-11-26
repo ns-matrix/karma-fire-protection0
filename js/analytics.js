@@ -201,7 +201,29 @@
         consentState
       };
 
-      // Visitor event collection is disabled until a consent-aware Supabase analytics module is configured.
+      // Collect only after explicit analytics consent; never send identifying form data.
+      if (consentState !== 'granted') return;
+      const eventKey = 'karma_event_' + window.location.pathname;
+      try { if (sessionStorage.getItem(eventKey) === sessionUuid) return; } catch (_) {}
+      import('https://esm.sh/@supabase/supabase-js@2').then(function (sdk) {
+        const cfg = window.KARMA_SUPABASE || {};
+        if (!cfg.url || !cfg.anonKey) return;
+        const client = sdk.createClient(cfg.url, cfg.anonKey);
+        return client.from('visitor_events').insert({
+          visitor_uuid: payload.visitorUuid,
+          session_uuid: payload.sessionUuid,
+          page_path: payload.pagePath,
+          page_title: payload.pageTitle,
+          referrer: payload.referrer,
+          source: payload.source,
+          medium: payload.medium,
+          campaign: payload.campaign,
+          device_category: payload.deviceCategory,
+          consent_state: payload.consentState
+        }).then(function (result) {
+          if (!result.error) { try { sessionStorage.setItem(eventKey, sessionUuid); } catch (_) {} }
+        });
+      }).catch(function () {});
 
     } catch (err) {
       // Analytics failures must never affect page functionality
