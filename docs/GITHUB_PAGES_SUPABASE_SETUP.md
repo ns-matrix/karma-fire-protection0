@@ -18,7 +18,9 @@ Create an Auth user first, then insert its UUID and email into `public.admin_use
 
 ## Roles and website content management
 
-- `ns077751@gmail.com` is the initial `super_admin` account.
+All admin access uses the unified role-aware portal at `/backend/telegram-leads/admin-v2/`. The legacy admin URL redirects to this portal. Super Admin identity rows are excluded at the RLS boundary, including unlinked employee profiles matched by email. Admins cannot change system roles or permission grants, and cannot assign privileged employee roles.
+
+- The initial owner account is provisioned as `super_admin` by an authorized database operator; no privileged email or profile name is hard-coded in public files.
 - Super Admin can invite new Admin users through the secured `invite-crm-admin` Edge Function.
 - Admin users can manage enquiries, social links, team profiles, product catalogue, and service catalogue.
 - Content images are uploaded to the `site-media` Storage bucket. Only authenticated CRM admins can upload, replace, or delete media.
