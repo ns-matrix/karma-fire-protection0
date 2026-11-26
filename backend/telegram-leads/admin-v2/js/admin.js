@@ -1,4 +1,5 @@
 import {createClient} from "https://esm.sh/@supabase/supabase-js@2";
+const ALLOWED_EMPLOYEE_ROLES=new Set(["sales_manager","sales_executive","survey_engineer","project_manager","project_engineer","service_manager","service_technician","inventory_manager","compliance_officer","finance","website_editor"]);
 const cfg=window.KARMA_SUPABASE||{};
 const valid=/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(cfg.url||"")&&cfg.anonKey&&!/YOUR_|PLACEHOLDER/i.test(cfg.anonKey);
 const db=valid?createClient(cfg.url,cfg.anonKey):null;
@@ -112,7 +113,7 @@ async function loadTeam(){
  $("employee-directory").innerHTML=ee?esc(ee.message):(emps||[]).map(a=>'<div class="content-item"><span><b>'+esc(a.full_name)+'</b><br><small>'+esc(a.job_title||"Employee")+' · '+esc(a.work_email||"")+'</small></span><small>'+esc(a.employment_status)+'</small></div>').join("")||"No employees added yet.";
  const [{data:departments},{data:roles}]=await Promise.all([db.from("departments").select("id,code,name").eq("is_active",true).order("name"),db.from("app_roles").select("code,name").order("name")]);
  $("employee-department").innerHTML=(departments||[]).map(x=>'<option value="'+esc(x.code)+'">'+esc(x.name)+'</option>').join("");
- $("employee-role").innerHTML=(roles||[]).filter(x=>x.code!=="business_admin").map(x=>'<option value="'+esc(x.code)+'">'+esc(x.name)+'</option>').join("");
+ $("employee-role").innerHTML=(roles||[]).filter(x=>ALLOWED_EMPLOYEE_ROLES.has(x.code)).map(x=>'<option value="'+esc(x.code)+'">'+esc(x.name)+'</option>').join("");
 }
 async function loadControl(){
  if(role!=="super_admin")return;
