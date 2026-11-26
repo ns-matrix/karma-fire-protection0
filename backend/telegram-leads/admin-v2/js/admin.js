@@ -11,17 +11,20 @@ function notify(msg){$("notice").textContent=msg;$("notice").classList.remove("h
 async function authorised(){
  if(!db){say("login-error","Supabase configuration is missing. Check js/supabase-config.js.");return false}
  const {data,error}=await db.auth.getUser();if(error||!data.user)return false;user=data.user;
- const {data:adminRow,error:adminError}=await db.from("admin_users").select("role,display_name").eq("user_id",user.id).maybeSingle();
- if(!adminError&&adminRow){role=adminRow.role;departmentId=null;return true}
+ const {data:resolved,error:resolveError}=await db.rpc("resolve_current_role");
+ if(resolveError||!resolved){await db.auth.signOut();say("login-error","This account has no active admin or employee role.");return false}
+ role=resolved;departmentId=null;
+ if(role==="admin"||role==="super_admin")return true;
  const {data:assignments,error:roleError}=await db.from("user_roles").select("role_id,department_id,app_roles(code,name)").eq("user_id",user.id);
- if(roleError||!assignments?.length){await db.auth.signOut();say("login-error","This account has no active admin or employee role.");return false}
- role=assignments[0].app_roles?.code||"staff";departmentId=assignments[0].department_id||null;
+ if(roleError||!assignments?.length){await db.auth.signOut();say("login-error","This account has no active employee role.");return false}
+ departmentId=assignments[0].department_id||null;
  const roleIds=assignments.map(x=>x.role_id);
  const {data:grants}=await db.from("role_permissions").select("scope,app_permissions(module,action)").in("role_id",roleIds);
  modulePermissions=(grants||[]).map(x=>({module:x.app_permissions?.module,action:x.app_permissions?.action,scope:x.scope})).filter(x=>x.module&&x.action);
  return true
 }
-async function start(){if(await authorised()){showApp();await loadEverything()}}
+async function recordAudit(action,module="identity"){try{await db.functions.invoke("admin-audit-event",{body:{action,module}})}catch(e){console.warn("Audit gateway unavailable",e)}}
+async function start(){if(await authorised()){showApp();await loadEverything();if(location.hash==="#control"&&role==="super_admin")showView("control")}}
 function canAccess(module,action="read"){if(role==="admin"||role==="super_admin"||role==="business_admin")return true;return modulePermissions.some(p=>p.module===module&&(p.action===action||p.action==="*"))}
 function showApp(){
  $("login").classList.add("hidden");$("app").classList.remove("hidden");
@@ -35,8 +38,8 @@ function showApp(){
  const teamNav=document.querySelector('[data-view="team"]');if(teamNav)teamNav.classList.toggle("hidden",!["admin","super_admin","business_admin"].includes(role));
  document.querySelectorAll("[data-view]").forEach(b=>{const v=b.dataset.view;const map={enquiries:"leads",website:"website",customers:"customers",sites:"customers",surveys:"surveys",quotations:"quotations",projects:"projects",service:"service",assets:"assets",inventory:"inventory",compliance:"compliance",tasks:"tasks"};if(map[v])b.classList.toggle("hidden",!canAccess(map[v],"read"))});
 }
-$("login-form").addEventListener("submit",async e=>{e.preventDefault();if(!db)return say("login-error","Supabase configuration missing.");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)return say("login-error",error.message);if(await authorised()){showApp();await loadEverything()}});
-$("logout").onclick=async()=>{await db?.auth.signOut();location.reload()};
+$("login-form").addEventListener("submit",async e=>{e.preventDefault();if(!db)return say("login-error","Supabase configuration missing.");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)return say("login-error",error.message);if(await authorised()){showApp();await loadEverything();await recordAudit("sign_in");if(location.hash==="#control"&&role==="super_admin")showView("control")}});
+$("logout").onclick=async()=>{await recordAudit("sign_out");await db?.auth.signOut();location.reload()};
 $("refresh").onclick=loadEverything;
 async function loadEverything(){await loadLeads();renderReports();renderModules();await loadContent()}
 async function loadLeads(){const {data,error}=await db.from("leads").select("*").order("created_at",{ascending:false}).limit(3000);if(error){notify("Could not load enquiry records: "+error.message);return}leads=data||[];const count=s=>leads.filter(x=>x.status===s).length;$("kpi-total").textContent=leads.length;$("kpi-new").textContent=count("New");$("kpi-qualified").textContent=count("Qualified");$("kpi-converted").textContent=count("Converted");$("nav-new").textContent=count("New");renderLeadTable();renderRecent();renderPipeline()}
