@@ -14,7 +14,7 @@
   const statusEl = form.querySelector('.form-status');
   const queryApi = new URLSearchParams(window.location.search).get('api');
   const savedApi = localStorage.getItem('karma_api_base') || '';
-  const configuredApi = (queryApi || savedApi).trim().replace(/\\/+$/, '');
+  const configuredApi = (queryApi || savedApi).trim().replace(/\/+$/, '');
   if (queryApi) localStorage.setItem('karma_api_base', configuredApi);
   const isGitHubPages = window.location.hostname.endsWith('github.io');
   const configuredPath = form.dataset.api || '/api/leads';
