@@ -12,7 +12,15 @@
 
   const submitBtn = form.querySelector('button[type="submit"]');
   const statusEl = form.querySelector('.form-status');
-  const API_URL = form.dataset.api || '/api/leads';
+  const queryApi = new URLSearchParams(window.location.search).get('api');
+  const savedApi = localStorage.getItem('karma_api_base') || '';
+  const configuredApi = (queryApi || savedApi).trim().replace(/\\/+$/, '');
+  if (queryApi) localStorage.setItem('karma_api_base', configuredApi);
+  const isGitHubPages = window.location.hostname.endsWith('github.io');
+  const configuredPath = form.dataset.api || '/api/leads';
+  const API_URL = configuredApi ? configuredApi + (configuredPath.startsWith('/') ? configuredPath : '/' + configuredPath) :
+    (isGitHubPages ? '' : configuredPath);
+
   const RATE_KEY = 'karma_lead_last_submit';
   const COOLDOWN_MS = 45000; // 45s between submissions from same browser
 
@@ -88,13 +96,21 @@
     setStatus('success', '');
 
     try {
+      if (!API_URL) {
+        throw new Error('The enquiry service is not connected yet. The website is hosted on GitHub Pages, which cannot run the Node.js API. Please configure the deployed backend URL before accepting enquiries.');
+      }
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
       });
 
-      const result = await res.json().catch(function () { return {}; });
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        await res.text();
+        throw new Error('The enquiry API returned a webpage instead of JSON (HTTP ' + res.status + '). Check the backend URL and deployment.');
+      }
+      const result = await res.json();
 
       if (!res.ok || !result.ok) {
         throw new Error(result.message || 'Submission failed. Please try again.');
