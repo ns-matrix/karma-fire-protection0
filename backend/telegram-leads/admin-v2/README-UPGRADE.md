@@ -13,7 +13,7 @@ The legacy `super-admin.html` URL redirects to the same portal. After Supabase A
 - `super_admin`: one shared dashboard with system-control analytics, standard-admin directory, employee directory and security audit trail.
 - `admin`: operational modules plus standard-admin and employee management. Admin invitations always create the standard `admin` role.
 - Departmental roles: module access is derived from `user_roles`, `role_permissions`, `app_roles` and `app_permissions`; own/assigned/department/all scopes are enforced by RLS.
-- Super Admin identities are excluded from `admin_directory`, employee profiles and user-role listings. The role resolver returns only a role code; the UI does not display the Super Admin email or personal profile.
+- Super Admin identities are excluded from `admin_directory`, employee profiles and user-role listings. The role resolver returns only a role code. A private SECURITY DEFINER predicate protects Super Admin identity checks from caller-side RLS filtering, including employee profiles matched by either Auth UUID or email. The UI never displays the Super Admin email or personal profile.
 - No browser cookies, passwords, access tokens or session secrets are read into audit records.
 
 ## Provisioned database areas
@@ -64,7 +64,7 @@ The shared UI includes generic list/create/edit workflows for the main records a
 4. Test customer/site creation, survey records, quotation/BOQ calculation, project milestones, AMC/service records, asset records, stock receipt/issue, compliance metadata and tasks.
 5. Verify normal Admin cannot read Super Admin identity rows or audit events.
 6. Verify staff accounts can access only their assigned/department-scoped records.
-7. Never put the Supabase service-role/secret key in browser code or GitHub.
+7. Never put the Supabase service-role/secret key in browser code, GitHub source, GitHub Actions artifacts or documentation. Keep function secrets in Supabase Edge Function secrets.
 
 ## Known configuration warning
 
