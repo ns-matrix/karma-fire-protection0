@@ -67,6 +67,15 @@ alter table public.admin_users enable row level security;
 alter table public.leads enable row level security;
 alter table public.visitor_events enable row level security;
 
+-- Least-privilege browser grants: anonymous visitors may insert only enquiry fields.
+-- They cannot set CRM status/notes/assignment or read submitted customer data.
+revoke all on public.leads from anon;
+revoke select, update, delete on public.leads from authenticated;
+grant insert (name, phone, email, company, building_type, service, location, message,
+  contact_method, consent, source, medium, campaign, landing_page, visitor_uuid, session_uuid)
+on public.leads to anon, authenticated;
+grant select, update, delete on public.leads to authenticated;
+
 drop policy if exists "Admins can read admin list" on public.admin_users;
 create policy "Admins can read admin list" on public.admin_users
 for select to authenticated using (public.is_karma_admin());
