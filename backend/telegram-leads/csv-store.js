@@ -156,7 +156,7 @@ function initCSV() {
 
 function appendLead(leadData) {
   return new Promise((resolve, reject) => {
-    writeQueue = writeQueue.then(() => {
+    writeQueue = writeQueue.catch(() => {}).then(() => {
       acquireLock(getLeadsCsv());
       try {
         const leads = readCsv(getLeadsCsv());
@@ -202,31 +202,34 @@ function appendLead(leadData) {
 }
 
 function getLeads(options = {}) {
-  const { page = 1, limit = 25, search = '', status = '', sortBy = 'createdAt', sortOrder = 'desc' } = options;
+  const { search = '', status = '', service = '', source = '', from = '', to = '' } = options;
+  const page = Math.max(1, Number.parseInt(options.page, 10) || 1);
+  const limit = Math.min(100, Math.max(1, Number.parseInt(options.limit, 10) || 25));
+  const allowedSort = new Set(['createdAt', 'updatedAt', 'name', 'company', 'status', 'service']);
+  const sortBy = allowedSort.has(options.sortBy) ? options.sortBy : 'createdAt';
+  const sortOrder = options.sortOrder === 'asc' ? 'asc' : 'desc';
   let leads = readCsv(getLeadsCsv());
 
   if (search) {
-    const s = search.toLowerCase();
+    const s = String(search).toLowerCase();
     leads = leads.filter(l =>
-      l.name.toLowerCase().includes(s) ||
-      l.phone.includes(s) ||
-      l.email.toLowerCase().includes(s) ||
-      l.company.toLowerCase().includes(s) ||
-      l.id.toLowerCase().includes(s)
+      String(l.name || '').toLowerCase().includes(s) ||
+      String(l.phone || '').includes(s) ||
+      String(l.email || '').toLowerCase().includes(s) ||
+      String(l.company || '').toLowerCase().includes(s) ||
+      String(l.id || '').toLowerCase().includes(s)
     );
   }
-
-  if (status) {
-    leads = leads.filter(l => l.status === status);
-  }
+  if (status) leads = leads.filter(l => l.status === status);
+  if (service) leads = leads.filter(l => String(l.service || '').toLowerCase() === String(service).toLowerCase());
+  if (source) leads = leads.filter(l => String(l.source || '').toLowerCase() === String(source).toLowerCase());
+  if (from) leads = leads.filter(l => String(l.createdAt || '').slice(0, 10) >= String(from).slice(0, 10));
+  if (to) leads = leads.filter(l => String(l.createdAt || '').slice(0, 10) <= String(to).slice(0, 10));
 
   leads.sort((a, b) => {
     let av = a[sortBy] || '';
     let bv = b[sortBy] || '';
-    if (sortBy === 'status') {
-      av = STATUS_ORDER[av] || 99;
-      bv = STATUS_ORDER[bv] || 99;
-    }
+    if (sortBy === 'status') { av = STATUS_ORDER[av] || 99; bv = STATUS_ORDER[bv] || 99; }
     if (av < bv) return sortOrder === 'asc' ? -1 : 1;
     if (av > bv) return sortOrder === 'asc' ? 1 : -1;
     return 0;
@@ -234,9 +237,7 @@ function getLeads(options = {}) {
 
   const total = leads.length;
   const start = (page - 1) * limit;
-  const items = leads.slice(start, start + limit);
-
-  return { items, total, page, limit, totalPages: Math.ceil(total / limit) };
+  return { items: leads.slice(start, start + limit), total, page, limit, totalPages: Math.ceil(total / limit) };
 }
 
 function getLeadById(id) {
@@ -466,7 +467,10 @@ function updateSetting(key, value) {
   }
   const settings = getSettings();
   settings[key] = String(value == null ? '' : value);
-  fs.writeFileSync(SETTINGS_FILE, JSON.stringify(settings, null, 2), 'utf-8');
+  fs.mkdirSync(getDataDir(), { recursive: true });
+  const tempPath = SETTINGS_FILE + '.tmp.' + randomBytes(6).toString('hex');
+  fs.writeFileSync(tempPath, JSON.stringify(settings, null, 2), 'utf-8');
+  fs.renameSync(tempPath, SETTINGS_FILE);
   return settings[key];
 }
 
