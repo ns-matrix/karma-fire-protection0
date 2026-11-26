@@ -33,6 +33,16 @@ Deno.serve(async (req: Request) => {
       user_id: invitation.user.id, email, role: "admin", display_name: displayName || null, created_by: user.id,
     }, { onConflict: "user_id" });
     if (insertError) throw insertError;
+    const forwarded = (req.headers.get("x-forwarded-for") ?? req.headers.get("x-real-ip") ?? "").split(",")[0].trim();
+    const userAgent = (req.headers.get("user-agent") ?? "").slice(0, 500);
+    const device = /android|iphone|ipad|mobile/i.test(userAgent) ? "mobile" : /windows|macintosh|linux|x11/i.test(userAgent) ? "desktop" : "other";
+    await adminClient.from("audit_events").insert({
+      actor_user_id: user.id, action: "invite_admin", module: "identity",
+      target_type: "admin_users", target_id: invitation.user.id, outcome: "success",
+      ip_address: /^[0-9a-fA-F:.]+$/.test(forwarded) ? forwarded : null,
+      user_agent: userAgent, device_category: device,
+      metadata: { source: "invite-crm-admin" }
+    });
     return new Response(JSON.stringify({ success: true, invited_email: email, role: "admin" }), { status: 200, headers: { ...cors, "Content-Type": "application/json" } });
   } catch (error) {
     return new Response(JSON.stringify({ error: error instanceof Error ? error.message : "Unable to create administrator." }), { status: 400, headers: { ...cors, "Content-Type": "application/json" } });
