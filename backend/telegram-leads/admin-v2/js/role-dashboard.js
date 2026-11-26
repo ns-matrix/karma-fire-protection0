@@ -155,6 +155,9 @@ async function loadDashboard() {
   render(current.role, metrics, values, tasks, visits, enquiries, audit);
 }
 
+document.getElementById("refresh")?.addEventListener("click", () => loadDashboard());
+document.querySelector('[data-view="dashboard"]')?.addEventListener("click", () => loadDashboard());
+
 window.addEventListener("karma:authorized", (event) => {
   current = event.detail || null;
   loadDashboard().catch((error) => {
