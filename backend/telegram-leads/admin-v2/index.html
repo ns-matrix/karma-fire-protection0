@@ -56,11 +56,12 @@
     <div class="sidebar-foot"><span class="online-dot"></span> Supabase connected <small id="role-label">Staff</small></div>
   </aside>
   <main class="main">
-    <header class="topbar"><div><div class="eyebrow">KARMA FIRE PROTECTION / WORKSPACE</div><h1 id="view-title">Dashboard</h1></div>
+    <header class="topbar"><div class="topbar-title"><button id="mobile-nav-toggle" class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button><div><div class="eyebrow">KARMA FIRE PROTECTION / WORKSPACE</div><h1 id="view-title">Dashboard</h1></div></div>
       <div class="top-actions"><span id="user-email" class="muted">Authenticated workspace</span><button id="refresh" class="btn soft">↻ Refresh</button><button id="logout" class="btn dark">Sign out</button></div>
     </header>
     <div id="notice" class="notice hidden"></div>
     <section id="view-dashboard" class="view active">
+      <div id="role-dashboard-root" class="role-dashboard-root" aria-live="polite"></div>
       <div class="welcome"><div><div class="eyebrow">OPERATIONS OVERVIEW</div><h2>Good work starts with clear visibility.</h2><p>Track incoming enquiries and keep the next action moving.</p></div><div class="welcome-date" id="today"></div></div>
       <div class="kpi-grid">
         <article class="kpi"><span>Total enquiries</span><strong id="kpi-total">—</strong><small>All recorded requests</small></article>
@@ -115,5 +116,5 @@
   </main>
 </div>
 <div id="lead-dialog" class="dialog hidden"><form id="lead-edit" class="dialog-card"><div class="dialog-head"><div><span class="eyebrow">ENQUIRY RECORD</span><h2 id="dialog-name">Enquiry details</h2></div><button type="button" id="dialog-close" class="icon-btn">×</button></div><div id="dialog-details" class="detail-grid"></div><label>Status<select id="edit-status"><option>New</option><option>Contacted</option><option>Qualified</option><option>Proposal Sent</option><option>Converted</option><option>Lost</option></select></label><label>Assigned to<input id="edit-assigned" maxlength="160"></label><label>Internal notes<textarea id="edit-notes" rows="4"></textarea></label><div class="button-row"><button class="btn primary" type="submit">Save changes</button><button class="btn soft" type="button" id="dialog-cancel">Cancel</button></div><p id="edit-message" role="status"></p></form></div>
-<script src="../../../js/supabase-config.js"></script><script type="module" src="js/admin.js"></script>
+<script src="../../../js/supabase-config.js"></script><script type="module" src="js/admin.js"></script><script type="module" src="js/role-dashboard.js"></script>
 </body></html>

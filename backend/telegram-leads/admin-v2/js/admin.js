@@ -26,18 +26,19 @@ async function authorised(){
 }
 async function recordAudit(action,module="identity"){try{await db.functions.invoke("admin-audit-event",{body:{action,module}})}catch(e){console.warn("Audit gateway unavailable",e)}}
 async function start(){if(await authorised()){showApp();await loadEverything();if(location.hash==="#control"&&role==="super_admin")showView("control")}}
-function canAccess(module,action="read"){if(["stock_movements","quotation_approvals"].includes(activeModule)&&(action==="update"||action==="delete"))return false;if(role==="admin"||role==="super_admin"||role==="business_admin")return true;return modulePermissions.some(p=>p.module===module&&(p.action===action||p.action==="*"))}
+function canAccess(module,action="read"){if(["stock_movements","quotation_approvals"].includes(activeModule)&&(action==="update"||action==="delete"))return false;if(role==="admin"||role==="super_admin")return true;return modulePermissions.some(p=>p.module===module&&(p.action===action||p.action==="*"))}
 function showApp(){
  $("login").classList.add("hidden");$("app").classList.remove("hidden");
  $("user-email").textContent=role==="super_admin"?"":(user.email||"");
  $("user-email").classList.toggle("hidden",role==="super_admin");
- $("role-label").textContent=role==="super_admin"?"System operator":role.replaceAll("_"," ");
+ $("role-label").textContent=role==="super_admin"?"System operator":role==="admin"?"Admin":"Team Member";
  $("profile-email").textContent=role==="super_admin"?"Privileged identity hidden":(user.email||"");
- $("profile-role").textContent=role==="super_admin"?"System operator":role;
+ $("profile-role").textContent=role==="super_admin"?"System operator":role==="admin"?"Admin":"Team Member";
  $("today").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"});
  if(role==="super_admin")$("super-entry").classList.remove("hidden");
- const teamNav=document.querySelector('[data-view="team"]');if(teamNav)teamNav.classList.toggle("hidden",!["admin","super_admin","business_admin"].includes(role));
+ const teamNav=document.querySelector('[data-view="team"]');if(teamNav)teamNav.classList.toggle("hidden",!["admin","super_admin"].includes(role));
  document.querySelectorAll("[data-view]").forEach(b=>{const v=b.dataset.view;const map={enquiries:"leads",website:"website",customers:"customers",sites:"customers",surveys:"surveys",quotations:"quotations",projects:"projects",service:"service",assets:"assets",inventory:"inventory",compliance:"compliance",tasks:"tasks",contacts:"customers",survey_templates:"surveys",survey_responses:"surveys",quotation_items:"quotations",quotation_approvals:"quotations",project_milestones:"projects",project_tasks:"projects",amc_contracts:"service",defects:"service",suppliers:"inventory",warehouses:"inventory",stock_movements:"inventory",purchase_orders:"inventory",purchase_order_items:"inventory"};if(map[v])b.classList.toggle("hidden",!canAccess(map[v],"read"))});
+ const dashboardContext={role,userId:user?.id,permissions:modulePermissions};window.KARMA_DASHBOARD_CONTEXT=dashboardContext;window.dispatchEvent(new CustomEvent("karma:authorized",{detail:dashboardContext}));
 }
 $("login-form").addEventListener("submit",async e=>{e.preventDefault();if(!db)return say("login-error","Supabase configuration missing.");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)return say("login-error",error.message);if(await authorised()){showApp();await loadEverything();await recordAudit("sign_in");if(location.hash==="#control"&&role==="super_admin")showView("control")}});
 $("logout").onclick=async()=>{await recordAudit("sign_out");await db?.auth.signOut();location.reload()};
