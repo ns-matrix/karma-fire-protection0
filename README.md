@@ -4,7 +4,7 @@ A static website and browser-based CRM. **The website and admin UI are hosted by
 
 ## Public site
 - GitHub Pages: https://ns-matrix.github.io/karma-fire-protection0/
-- Admin: https://ns-matrix.github.io/karma-fire-protection0/backend/telegram-leads/admin/
+- Admin: https://ns-matrix.github.io/karma-fire-protection0/backend/telegram-leads/admin-v2/
 
 ## Architecture
 - HTML/CSS/vanilla JavaScript: public website and admin UI.
