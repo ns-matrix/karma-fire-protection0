@@ -13,7 +13,10 @@ async function render(table,target,kind){
   const image=item.image_url?'<img loading="lazy" src="'+esc(item.image_url)+'" alt="'+esc(title)+'">':'';
   const role=kind==='team'?'<div class="managed-role">'+esc(item.role_title)+'</div>':'';
   const description=kind==='product'?item.description:(kind==='service'?(item.short_description||item.description):item.bio);
-  return '<article class="managed-card">'+image+'<div class="managed-body"><h3>'+esc(title)+'</h3>'+role+'<p>'+esc(description||'')+'</p></div></article>';
+  const price=kind==='product'&&item.price_label?'<p class="managed-role">'+esc(item.price_label)+'</p>':'';
+  const specs=kind==='product'&&item.specifications&&Object.keys(item.specifications).length
+   ?'<p>'+Object.entries(item.specifications).slice(0,4).map(([k,v])=>esc(k)+': '+esc(v)).join(' · ')+'</p>':'';
+  return '<article class="managed-card">'+image+'<div class="managed-body"><h3>'+esc(title)+'</h3>'+role+price+'<p>'+esc(description||'')+'</p>'+specs+'</div></article>';
  }).join('');
 }
 Promise.all([
