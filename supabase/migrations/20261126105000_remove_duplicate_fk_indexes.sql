@@ -1,0 +1,1 @@
+drop index if exists public.idx_assets_site; drop index if exists public.idx_sites_customer;
