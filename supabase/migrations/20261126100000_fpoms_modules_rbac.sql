@@ -555,7 +555,7 @@ insert into public.app_roles(code,name,description,is_system) values
 on conflict(code) do nothing;
 
 insert into public.app_permissions(module,action,description)
-select m,a,initcap(a)||' access to '||m
+select mods.module,acts.action,initcap(acts.action)||' access to '||mods.module
 from (values
 ('customers'),('surveys'),('quotations'),('projects'),('service'),('assets'),('inventory'),('compliance'),('tasks'),('employees'),('website'),('leads'),('reports'),('audit')
 ) as mods(module)
