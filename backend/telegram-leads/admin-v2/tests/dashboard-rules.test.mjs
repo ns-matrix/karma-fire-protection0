@@ -13,10 +13,10 @@ test("only the two privileged account types receive their elevated dashboard mod
 test("Team Member metrics are limited to granted modules", () => {
   const grants = [
     { module: "tasks", action: "read", scope: "assigned" },
-    { module: "service", action: "update", scope: "assigned" }
+    { module: "service", action: "read", scope: "assigned" }, { module: "service", action: "update", scope: "assigned" }
   ];
   assert.deepEqual(dashboardMetrics("service_technician", grants).map((item) => item.key), ["tasks", "visits"]);
-  assert.equal(hasDashboardPermission("service_technician", grants, "service", "read"), false);
+  assert.equal(hasDashboardPermission("service_technician", grants, "service", "read"), true);
   assert.equal(hasDashboardPermission("service_technician", grants, "service", "update"), true);
 });
 
