@@ -215,7 +215,7 @@ create policy "Admins manage site settings" on public.site_settings for all to a
 
 grant select on public.team_members,public.products,public.services,public.social_links to anon,authenticated;
 grant select,insert,update,delete on public.team_members,public.products,public.services,public.social_links,public.site_settings to authenticated;
-grant select on public.admin_users to authenticated;
+grant select,insert,update,delete on public.admin_users to authenticated;
 revoke all on public.admin_users from anon;
 
 insert into storage.buckets(id,name,public,file_size_limit,allowed_mime_types)
