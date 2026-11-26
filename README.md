@@ -53,17 +53,25 @@ GitHub Pages publishes the static files from the configured branch/folder. No bu
 - The Node.js backend, package manifests, Docker files, and custom-domain CNAME have been removed from this branch. The static GitHub Pages application has no Node runtime dependency.
 
 
-## Role-based CRM and website content manager
+## Unified role-based admin portal
 
-The CRM has two database-enforced roles:
+The admin experience uses one shared sign-in and dashboard:
+- **Super Admin:** system oversight, full operational visibility, standard-admin/employee directories and security audit history.
+- **Admin:** operational management, standard-admin invitations and employee management. Super Admin identity/profile rows and audit history are not available to Admin accounts.
+- **Departmental roles:** assigned/department-scoped access is enforced by PostgreSQL RLS, not just hidden navigation.
 
-- **Super Admin** — can manage all CRM/content features and invite additional Admin accounts.
-- **Admin** — can manage enquiries, social links, team members, product catalogue, and service catalogue, but cannot grant administrator access.
+Super Admin identity data is deliberately excluded from the admin directory, employee profiles and role listings. The identity resolver returns only the caller's role code. Normal Admins cannot edit the role catalogue, permission grants, or assign privileged roles.
 
-The initial verified account `ns077751@gmail.com` is provisioned as `super_admin`. The super-admin controls are intentionally not advertised in the public site navigation; actual authorization is enforced by Supabase RLS and the `invite-crm-admin` Edge Function.
+The single portal is:
+`https://ns-matrix.github.io/karma-fire-protection0/backend/telegram-leads/admin-v2/`
+The previous `/backend/telegram-leads/admin/` URL redirects to it.
 
-The content manager writes to `team_members`, `products`, `services`, and `social_links`. Uploaded images are stored in the public `site-media` Storage bucket with admin-only upload/update/delete permissions. The home page renders published team, service, and product records from Supabase. Social links are loaded from Supabase on public pages.
+The operational schema includes Customers & Sites, Surveys & Audits, Quotations & BOQ, Projects, Service & AMC, Equipment & Assets, Inventory & Procurement, Compliance, and Tasks & Calendar. All 41 public tables have RLS enabled.
 
-Visitor-event analytics are collected only after the visitor explicitly accepts analytics consent. Extended traffic-source/page/session metrics are visible only to the super admin. The existing lead reports remain visible to both roles.
+**Credential handling:** the browser config contains only the Supabase URL and publishable/anon key (which is designed to be public). Supabase service-role/secret keys remain in Supabase Edge Function secrets and must never be committed to GitHub or embedded in browser code. Environment files are excluded by `.gitignore`.
 
-Edge Function source: `supabase/functions/invite-crm-admin/index.ts`.
+## Deployment and security checks
+
+GitHub Pages hosts the static HTML/CSS/JavaScript. Supabase provides authentication, PostgreSQL, RLS and Edge Functions. The `invite-crm-admin` and `invite-crm-employee` functions validate the caller on the server; employee invitations accept only approved operational roles.
+
+Full workflow acceptance remains ongoing for private document storage, quotation PDFs/customer acceptance, automated project/AMC scheduling, reminders and mobile field-work.
