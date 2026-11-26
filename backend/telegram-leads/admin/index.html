@@ -185,7 +185,7 @@
       <form id="login-form">
         <div class="form-group">
           <label>Admin Username</label>
-          <input type="text" id="login-username" class="form-control" required autocomplete="username" value="Karma@Admin@123">
+          <input type="text" id="login-username" class="form-control" required autocomplete="username" placeholder="Enter admin username">
         </div>
         <div class="form-group">
           <label>Password</label>
@@ -712,8 +712,17 @@
     let currentToken = localStorage.getItem('karma_admin_token') || '';
     let currentLeadId = null;
 
-    // When opened directly from disk (file://), talk to the local server on port 3000
-    const API_BASE = location.protocol === 'file:' ? 'http://localhost:3000' : '';
+    // API backend configuration. Set once in this browser using ?api=https://your-api-host
+    // or localStorage.setItem('karma_api_base', 'https://your-api-host').
+    const queryApi = new URLSearchParams(location.search).get('api');
+    const savedApi = localStorage.getItem('karma_api_base') || '';
+    const configuredApi = (queryApi || savedApi).trim().replace(/\\/+$/, '');
+    if (queryApi) localStorage.setItem('karma_api_base', configuredApi);
+    const isGitHubPages = location.hostname.endsWith('github.io');
+    const API_BASE = configuredApi || (location.protocol === 'file:' ? 'http://localhost:3000' : (isGitHubPages ? '' : location.origin));
+    const API_CONFIG_ERROR = !API_BASE
+      ? 'Backend API is not connected. Deploy the Node.js backend, then open this page with ?api=https://YOUR-BACKEND-URL (or configure karma_api_base in this browser). GitHub Pages cannot run the API.'
+      : '';
 
     // Check login state against the real session
     window.addEventListener('DOMContentLoaded', () => {
@@ -729,7 +738,13 @@
       if (currentToken) {
         headers['Authorization'] = 'Bearer ' + currentToken;
       }
+      if (!API_BASE) throw new Error(API_CONFIG_ERROR);
       const res = await fetch(API_BASE + endpoint, { credentials: 'include', ...options, headers });
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        const body = await res.text();
+        throw new Error('The API returned HTML instead of JSON (HTTP ' + res.status + '). Check the backend URL and API deployment. ' + body.slice(0, 100).replace(/\\s+/g, ' '));
+      }
       return res.json();
     }
 
@@ -742,11 +757,17 @@
       errEl.style.display = 'none';
 
       try {
+        if (!API_BASE) throw new Error(API_CONFIG_ERROR);
         const res = await fetch(API_BASE + '/api/admin/login', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ userId: u, password: p })
         });
+        const contentType = res.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+          await res.text();
+          throw new Error('The backend URL returned HTML instead of JSON (HTTP ' + res.status + '). Verify that the URL points to your running Karma API server.');
+        }
         const data = await res.json();
         if (!res.ok || !data.ok) {
           errEl.textContent = data.message || 'Login failed';
@@ -762,7 +783,7 @@
         document.getElementById('sidebar-user').textContent = data.user.userId;
         loadDashboard();
       } catch (err) {
-        errEl.textContent = (API_BASE ? 'Cannot reach the server. Start it with: npm start (backend/telegram-leads)' : (err.message || 'Network error'));
+        errEl.textContent = err.message || 'Cannot reach the API server. Start the backend and verify its URL.';
         errEl.style.display = 'block';
       }
     });
@@ -799,7 +820,7 @@
       currentToken = '';
       localStorage.removeItem('karma_admin_token');
       localStorage.removeItem('karma_admin_user');
-      fetch(API_BASE + '/api/admin/logout', { method: 'POST' });
+      if (API_BASE) fetch(API_BASE + '/api/admin/logout', { method: 'POST' }).catch(() => {});
       showLogin();
     }
     document.getElementById('btn-logout').addEventListener('click', logout);
