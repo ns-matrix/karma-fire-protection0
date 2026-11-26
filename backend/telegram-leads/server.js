@@ -406,8 +406,7 @@ app.get('/api/admin/leads', auth.requireAdminAuth, (req, res) => {
   try {
     const { status, service, source, search, from, to, page, limit, sortBy, sortOrder } = req.query;
     const result = csvStore.getLeads({
-      status,
-      search,
+      status, service, source, search, from, to,
       page: parseInt(page, 10) || 1,
       limit: parseInt(limit, 10) || 25,
       sortBy: sortBy || 'createdAt',
