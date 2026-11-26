@@ -114,7 +114,28 @@ async function loadTeam(){
  $("employee-department").innerHTML=(departments||[]).map(x=>'<option value="'+esc(x.code)+'">'+esc(x.name)+'</option>').join("");
  $("employee-role").innerHTML=(roles||[]).filter(x=>x.code!=="business_admin").map(x=>'<option value="'+esc(x.code)+'">'+esc(x.name)+'</option>').join("");
 }
-async function loadControl(){if(role!=="super_admin")return;await loadTeam();const [a,e,u]=await Promise.all([db.from("admin_directory").select("user_id",{count:"exact",head:true}),db.from("employee_profiles").select("id",{count:"exact",head:true}),db.from("audit_events").select("id",{count:"exact",head:true})]);$("control-admin-count").textContent=a.count??"—";$("control-employee-count").textContent=e.count??"—";$("control-audit-count").textContent=u.count??"—";const {data:logs,error}=await db.from("audit_events").select("created_at,action,module,outcome,device_category").order("created_at",{ascending:false}).limit(50);$("audit-rows").innerHTML=error?'<tr><td colspan="5">'+esc(error.message)+'</td></tr>':(logs||[]).map(x=>'<tr><td>'+new Date(x.created_at).toLocaleString()+'</td><td>'+esc(x.action)+'</td><td>'+esc(x.module)+'</td><td>'+esc(x.outcome)+'</td><td>'+esc(x.device_category||"unknown")+'</td></tr>').join("")||'<tr><td colspan="5">No audit events yet.</td></tr>'}
+async function loadControl(){
+ if(role!=="super_admin")return;
+ await loadTeam();
+ const [a,e,u]=await Promise.all([
+  db.from("admin_directory").select("user_id",{count:"exact",head:true}),
+  db.from("employee_profiles").select("id",{count:"exact",head:true}),
+  db.from("audit_events").select("id",{count:"exact",head:true})
+ ]);
+ $("control-admin-count").textContent=a.count??"—";
+ $("control-employee-count").textContent=e.count??"—";
+ $("control-audit-count").textContent=u.count??"—";
+ const {data:logs,error}=await db.from("audit_events").select("actor_user_id,created_at,action,module,outcome,ip_address,user_agent,device_category").order("created_at",{ascending:false}).limit(100);
+ const [{data:admins},{data:employees}]=await Promise.all([
+  db.from("admin_directory").select("user_id,display_name,email"),
+  db.from("employee_profiles").select("auth_user_id,full_name,work_email")
+ ]);
+ const names=new Map([
+  ...(admins||[]).map(x=>[x.user_id,x.display_name||x.email||"Admin"]),
+  ...(employees||[]).filter(x=>x.auth_user_id).map(x=>[x.auth_user_id,x.full_name||x.work_email||"Employee"])
+ ]);
+ $("audit-rows").innerHTML=error?'<tr><td colspan="7">'+esc(error.message)+'</td></tr>':(logs||[]).map(x=>'<tr><td>'+new Date(x.created_at).toLocaleString()+'</td><td>'+esc(names.get(x.actor_user_id)||"System operator (identity hidden)")+'</td><td>'+esc(x.action)+'</td><td>'+esc(x.module)+'</td><td>'+esc(x.ip_address||"—")+'</td><td>'+esc(x.device_category||"unknown")+'</td><td>'+esc(x.user_agent||"—")+'</td></tr>').join("")||'<tr><td colspan="7">No audit events yet.</td></tr>';
+}
 $("employee-add").onclick=()=>{activeModule="employees";openModuleForm()};
 $("invite-form").onsubmit=async e=>{e.preventDefault();const {data:{session}}=await db.auth.getSession();const b=e.currentTarget.querySelector("button");b.disabled=true;try{const {data,error}=await db.functions.invoke("invite-crm-admin",{body:{email:$("invite-email").value.trim(),display_name:$("invite-name").value.trim()},headers:{Authorization:"Bearer "+session.access_token}});if(error)throw error;if(data?.error)throw new Error(data.error);say("invite-message","Invitation sent to "+(data.invited_email||$("invite-email").value)+".","success");$("invite-form").reset();await loadTeam()}catch(e){say("invite-message",e.message||"Invitation failed.")}finally{b.disabled=false}};
 $("employee-invite-form").onsubmit=async e=>{e.preventDefault();const button=e.currentTarget.querySelector("button");button.disabled=true;try{const {data,error}=await db.functions.invoke("invite-crm-employee",{body:{email:$("employee-email").value.trim(),full_name:$("employee-full-name").value.trim(),job_title:$("employee-job-title").value.trim(),department_code:$("employee-department").value,role_code:$("employee-role").value}});if(error)throw error;if(data?.error)throw new Error(data.error);say("employee-invite-message","Invitation sent to "+data.invited_email+".","success");$("employee-invite-form").reset();await loadTeam()}catch(err){say("employee-invite-message",err.message||"Employee invitation failed.")}finally{button.disabled=false}};
