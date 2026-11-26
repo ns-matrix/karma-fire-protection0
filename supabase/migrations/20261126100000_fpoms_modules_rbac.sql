@@ -557,7 +557,7 @@ on conflict(code) do nothing;
 insert into public.app_permissions(module,action,description)
 select m,a,initcap(a)||' access to '||m
 from (values
-('customers'),('surveys'),('quotations'),('projects'),('service'),('assets'),('inventory'),('compliance'),('tasks'),('employees'),('website'),('leads'),('reports')
+('customers'),('surveys'),('quotations'),('projects'),('service'),('assets'),('inventory'),('compliance'),('tasks'),('employees'),('website'),('leads'),('reports'),('audit')
 ) as mods(module)
 cross join (values ('read'),('create'),('update'),('delete'),('assign'),('approve'),('export'),('publish')) as acts(action)
 on conflict(module,action) do nothing;
@@ -599,7 +599,14 @@ $$;
 create or replace function private.can_access_module(p_module text,p_action text)
 returns boolean language sql stable security definer set search_path=''
 as $$
-  select private.can_access_record(p_module,p_action,null,null,null)
+  select
+    exists(select 1 from public.admin_users a where a.user_id=(select auth.uid()) and a.role in ('admin','super_admin'))
+    or exists(
+      select 1 from public.user_roles ur
+      join public.role_permissions rp on rp.role_id=ur.role_id
+      join public.app_permissions ap on ap.id=rp.permission_id
+      where ur.user_id=(select auth.uid()) and ap.module=p_module and ap.action=p_action
+    )
 $$;
 
 
@@ -682,11 +689,18 @@ begin
       execute 'create policy audit_superadmin_read on public.audit_events for select to authenticated using ((select private.is_karma_super_admin()))';
       execute 'drop policy if exists audit_superadmin_insert on public.audit_events';
       execute 'create policy audit_superadmin_insert on public.audit_events for insert to authenticated with check (actor_user_id=(select auth.uid()) and (select private.can_access_module(''audit'',''read'')))';
-    elsif r.tbl in ('app_roles','app_permissions','role_permissions','user_roles','departments') then
+    elsif r.tbl in ('app_roles','app_permissions','role_permissions','user_roles','departments','employee_profiles') then
       execute format('drop policy if exists %I on public.%I',r.tbl||'_admin_manage',r.tbl);
-      execute format('create policy %I on public.%I for all to authenticated using ((select private.can_access_module(''employees'',''update''))) with check ((select private.can_access_module(''employees'',''update'')))',r.tbl||'_admin_manage',r.tbl);
-      execute format('drop policy if exists %I on public.%I',r.tbl||'_admin_read',r.tbl);
-      execute format('create policy %I on public.%I for select to authenticated using ((select private.can_access_module(''employees'',''read'')))',r.tbl||'_admin_read',r.tbl);
+      if r.tbl='user_roles' then
+        execute 'create policy user_roles_admin_manage on public.user_roles for all to authenticated using ((select private.can_access_module(''employees'',''update'')) and not exists(select 1 from public.admin_users a where a.user_id=user_roles.user_id and a.role=''super_admin'')) with check ((select private.can_access_module(''employees'',''update'')) and not exists(select 1 from public.admin_users a where a.user_id=user_roles.user_id and a.role=''super_admin''))';
+        execute 'create policy user_roles_admin_read on public.user_roles for select to authenticated using ((select private.can_access_module(''employees'',''read'')) and not exists(select 1 from public.admin_users a where a.user_id=user_roles.user_id and a.role=''super_admin''))';
+      elsif r.tbl='employee_profiles' then
+        execute 'create policy employee_profiles_admin_manage on public.employee_profiles for all to authenticated using ((select private.can_access_module(''employees'',''update'')) and (auth_user_id is null or not exists(select 1 from public.admin_users a where a.user_id=employee_profiles.auth_user_id and a.role=''super_admin''))) with check ((select private.can_access_module(''employees'',''update'')) and (auth_user_id is null or not exists(select 1 from public.admin_users a where a.user_id=employee_profiles.auth_user_id and a.role=''super_admin'')))';
+        execute 'create policy employee_profiles_admin_read on public.employee_profiles for select to authenticated using ((select private.can_access_module(''employees'',''read'')) and (auth_user_id is null or not exists(select 1 from public.admin_users a where a.user_id=employee_profiles.auth_user_id and a.role=''super_admin'')))';
+      else
+        execute format('create policy %I on public.%I for all to authenticated using ((select private.can_access_module(''employees'',''update''))) with check ((select private.can_access_module(''employees'',''update'')))',r.tbl||'_admin_manage',r.tbl);
+        execute format('create policy %I on public.%I for select to authenticated using ((select private.can_access_module(''employees'',''read'')))',r.tbl||'_admin_read',r.tbl);
+      end if;
     else
       m:=r.module;
       execute format('drop policy if exists %I on public.%I',r.tbl||'_select',r.tbl);
