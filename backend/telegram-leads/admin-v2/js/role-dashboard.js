@@ -166,14 +166,23 @@ window.addEventListener("karma:authorized", (event) => {
   });
 });
 
+function closeMobileNav() {
+  document.querySelector(".sidebar")?.classList.remove("open");
+  document.getElementById("mobile-nav-toggle")?.setAttribute("aria-expanded", "false");
+}
 document.getElementById("mobile-nav-toggle")?.addEventListener("click", () => {
   const sidebar = document.querySelector(".sidebar");
   const isOpen = sidebar?.classList.toggle("open") || false;
   document.getElementById("mobile-nav-toggle")?.setAttribute("aria-expanded", String(isOpen));
 });
 document.querySelector(".sidebar")?.addEventListener("click", (event) => {
-  if (event.target.closest("[data-view]")) {
-    document.querySelector(".sidebar")?.classList.remove("open");
-    document.getElementById("mobile-nav-toggle")?.setAttribute("aria-expanded", "false");
-  }
+  if (event.target.closest("[data-view]")) closeMobileNav();
+});
+document.body.addEventListener("click", (event) => {
+  const sidebar = document.querySelector(".sidebar");
+  const toggle = document.getElementById("mobile-nav-toggle");
+  if (sidebar?.classList.contains("open") && !sidebar.contains(event.target) && !toggle?.contains(event.target)) closeMobileNav();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeMobileNav();
 });
