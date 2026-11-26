@@ -31,9 +31,9 @@ function showApp(){
  $("login").classList.add("hidden");$("app").classList.remove("hidden");
  $("user-email").textContent=role==="super_admin"?"":(user.email||"");
  $("user-email").classList.toggle("hidden",role==="super_admin");
- $("role-label").textContent=role==="super_admin"?"System operator":role.replaceAll("_"," ");
+ $("role-label").textContent=role==="super_admin"?"System operator":role==="admin"?"Admin":"Team Member";
  $("profile-email").textContent=role==="super_admin"?"Privileged identity hidden":(user.email||"");
- $("profile-role").textContent=role==="super_admin"?"System operator":role;
+ $("profile-role").textContent=role==="super_admin"?"System operator":role==="admin"?"Admin":"Team Member";
  $("today").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"});
  if(role==="super_admin")$("super-entry").classList.remove("hidden");
  const teamNav=document.querySelector('[data-view="team"]');if(teamNav)teamNav.classList.toggle("hidden",!["admin","super_admin"].includes(role));
