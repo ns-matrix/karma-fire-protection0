@@ -116,12 +116,12 @@ function render(role, metrics, values, tasks, visits, enquiries, audit) {
     </section>
     <section class="rd-kpis" aria-label="Dashboard metrics">${cards || '<div class="rd-empty">No dashboard modules have been assigned to this account yet.</div>'}</section>
     <section class="rd-grid">
-      <article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">WORK QUEUE</span><h3>${mode === "team_member" ? "Your work queue" : "Upcoming tasks"}</h3></div><span class="rd-chip">${Array.isArray(tasks) ? tasks.length : "!"} items</span></div>
+      ${can("tasks") ? `<article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">WORK QUEUE</span><h3>${mode === "team_member" ? "Your work queue" : "Upcoming tasks"}</h3></div><span class="rd-chip">${Array.isArray(tasks) ? tasks.length : "!"} items</span></div>
         <div class="rd-list">${renderList(tasks, "No tasks are currently visible for your account.", (task) => `<div class="rd-row"><div class="rd-row-icon">✓</div><div class="rd-row-copy"><strong>${escapeHtml(task.title)}</strong><small>${escapeHtml(task.task_type || "Task")} · Due ${escapeHtml(formatDate(task.due_at, { day: "numeric", month: "short" }))}</small></div><span class="rd-status ${escapeHtml(task.priority || "normal")}">${escapeHtml(task.status || "open")}</span></div>`)}</div>
-      </article>
-      <article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">FIELD OPERATIONS</span><h3>Upcoming visits</h3></div><span class="rd-chip">${Array.isArray(visits) ? visits.length : "!"} scheduled</span></div>
+      </article>` : ""}
+      ${can("service") ? `<article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">FIELD OPERATIONS</span><h3>Upcoming visits</h3></div><span class="rd-chip">${Array.isArray(visits) ? visits.length : "!"} scheduled</span></div>
         <div class="rd-list">${renderList(visits, "No upcoming visits are visible for your account.", (visit) => `<div class="rd-row"><div class="rd-row-icon red">◷</div><div class="rd-row-copy"><strong>${escapeHtml("Visit #" + visit.visit_number)}</strong><small>${escapeHtml(visit.visit_type || "Service")} · ${escapeHtml(formatDate(visit.scheduled_start))}</small></div><span class="rd-status">${escapeHtml(visit.status || "scheduled")}</span></div>`)}</div>
-      </article>
+      </article>` : ""}
       ${can("leads") ? `<article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">CUSTOMER PIPELINE</span><h3>Recent enquiries</h3></div><button type="button" class="rd-link" data-open-view="enquiries">View all →</button></div>
         <div class="rd-list">${renderList(enquiries, "No enquiries are visible for your account.", (lead) => `<div class="rd-row"><div class="rd-row-icon">▤</div><div class="rd-row-copy"><strong>${escapeHtml(lead.name || "New enquiry")}</strong><small>${escapeHtml("KFP-" + lead.lead_number)} · ${escapeHtml(lead.service || "General enquiry")}</small></div><span class="rd-status">${escapeHtml(lead.status || "New")}</span></div>`)}</div></article>` : ""}
       ${mode === "super_admin" ? `<article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">GOVERNANCE</span><h3>Recent security activity</h3></div><button type="button" class="rd-link" data-open-view="control">Open system control →</button></div>
