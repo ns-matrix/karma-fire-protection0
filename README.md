@@ -19,8 +19,8 @@ A static website and browser-based CRM. **The website and admin UI are hosted by
 3. In Authentication → Users, create the admin user with a strong password.
 4. Copy that user's UUID and email. Run:
    ```sql
-   insert into public.admin_users(user_id,email)
-   values ('YOUR-AUTH-USER-UUID','admin@your-company.com');
+   insert into public.admin_users(user_id,email,role,display_name)
+   values ('YOUR-AUTH-USER-UUID','OWNER-EMAIL','super_admin',null);
    ```
 5. Open Project Settings → API. Copy Project URL and the publishable key (or legacy anon key).
 6. Edit `js/supabase-config.js`:
