@@ -200,7 +200,7 @@ $('content-form').addEventListener('submit',async e=>{
   const ext=file.name.split('.').pop().toLowerCase(),path=type+'/'+crypto.randomUUID()+'.'+ext;
   const {error:uploadError}=await db.storage.from('site-media').upload(path,file,{upsert:false,contentType:file.type});
   if(uploadError){message('content-message',uploadError.message);return}
-  payload.image_url=db.storage.from('site-media').getPublicUrl(path).data.publicUrl;
+  payload[type==='social_links'?'icon_url':'image_url']=db.storage.from('site-media').getPublicUrl(path).data.publicUrl;
  }
  let query=db.from(type);
  const result=editingContent?await query.update(payload).eq('id',editingContent.id):await query.insert(payload);
