@@ -91,14 +91,14 @@ function render(role, metrics, values, tasks, visits, enquiries, audit) {
     ? "A secure, system-wide view of operations, team access and platform activity."
     : mode === "admin"
       ? "Keep customer work, delivery teams and service operations moving."
-      : "Your assigned work, upcoming visits and next actions in one place.";
+      : "Your permitted work, upcoming visits and next actions in one place.";
   const cards = metrics.map((metric) => metricCard(metric, values[metric.key])).join("");
   const quickActions = mode === "team_member"
     ? [
-        can("tasks") && actionButton("Open my tasks", "tasks", "✓"),
+        can("tasks") && actionButton("Open tasks", "tasks", "✓"),
         can("service") && actionButton("Service visits", "service", "◷"),
         can("surveys") && actionButton("Surveys & audits", "surveys", "⌕"),
-        can("projects") && actionButton("My projects", "projects", "◫"),
+        can("projects") && actionButton("Projects", "projects", "◫"),
         can("leads") && actionButton("Enquiries", "enquiries", "▤")
       ].filter(Boolean).join("")
     : [
@@ -116,7 +116,7 @@ function render(role, metrics, values, tasks, visits, enquiries, audit) {
     </section>
     <section class="rd-kpis" aria-label="Dashboard metrics">${cards || '<div class="rd-empty">No dashboard modules have been assigned to this account yet.</div>'}</section>
     <section class="rd-grid">
-      <article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">WORK QUEUE</span><h3>${mode === "team_member" ? "My next tasks" : "Upcoming tasks"}</h3></div><span class="rd-chip">${Array.isArray(tasks) ? tasks.length : "!"} items</span></div>
+      <article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">WORK QUEUE</span><h3>${mode === "team_member" ? "Your work queue" : "Upcoming tasks"}</h3></div><span class="rd-chip">${Array.isArray(tasks) ? tasks.length : "!"} items</span></div>
         <div class="rd-list">${renderList(tasks, "No tasks are currently visible for your account.", (task) => `<div class="rd-row"><div class="rd-row-icon">✓</div><div class="rd-row-copy"><strong>${escapeHtml(task.title)}</strong><small>${escapeHtml(task.task_type || "Task")} · Due ${escapeHtml(formatDate(task.due_at, { day: "numeric", month: "short" }))}</small></div><span class="rd-status ${escapeHtml(task.priority || "normal")}">${escapeHtml(task.status || "open")}</span></div>`)}</div>
       </article>
       <article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">FIELD OPERATIONS</span><h3>Upcoming visits</h3></div><span class="rd-chip">${Array.isArray(visits) ? visits.length : "!"} scheduled</span></div>
