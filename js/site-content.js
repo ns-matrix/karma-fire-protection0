@@ -27,8 +27,20 @@ function card({title,image,subtitle,description,extra='',link=''}) {
 }
 async function renderTeam(){
  const host=document.getElementById('managed-team'); if(!host)return;
- const rows=await fetchPublic('team_members','id,name,role_title,bio,image_url,sort_order,is_active',host);
- if(rows.length)host.innerHTML=rows.map(x=>card({title:x.name,subtitle:x.role_title,description:x.bio,image:x.image_url})).join('');
+ const rows=await fetchPublic('team_members','id,team_name,name,role_title,bio,image_url,sort_order,is_active',host);
+ if(!rows.length)return;
+ const groups=new Map();
+ rows.forEach(member=>{const team=(member.team_name||'Our Team').trim()||'Our Team';if(!groups.has(team))groups.set(team,[]);groups.get(team).push(member)});
+ host.classList.add('managed-team-groups');
+ host.innerHTML=Array.from(groups.entries()).map(([team,members])=>
+  '<section class="managed-team-group"><div class="managed-team-heading"><span>OUR PEOPLE</span><h3>'+esc(team)+'</h3></div><div class="managed-grid">'+
+  members.map(x=>card({title:x.name,subtitle:x.role_title,description:x.bio,image:x.image_url})).join('')+'</div></section>'
+ ).join('');
+ if(!document.getElementById('managed-team-profile-styles')){
+  const style=document.createElement('style');style.id='managed-team-profile-styles';
+  style.textContent='#managed-team.managed-team-groups{display:block}#managed-team .managed-team-group+.managed-team-group{margin-top:38px}#managed-team .managed-team-heading{margin:0 0 16px}#managed-team .managed-team-heading span{display:block;color:var(--primary,#e52329);font-size:11px;font-weight:700;letter-spacing:.14em;margin-bottom:6px}#managed-team .managed-team-heading h3{margin:0;color:var(--charcoal,#222);font-size:22px}#managed-team .managed-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}';
+  document.head.appendChild(style);
+ }
 }
 async function renderServices(){
  const host=document.getElementById('managed-services');if(!host)return;
