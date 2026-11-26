@@ -56,11 +56,12 @@
     <div class="sidebar-foot"><span class="online-dot"></span> Supabase connected <small id="role-label">Staff</small></div>
   </aside>
   <main class="main">
-    <header class="topbar"><div><div class="eyebrow">KARMA FIRE PROTECTION / WORKSPACE</div><h1 id="view-title">Dashboard</h1></div>
+    <header class="topbar"><div class="topbar-title"><button id="mobile-nav-toggle" class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button><div><div class="eyebrow">KARMA FIRE PROTECTION / WORKSPACE</div><h1 id="view-title">Dashboard</h1></div></div>
       <div class="top-actions"><span id="user-email" class="muted">Authenticated workspace</span><button id="refresh" class="btn soft">↻ Refresh</button><button id="logout" class="btn dark">Sign out</button></div>
     </header>
     <div id="notice" class="notice hidden"></div>
     <section id="view-dashboard" class="view active">
+      <div id="role-dashboard-root" class="role-dashboard-root" aria-live="polite"></div>
       <div class="welcome"><div><div class="eyebrow">OPERATIONS OVERVIEW</div><h2>Good work starts with clear visibility.</h2><p>Track incoming enquiries and keep the next action moving.</p></div><div class="welcome-date" id="today"></div></div>
       <div class="kpi-grid">
         <article class="kpi"><span>Total enquiries</span><strong id="kpi-total">—</strong><small>All recorded requests</small></article>
