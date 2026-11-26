@@ -149,11 +149,8 @@ revoke all on function private.is_karma_super_admin() from public, anon;
 grant execute on function private.is_karma_admin() to authenticated;
 grant execute on function private.is_karma_super_admin() to authenticated;
 
--- Promote the initial, verified owner account when it exists.
-insert into public.admin_users(user_id,email,role,display_name)
-select id,lower(email),'super_admin','Secret Developer Super Admin'
-from auth.users where lower(email)='ns077751@gmail.com'
-on conflict(user_id) do update set role=excluded.role,email=excluded.email,display_name=excluded.display_name;
+-- Do not hard-code privileged account emails or display names in public schema files.
+-- Bootstrap the first Super Admin once, from a trusted SQL Editor session, using the owner-provided Auth UUID/email.
 
 create table if not exists public.team_members (
  id uuid primary key default gen_random_uuid(), name text not null, role_title text not null,
