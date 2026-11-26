@@ -234,4 +234,20 @@ create policy "Admins update site media" on storage.objects for update to authen
 drop policy if exists "Admins delete site media" on storage.objects;
 create policy "Admins delete site media" on storage.objects for delete to authenticated using(bucket_id='site-media' and (select private.is_karma_admin()));
 
+
+-- Rebind legacy CRM policies to the non-exposed role-check functions before
+-- removing the original public SECURITY DEFINER helper.
+drop policy if exists "Admins can read leads" on public.leads;
+create policy "Admins can read leads" on public.leads for select to authenticated
+using((select private.is_karma_admin()));
+drop policy if exists "Admins can update leads" on public.leads;
+create policy "Admins can update leads" on public.leads for update to authenticated
+using((select private.is_karma_admin())) with check((select private.is_karma_admin()));
+drop policy if exists "Admins can delete leads" on public.leads;
+create policy "Admins can delete leads" on public.leads for delete to authenticated
+using((select private.is_karma_admin()));
+drop policy if exists "Admins can read visitor events" on public.visitor_events;
+create policy "Admins can read visitor events" on public.visitor_events for select to authenticated
+using((select private.is_karma_admin()));
+
 drop function if exists public.is_karma_admin();
