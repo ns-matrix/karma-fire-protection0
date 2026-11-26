@@ -85,7 +85,8 @@ async function runTests() {
       email: 'test@example.com',
       company: 'Test Co',
       service: 'Fire Hydrant System',
-      message: 'Test message',
+      message: 'First line, with a comma
+Second line with "quoted" text',
       source: 'test',
       ip: 'test-hash'
     });
@@ -93,6 +94,12 @@ async function runTests() {
     assert(lead.id.match(/^KP-\d{4}-\d{4}$/));
     assert.strictEqual(lead.status, 'New');
     assert.strictEqual(lead.name, 'Test User');
+    const saved = csvStore.getLeadById(lead.id);
+    assert.strictEqual(saved.message, 'First line, with a comma
+Second line with "quoted" text');
+    const persisted = fs.readFileSync(path.join(__dirname, 'data-test', 'leads.csv'), 'utf-8');
+    assert(persisted.includes('"First line, with a comma'));
+    assert.strictEqual(csvStore.getLeadById(lead.id).message, saved.message, 'CSV round-trip must preserve embedded newlines and quotes');
   });
 
   await itAsync('getLeads returns paginated, filtered results', async () => {
