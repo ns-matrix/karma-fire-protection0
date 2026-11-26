@@ -11,11 +11,17 @@ const safeUrl = (value) => {
 function unavailable(host, message) { if (host) host.innerHTML = '<p class="managed-empty">'+esc(message)+'</p>'; }
 async function fetchPublic(table, columns, host, orderColumn='sort_order') {
   if (!host) return [];
-  if (!supabase) { unavailable(host, 'Website content could not connect.'); return []; }
-  host.innerHTML='<p class="managed-loading">Loading content…</p>';
-  const {data,error}=await supabase.from(table).select(columns).eq('is_active',true).order(orderColumn,{ascending:true});
-  if(error){console.error('[website-content] '+table,error);unavailable(host,'This section is temporarily unavailable.');return []}
-  if(!data?.length){unavailable(host,'Content will be updated soon.');return []}
+  if (!supabase) { unavailable(host, 'Content is not available right now.'); return []; }
+  // Keep page requests bounded so a slow connection never leaves a spinner forever.
+  host.innerHTML='<p class="managed-loading">Loading…</p>';
+  const request = supabase.from(table).select(columns).eq('is_active',true).order(orderColumn,{ascending:true});
+  let timer;
+  const timeout = new Promise(resolve => { timer=setTimeout(()=>resolve({data:null,error:{message:'Request timed out'}}),3500); });
+  const result = await Promise.race([request,timeout]);
+  clearTimeout(timer);
+  const {data,error}=result;
+  if(error){console.warn('[website-content] '+table,error.message||error);unavailable(host,'Content is temporarily unavailable. Please try again later.');return [];}
+  if(!data?.length){unavailable(host,'No published content yet.');return [];}
   return data;
 }
 function card({title,image,subtitle,description,extra='',link=''}) {
@@ -63,7 +69,14 @@ async function renderProjectPage(){
  if(rows.length)host.innerHTML=rows.map(x=>card({title:x.title,subtitle:[x.client_name,x.category,x.location,x.completion_date].filter(Boolean).join(' · '),description:x.description,image:x.image_url,link:x.project_url})).join('');
 }
 function start(){
- if(!supabase){document.querySelectorAll('[data-managed-content]').forEach(h=>unavailable(h,'Website content is not configured.'));return}
- renderTeam();renderServices();renderProducts();renderProjects();renderTestimonials();renderProjectPage();
+  // Render only the content for the current page. Homepage has no CMS calls.
+  const jobs=[];
+  if(document.getElementById('managed-team')) jobs.push(renderTeam());
+  if(document.getElementById('managed-services')) jobs.push(renderServices());
+  if(document.getElementById('managed-products')) jobs.push(renderProducts());
+  if(document.getElementById('managed-projects')) jobs.push(renderProjects());
+  if(document.getElementById('managed-reviews')) jobs.push(renderTestimonials());
+  if(document.getElementById('managed-projects-page')) jobs.push(renderProjectPage());
+  Promise.allSettled(jobs);
 }
 start();
