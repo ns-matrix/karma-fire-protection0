@@ -59,7 +59,7 @@ create table if not exists public.user_roles (
   department_id uuid references public.departments(id),
   assigned_by uuid references auth.users(id),
   created_at timestamptz not null default now(),
-  primary key(user_id, role_id, department_id)
+  primary key(user_id, role_id)
 );
 
 create table if not exists public.audit_events (
@@ -599,23 +599,57 @@ $$;
 create or replace function private.can_access_module(p_module text,p_action text)
 returns boolean language sql stable security definer set search_path=''
 as $$
+  select private.can_access_record(p_module,p_action,null,null,null)
+$$;
+
+
+-- Common ownership/scope columns let RLS enforce own, assigned, department and all scopes.
+do $
+declare t text;
+begin
+  foreach t in array array[
+    'customers','customer_sites','customer_contacts','site_surveys','survey_responses',
+    'quotations','quotation_items','quotation_approvals','projects','project_milestones',
+    'project_tasks','amc_contracts','service_visits','defects','assets','suppliers','warehouses',
+    'inventory_items','stock_movements','purchase_orders','purchase_order_items',
+    'compliance_documents','tasks','task_comments','record_attachments'
+  ] loop
+    execute format('alter table public.%I add column if not exists owner_user_id uuid references auth.users(id)',t);
+    execute format('alter table public.%I add column if not exists assigned_user_id uuid references auth.users(id)',t);
+    execute format('alter table public.%I add column if not exists department_id uuid references public.departments(id)',t);
+  end loop;
+end $;
+
+create or replace function private.can_access_record(
+  p_module text,p_action text,p_owner uuid,p_assignee uuid,p_department uuid
+) returns boolean
+language sql stable security definer set search_path=''
+as $
   select
     exists(select 1 from public.admin_users a where a.user_id=(select auth.uid()) and a.role in ('admin','super_admin'))
     or exists(
-      select 1
-      from public.user_roles ur
+      select 1 from public.user_roles ur
       join public.role_permissions rp on rp.role_id=ur.role_id
       join public.app_permissions ap on ap.id=rp.permission_id
       where ur.user_id=(select auth.uid())
         and ap.module=p_module and ap.action=p_action
-        and (ur.department_id is null or rp.scope='all' or ur.department_id is not null)
+        and (
+          rp.scope='all'
+          or (rp.scope='own' and p_owner=(select auth.uid()))
+          or (rp.scope='assigned' and p_assignee=(select auth.uid()))
+          or (rp.scope='department' and ur.department_id is not null and ur.department_id=p_department)
+        )
     )
-$$;
+$;
+revoke all on function private.can_access_record(text,text,uuid,uuid,uuid) from public,anon;
+grant execute on function private.can_access_record(text,text,uuid,uuid,uuid) to authenticated;
 
 revoke all on function private.current_karma_role() from public, anon;
 revoke all on function private.can_access_module(text,text) from public, anon;
+revoke all on function private.can_access_record(text,text,uuid,uuid,uuid) from public, anon;
 grant execute on function private.current_karma_role() to authenticated;
 grant execute on function private.can_access_module(text,text) to authenticated;
+grant execute on function private.can_access_record(text,text,uuid,uuid,uuid) to authenticated;
 
 -- Employee/admin directory excludes all Super Admin identities, including from Super Admin listings.
 create or replace view public.admin_directory
@@ -656,28 +690,39 @@ begin
     else
       m:=r.module;
       execute format('drop policy if exists %I on public.%I',r.tbl||'_select',r.tbl);
-      execute format('create policy %I on public.%I for select to authenticated using ((select private.can_access_module(%L,''read'')))',r.tbl||'_select',r.tbl,m);
+      execute format('create policy %I on public.%I for select to authenticated using ((select private.can_access_record(%L,''read'',owner_user_id,assigned_user_id,department_id)))',r.tbl||'_select',r.tbl,m);
       execute format('drop policy if exists %I on public.%I',r.tbl||'_insert',r.tbl);
-      execute format('create policy %I on public.%I for insert to authenticated with check ((select private.can_access_module(%L,''create'')))',r.tbl||'_insert',r.tbl,m);
+      execute format('create policy %I on public.%I for insert to authenticated with check ((select private.can_access_record(%L,''create'',owner_user_id,assigned_user_id,department_id)))',r.tbl||'_insert',r.tbl,m);
       execute format('drop policy if exists %I on public.%I',r.tbl||'_update',r.tbl);
-      execute format('create policy %I on public.%I for update to authenticated using ((select private.can_access_module(%L,''update''))) with check ((select private.can_access_module(%L,''update'')))',r.tbl||'_update',r.tbl,m,m);
+      execute format('create policy %I on public.%I for update to authenticated using ((select private.can_access_record(%L,''update'',owner_user_id,assigned_user_id,department_id))) with check ((select private.can_access_record(%L,''update'',owner_user_id,assigned_user_id,department_id)))',r.tbl||'_update',r.tbl,m,m);
       execute format('drop policy if exists %I on public.%I',r.tbl||'_delete',r.tbl);
-      execute format('create policy %I on public.%I for delete to authenticated using ((select private.can_access_module(%L,''delete'')))',r.tbl||'_delete',r.tbl,m);
+      execute format('create policy %I on public.%I for delete to authenticated using ((select private.can_access_record(%L,''delete'',owner_user_id,assigned_user_id,department_id)))',r.tbl||'_delete',r.tbl,m);
     end if;
   end loop;
 end $$;
 
 -- Super Admin can enumerate standard admin accounts only; ordinary admins can read only their own auth mapping.
 drop policy if exists "Admins can read admin list" on public.admin_users;
-create policy "Admins can read own account or superadmin reads standard admins"
+drop policy if exists "Admins can read own account or superadmin reads standard admins" on public.admin_users;
+create policy "Users read own admin mapping and admins see standard admins"
 on public.admin_users for select to authenticated
 using (
   user_id=(select auth.uid())
-  or (
-    (select private.is_karma_super_admin())
-    and role='admin'
-  )
+  or (role='admin' and (select private.is_karma_admin()))
 );
+drop policy if exists "Admins update standard admin accounts" on public.admin_users;
+create policy "Admins update standard admin accounts"
+on public.admin_users for update to authenticated
+using (role='admin' and (select private.is_karma_admin()))
+with check (role='admin' and (select private.is_karma_admin()));
+drop policy if exists "Admins insert standard admin accounts" on public.admin_users;
+create policy "Admins insert standard admin accounts"
+on public.admin_users for insert to authenticated
+with check (role='admin' and (select private.is_karma_admin()));
+drop policy if exists "Admins delete standard admin accounts" on public.admin_users;
+create policy "Admins delete standard admin accounts"
+on public.admin_users for delete to authenticated
+using (role='admin' and (select private.is_karma_admin()));
 
 -- Directory view is only a convenience projection; underlying RLS remains authoritative.
 grant select on public.admin_directory to authenticated;
