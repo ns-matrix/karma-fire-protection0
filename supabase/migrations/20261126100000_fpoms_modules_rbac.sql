@@ -625,7 +625,7 @@ begin
     execute format('alter table public.%I add column if not exists assigned_user_id uuid references auth.users(id)',t);
     execute format('alter table public.%I add column if not exists department_id uuid references public.departments(id)',t);
   end loop;
-end $;
+end $$;
 
 create or replace function private.can_access_record(
   p_module text,p_action text,p_owner uuid,p_assignee uuid,p_department uuid
@@ -647,7 +647,7 @@ as $$
           or (rp.scope='department' and ur.department_id is not null and ur.department_id=p_department)
         )
     )
-$;
+$$;
 revoke all on function private.can_access_record(text,text,uuid,uuid,uuid) from public,anon;
 grant execute on function private.can_access_record(text,text,uuid,uuid,uuid) to authenticated;
 
