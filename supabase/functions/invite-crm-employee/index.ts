@@ -1,6 +1,12 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
+const ALLOWED_EMPLOYEE_ROLES = new Set([
+  "sales_manager", "sales_executive", "survey_engineer", "project_manager",
+  "project_engineer", "service_manager", "service_technician", "inventory_manager",
+  "compliance_officer", "finance", "website_editor",
+]);
+
 const cors = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -33,7 +39,7 @@ Deno.serve(async (req: Request) => {
     const roleCode = String(body.role_code ?? "").trim();
     const departmentCode = String(body.department_code ?? "").trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || fullName.length < 2) return json({ error: "A valid email and full name are required." }, 400);
-    if (!roleCode || roleCode === "business_admin") return json({ error: "Select a standard employee role." }, 400);
+    if (!ALLOWED_EMPLOYEE_ROLES.has(roleCode)) return json({ error: "Select an approved operational employee role. Privileged and administrator roles cannot be assigned through employee invitations." }, 400);
 
     const [{ data: role }, { data: department }] = await Promise.all([
       admin.from("app_roles").select("id,code").eq("code", roleCode).maybeSingle(),
