@@ -35,12 +35,12 @@
     <button class="nav" data-view="reports">▥ <span>Reports</span></button>
     <button class="nav" data-view="website">▧ <span>Website Manager</span></button>
     <button class="nav" data-view="profile">◉ <span>My Profile</span></button>
-    <div id="super-entry" class="hidden super-entry"><div class="nav-caption">RESTRICTED</div><a href="super-admin.html">◆ Super Admin Control</a></div>
+    <div id="super-entry" class="hidden super-entry"><div class="nav-caption">SYSTEM GOVERNANCE</div><button class="nav" data-view="control">◆ <span>System Control</span></button></div>
     <div class="sidebar-foot"><span class="online-dot"></span> Supabase connected <small id="role-label">Staff</small></div>
   </aside>
   <main class="main">
     <header class="topbar"><div><div class="eyebrow">KARMA FIRE PROTECTION / WORKSPACE</div><h1 id="view-title">Dashboard</h1></div>
-      <div class="top-actions"><span id="user-email" class="muted"></span><button id="refresh" class="btn soft">↻ Refresh</button><button id="logout" class="btn dark">Sign out</button></div>
+      <div class="top-actions"><span id="user-email" class="muted">Authenticated workspace</span><button id="refresh" class="btn soft">↻ Refresh</button><button id="logout" class="btn dark">Sign out</button></div>
     </header>
     <div id="notice" class="notice hidden"></div>
     <section id="view-dashboard" class="view active">
@@ -71,7 +71,20 @@
     </section>
     <section id="view-reports" class="view"><article class="card"><h2>Operational reports</h2><p>Live reports are currently based on the existing enquiry records. More reports will appear as the operations tables are provisioned.</p><div class="report-grid"><div><h3>By service</h3><div id="service-report" class="bars"></div></div><div><h3>By status</h3><div id="status-report" class="bars"></div></div></div></article></section>
     <section id="view-profile" class="view"><article class="card narrow"><h2>My profile</h2><p id="profile-email"></p><p id="profile-role" class="pill"></p><p class="muted">Your access is determined by database-backed authorization. Contact the Super Admin to request access changes.</p></article></section>
-    <section id="view-placeholder" class="view"><article class="card placeholder"><div class="placeholder-icon">◈</div><span class="pill warning">Not activated</span><h2 id="placeholder-title">Module rollout pending</h2><p id="placeholder-copy">This module is included in the approved operating model. Its database schema and access policies must be deployed before records can be created or edited.</p><div class="rollout-note"><b>Why this is gated</b><br>We will not show demo records or save operational data to browser-only storage. This module becomes active after its Supabase tables, RLS policies and workflows are verified.</div></article></section>
+    <section id="view-module" class="view">
+ <article class="card"><div class="card-head"><div><h2 id="module-title">Module</h2><p id="module-description">Operational records protected by database permissions.</p></div><button id="module-add" class="btn primary">＋ New record</button></div>
+ <div class="filters"><input id="module-search" placeholder="Search records…"><button id="module-refresh" class="btn soft">↻ Refresh</button></div>
+ <div class="table-scroll"><table><thead id="module-head"></thead><tbody id="module-rows"><tr><td>Choose a module.</td></tr></tbody></table></div><div id="module-count" class="table-foot"></div></article>
+</section>
+<section id="view-control" class="view">
+ <article class="card"><div class="card-head"><div><h2>System control</h2><p>Restricted governance and platform oversight.</p></div></div>
+ <div class="kpi-grid"><article class="kpi"><span>Standard admins</span><strong id="control-admin-count">—</strong><small>Super Admin identities excluded</small></article><article class="kpi"><span>Employees</span><strong id="control-employee-count">—</strong><small>Active staff profiles</small></article><article class="kpi"><span>Audit events</span><strong id="control-audit-count">—</strong><small>Privileged security history</small></article><article class="kpi"><span>Operational modules</span><strong>9</strong><small>Database provisioned</small></article></div>
+ <div class="content-grid"><article class="card"><h3>Administrator directory</h3><form id="invite-form" class="invite-grid"><label>Email<input id="invite-email" type="email" required></label><label>Display name<input id="invite-name" maxlength="100"></label><button class="btn primary" type="submit">Invite standard admin</button></form><p id="invite-message" role="status"></p><div id="admin-directory" class="content-list"></div></article>
+ <article class="card"><h3>Employee directory</h3><button id="employee-add" class="btn soft">＋ Add employee</button><div id="employee-directory" class="content-list"></div></article></div>
+ <article class="card mt"><h3>Security audit trail</h3><p class="muted">Visible only to Super Admin. Privileged actor identity is not rendered in the member directory.</p><div class="table-scroll"><table><thead><tr><th>Time</th><th>Action</th><th>Module</th><th>Outcome</th><th>Device</th></tr></thead><tbody id="audit-rows"></tbody></table></div></article>
+ </article>
+</section>
+<div id="module-dialog" class="dialog hidden"><form id="module-form" class="dialog-card"><div class="dialog-head"><div><span class="eyebrow">OPERATIONAL RECORD</span><h2 id="module-form-title">New record</h2></div><button type="button" id="module-close" class="icon-btn">×</button></div><div id="module-fields" class="detail-grid"></div><div class="button-row"><button class="btn primary" type="submit">Save record</button><button class="btn soft" type="button" id="module-cancel">Cancel</button></div><p id="module-message" role="status"></p></form></div>
   </main>
 </div>
 <div id="lead-dialog" class="dialog hidden"><form id="lead-edit" class="dialog-card"><div class="dialog-head"><div><span class="eyebrow">ENQUIRY RECORD</span><h2 id="dialog-name">Enquiry details</h2></div><button type="button" id="dialog-close" class="icon-btn">×</button></div><div id="dialog-details" class="detail-grid"></div><label>Status<select id="edit-status"><option>New</option><option>Contacted</option><option>Qualified</option><option>Proposal Sent</option><option>Converted</option><option>Lost</option></select></label><label>Assigned to<input id="edit-assigned" maxlength="160"></label><label>Internal notes<textarea id="edit-notes" rows="4"></textarea></label><div class="button-row"><button class="btn primary" type="submit">Save changes</button><button class="btn soft" type="button" id="dialog-cancel">Cancel</button></div><p id="edit-message" role="status"></p></form></div>
