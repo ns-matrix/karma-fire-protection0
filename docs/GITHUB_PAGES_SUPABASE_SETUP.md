@@ -14,3 +14,14 @@ Create an Auth user first, then insert its UUID and email into `public.admin_use
 3. Sign in at the admin URL with the allow-listed user.
 4. Confirm totals, filters, status updates and CSV export.
 5. Sign out and confirm CRM data is no longer accessible.
+
+
+## Roles and website content management
+
+- `ns077751@gmail.com` is the initial `super_admin` account.
+- Super Admin can invite new Admin users through the secured `invite-crm-admin` Edge Function.
+- Admin users can manage enquiries, social links, team profiles, product catalogue, and service catalogue.
+- Content images are uploaded to the `site-media` Storage bucket. Only authenticated CRM admins can upload, replace, or delete media.
+- Public website pages read only active/published content. Admin mutations are protected by RLS.
+- Extended visitor analytics are super-admin-only and are recorded only after explicit analytics consent.
+- Edge Function source: `supabase/functions/invite-crm-admin/index.ts`.

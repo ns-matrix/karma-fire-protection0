@@ -51,3 +51,19 @@ GitHub Pages publishes the static files from the configured branch/folder. No bu
 - Anonymous public inserts are protected by RLS validation but public browser forms cannot provide the same abuse resistance as a server-side CAPTCHA/rate-limiter. Configure Supabase Auth/abuse controls and add CAPTCHA/Edge Function validation before high-volume production use.
 - Visitor analytics are not yet connected to the admin reporting dashboard in this release; dashboard reports are based on actual enquiries in the database.
 - The Node.js backend, package manifests, Docker files, and custom-domain CNAME have been removed from this branch. The static GitHub Pages application has no Node runtime dependency.
+
+
+## Role-based CRM and website content manager
+
+The CRM has two database-enforced roles:
+
+- **Super Admin** — can manage all CRM/content features and invite additional Admin accounts.
+- **Admin** — can manage enquiries, social links, team members, product catalogue, and service catalogue, but cannot grant administrator access.
+
+The initial verified account `ns077751@gmail.com` is provisioned as `super_admin`. The super-admin controls are intentionally not advertised in the public site navigation; actual authorization is enforced by Supabase RLS and the `invite-crm-admin` Edge Function.
+
+The content manager writes to `team_members`, `products`, `services`, and `social_links`. Uploaded images are stored in the public `site-media` Storage bucket with admin-only upload/update/delete permissions. The home page renders published team, service, and product records from Supabase. Social links are loaded from Supabase on public pages.
+
+Visitor-event analytics are collected only after the visitor explicitly accepts analytics consent. Extended traffic-source/page/session metrics are visible only to the super admin. The existing lead reports remain visible to both roles.
+
+Edge Function source: `supabase/functions/invite-crm-admin/index.ts`.
