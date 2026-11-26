@@ -611,7 +611,7 @@ $$;
 
 
 -- Common ownership/scope columns let RLS enforce own, assigned, department and all scopes.
-do $
+do $$
 declare t text;
 begin
   foreach t in array array[
@@ -631,7 +631,7 @@ create or replace function private.can_access_record(
   p_module text,p_action text,p_owner uuid,p_assignee uuid,p_department uuid
 ) returns boolean
 language sql stable security definer set search_path=''
-as $
+as $$
   select
     exists(select 1 from public.admin_users a where a.user_id=(select auth.uid()) and a.role in ('admin','super_admin'))
     or exists(
