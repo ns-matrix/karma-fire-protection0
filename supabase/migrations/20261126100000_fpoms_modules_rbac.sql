@@ -717,6 +717,7 @@ end $$;
 
 -- Super Admin can enumerate standard admin accounts only; ordinary admins can read only their own auth mapping.
 drop policy if exists "Admins can read admin list" on public.admin_users;
+drop policy if exists "Super admins manage admin list" on public.admin_users;
 drop policy if exists "Admins can read own account or superadmin reads standard admins" on public.admin_users;
 create policy "Users read own admin mapping and admins see standard admins"
 on public.admin_users for select to authenticated
