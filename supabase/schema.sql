@@ -129,6 +129,9 @@ for each row execute function public.set_updated_at();
 -- ROLE-BASED ADMINISTRATION + WEBSITE CONTENT MANAGEMENT
 -- Applied to the connected Supabase project on 2026-11-26.
 -- ============================================================
+create schema if not exists private;
+revoke all on schema private from public,anon;
+grant usage on schema private to authenticated;
 alter table public.admin_users add column if not exists role text not null default 'admin';
 alter table public.admin_users drop constraint if exists admin_users_role_check;
 alter table public.admin_users add constraint admin_users_role_check check (role in ('super_admin','admin'));
@@ -213,6 +216,7 @@ create policy "Admins manage social links" on public.social_links for all to aut
 drop policy if exists "Admins manage site settings" on public.site_settings;
 create policy "Admins manage site settings" on public.site_settings for all to authenticated using((select private.is_karma_admin())) with check((select private.is_karma_admin()));
 
+revoke all on public.team_members,public.products,public.services,public.social_links,public.site_settings from anon;
 grant select on public.team_members,public.products,public.services,public.social_links to anon,authenticated;
 grant select,insert,update,delete on public.team_members,public.products,public.services,public.social_links,public.site_settings to authenticated;
 grant select,insert,update,delete on public.admin_users to authenticated;
