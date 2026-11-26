@@ -201,20 +201,8 @@
         consentState
       };
 
-      const endpoint = '/api/track';
-      const body = JSON.stringify(payload);
+      // Visitor event collection is disabled until a consent-aware Supabase analytics module is configured.
 
-      if (navigator.sendBeacon) {
-        const blob = new Blob([body], { type: 'application/json' });
-        navigator.sendBeacon(endpoint, blob);
-      } else {
-        fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body,
-          keepalive: true
-        }).catch(function () {});
-      }
     } catch (err) {
       // Analytics failures must never affect page functionality
     }

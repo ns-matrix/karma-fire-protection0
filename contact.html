@@ -350,20 +350,17 @@
   <script src="js/main.js" defer></script>
   <script src="js/navigation.js" defer></script>
   <script src="js/validation.js" defer></script>
-  <script src="js/forms.js" defer></script>
-  <script id="social-loader" defer>
-    (async function(){
-      const ld=document.getElementById('social-buttons-loading');
-      const cn=document.getElementById('social-buttons-container');
-      try{
-        const r=await fetch('/api/settings/social');const d=await r.json();
-        if(!d.ok||!d.social)throw new Error('No social data');
-        const s=d.social,b=[];const mk=(k,label,color,def)=>{const v=s[k];if(v&&v.trim())b.push('<a class="btn" href="'+(v.value?v.value:v)+'" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:'+color+';color:#fff;text-decoration:none;border-radius:6px;font-weight:600;margin:4px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2z"/><path d="M16 6.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/><path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>'+label+'</a>');};
-        mk('social_whatsapp','WhatsApp','#25d366');mk('social_instagram','Instagram','#E4405F');mk('social_facebook','Facebook','#1877F2');mk('social_email','Email','#6b7280');
-        b.push('<a class="btn" href="tel:+919594967751" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#d9232d;color:#fff;text-decoration:none;border-radius:6px;font-weight:600;margin:4px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Call Now</a>');
-        if(ld)ld.style.display='none';if(cn){cn.style.display='block';cn.innerHTML=b.join('');}
-        if(s.show_floating_buttons&&s.show_floating_buttons.value==='false'){const st=document.createElement('style');st.textContent='.float-actions{display:none!important;}';document.head.appendChild(st);}
-      }catch(e){console.error('Social error',e);if(ld)ld.textContent='Could not load social links.';}
+  <script src="js/supabase-config.js"></script>
+  <script type="module" src="js/forms.js"></script>
+  <script>
+    (function () {
+      var loading = document.getElementById('social-buttons-loading');
+      var container = document.getElementById('social-buttons-container');
+      if (loading) loading.style.display = 'none';
+      if (container) {
+        container.style.display = 'block';
+        container.innerHTML = '<a class="btn" href="https://wa.me/919594967751" target="_blank" rel="noopener noreferrer">WhatsApp</a> <a class="btn" href="mailto:karmafireprotectionllp@gmail.com">Email</a> <a class="btn" href="tel:+919594967751">Call Now</a>';
+      }
     })();
   </script>
   <script>
