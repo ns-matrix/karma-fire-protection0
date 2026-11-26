@@ -25,7 +25,7 @@ async function authorised(){
 }
 async function recordAudit(action,module="identity"){try{await db.functions.invoke("admin-audit-event",{body:{action,module}})}catch(e){console.warn("Audit gateway unavailable",e)}}
 async function start(){if(await authorised()){showApp();await loadEverything();if(location.hash==="#control"&&role==="super_admin")showView("control")}}
-function canAccess(module,action="read"){if(role==="admin"||role==="super_admin"||role==="business_admin")return true;return modulePermissions.some(p=>p.module===module&&(p.action===action||p.action==="*"))}
+function canAccess(module,action="read"){if(["stock_movements","quotation_approvals"].includes(activeModule)&&(action==="update"||action==="delete"))return false;if(role==="admin"||role==="super_admin"||role==="business_admin")return true;return modulePermissions.some(p=>p.module===module&&(p.action===action||p.action==="*"))}
 function showApp(){
  $("login").classList.add("hidden");$("app").classList.remove("hidden");
  $("user-email").textContent=role==="super_admin"?"":(user.email||"");
