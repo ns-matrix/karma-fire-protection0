@@ -14,13 +14,30 @@ async function fetchPublic(table, columns, host, orderColumn='sort_order') {
   if (!supabase) { unavailable(host, 'Content is not available right now.'); return []; }
   // Keep page requests bounded so a slow connection never leaves a spinner forever.
   host.innerHTML='<p class="managed-loading">Loading…</p>';
-  const request = supabase.from(table).select(columns).eq('is_active',true).order(orderColumn,{ascending:true});
   let timer;
-  const timeout = new Promise(resolve => { timer=setTimeout(()=>resolve({data:null,error:{message:'Request timed out'}}),3500); });
-  const result = await Promise.race([request,timeout]);
-  clearTimeout(timer);
-  const {data,error}=result;
-  if(error){console.warn('[website-content] '+table,error.message||error);unavailable(host,'Content is temporarily unavailable. Please try again later.');return [];}
+  try {
+    const request = supabase.from(table).select(columns).eq('is_active',true).order(orderColumn,{ascending:true});
+    const timeout = new Promise((_, reject) => {
+      timer = setTimeout(() => reject(new Error('Request timed out')), 3500);
+    });
+    const {data,error} = await Promise.race([request,timeout]);
+    if(error) {
+      console.warn('[website-content] '+table,error.message||error);
+      unavailable(host,'Content is temporarily unavailable. Please try again later.');
+      return [];
+    }
+    if(!data?.length) {
+      unavailable(host,'No published content yet.');
+      return [];
+    }
+    return data;
+  } catch(error) {
+    console.warn('[website-content] '+table,error?.message||error);
+    unavailable(host,'Content is temporarily unavailable. Please try again later.');
+    return [];
+  } finally {
+    if(timer) clearTimeout(timer);
+  }
   if(!data?.length){unavailable(host,'No published content yet.');return [];}
   return data;
 }
