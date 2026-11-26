@@ -250,4 +250,16 @@ drop policy if exists "Admins can read visitor events" on public.visitor_events;
 create policy "Super admins can read visitor events" on public.visitor_events for select to authenticated
 using((select private.is_karma_super_admin()));
 
+
+drop trigger if exists team_members_updated_at on public.team_members;
+create trigger team_members_updated_at before update on public.team_members for each row execute function public.set_updated_at();
+drop trigger if exists products_updated_at on public.products;
+create trigger products_updated_at before update on public.products for each row execute function public.set_updated_at();
+drop trigger if exists services_updated_at on public.services;
+create trigger services_updated_at before update on public.services for each row execute function public.set_updated_at();
+drop trigger if exists social_links_updated_at on public.social_links;
+create trigger social_links_updated_at before update on public.social_links for each row execute function public.set_updated_at();
+drop trigger if exists site_settings_updated_at on public.site_settings;
+create trigger site_settings_updated_at before update on public.site_settings for each row execute function public.set_updated_at();
+
 drop function if exists public.is_karma_admin();
