@@ -1,148 +1,88 @@
-/* ============================================
-   LEAD FORM SUBMISSION
-   Posts to backend /api/leads (no secrets here)
-   ============================================ */
-
+/* Supabase-backed public enquiry form. No Node API required. */
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 (function () {
   'use strict';
-
-  const FORM_ID = 'lead-form';
-  const form = document.getElementById(FORM_ID);
-  if (!form || !window.KarmaValidation) return;
-
+  const form = document.getElementById('lead-form');
+  if (!form) return;
+  const cfg = window.KARMA_SUPABASE || {};
+  const configured = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(cfg.url || '') &&
+    cfg.anonKey && !String(cfg.anonKey).includes('YOUR_');
+  const supabase = configured ? createClient(cfg.url, cfg.anonKey) : null;
   const submitBtn = form.querySelector('button[type="submit"]');
   const statusEl = form.querySelector('.form-status');
-  const queryApi = new URLSearchParams(window.location.search).get('api');
-  const savedApi = localStorage.getItem('karma_api_base') || '';
-  const configuredApi = (queryApi || savedApi).trim().replace(/\/+$/, '');
-  if (queryApi) localStorage.setItem('karma_api_base', configuredApi);
-  const isGitHubPages = window.location.hostname.endsWith('github.io');
-  const configuredPath = form.dataset.api || '/api/leads';
-  const API_URL = configuredApi ? configuredApi + (configuredPath.startsWith('/') ? configuredPath : '/' + configuredPath) :
-    (isGitHubPages ? '' : configuredPath);
-
   const RATE_KEY = 'karma_lead_last_submit';
-  const COOLDOWN_MS = 45000; // 45s between submissions from same browser
+  const COOLDOWN_MS = 45000;
 
-  window.KarmaValidation.attachLiveValidation(form);
-
-  function setStatus(type, message) {
+  function status(type, message) {
     if (!statusEl) return;
     statusEl.className = 'form-status ' + type;
     statusEl.textContent = message;
     statusEl.setAttribute('role', type === 'success' ? 'status' : 'alert');
-    statusEl.setAttribute('aria-live', type === 'success' ? 'polite' : 'assertive');
   }
+  function safeStorageGet(key) { try { return sessionStorage.getItem(key); } catch (_) { return null; } }
+  function safeStorageSet(key, value) { try { sessionStorage.setItem(key, value); } catch (_) {} }
 
-  function setLoading(loading) {
-    if (!submitBtn) return;
-    submitBtn.disabled = loading;
-    submitBtn.classList.toggle('loading', loading);
-  }
-
-  function getPayload() {
-    const data = new FormData(form);
-    const payload = {};
-    data.forEach(function (value, key) {
-      payload[key] = typeof value === 'string' ? value.trim() : value;
-    });
-    return payload;
-  }
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    // Duplicate submission prevention
+  if (window.KarmaValidation) window.KarmaValidation.attachLiveValidation(form);
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
     if (submitBtn && submitBtn.disabled) return;
-
-    // Client-side validation (UX only; server re-validates)
-    if (!window.KarmaValidation.validateForm(form)) {
-      setStatus('error', 'Please fix the highlighted fields and try again.');
+    if (window.KarmaValidation && !window.KarmaValidation.validateForm(form)) {
+      status('error', 'Please correct the highlighted fields and try again.');
       return;
     }
-
-    // Honeypot check
-    const honeypot = form.querySelector('input[name="website"]');
-    if (honeypot && honeypot.value) {
-      // Silently pretend success for bots
-      setStatus('success', 'Thank you! Your request has been received. We will get back to you shortly.');
-      form.reset();
+    if (!form.reportValidity()) return;
+    const honeypot = form.querySelector('[name="website"]');
+    if (honeypot && honeypot.value) return;
+    if (!supabase) {
+      status('error', 'The enquiry service is being configured. Please call +91 95949 67751 or email karmafireprotectionllp@gmail.com.');
       return;
     }
-
-    // Simple rate limiting (client-side hint only)
-    const last = Number(sessionStorage.getItem(RATE_KEY) || 0);
+    const last = Number(safeStorageGet(RATE_KEY) || 0);
     if (Date.now() - last < COOLDOWN_MS) {
-      setStatus('error', 'Please wait a moment before submitting another request.');
+      status('error', 'Please wait before submitting another enquiry.');
       return;
     }
-
-    const payload = getPayload();
-
-    // Attach first-party visitor intelligence & marketing attribution
-    if (window.KarmaAnalytics && typeof window.KarmaAnalytics.getAttribution === 'function') {
-      const attr = window.KarmaAnalytics.getAttribution();
-      payload.visitor_uuid = attr.visitorUuid;
-      payload.session_uuid = attr.sessionUuid;
-      payload.landing_page = attr.landingPage;
-      payload.source = attr.source || 'Website';
-      payload.medium = attr.medium;
-      payload.campaign = attr.campaign;
-    } else {
-      payload.source = 'Website';
-    }
-
-    setLoading(true);
-    setStatus('success', '');
-
+    const data = Object.fromEntries(new FormData(form).entries());
+    const attr = window.KarmaAnalytics && window.KarmaAnalytics.getAttribution
+      ? window.KarmaAnalytics.getAttribution() : {};
+    const payload = {
+      name: String(data.name || '').trim(),
+      phone: String(data.phone || '').trim(),
+      email: String(data.email || '').trim().toLowerCase(),
+      company: String(data.company || '').trim() || null,
+      building_type: String(data.building_type || ''),
+      service: String(data.service || ''),
+      location: String(data.location || '').trim(),
+      message: String(data.message || '').trim() || null,
+      contact_method: String(data.contact_method || 'Phone Call'),
+      consent: data.consent === 'yes',
+      source: attr.source || 'Website',
+      medium: attr.medium || null,
+      campaign: attr.campaign || null,
+      landing_page: attr.landingPage || location.pathname,
+      visitor_uuid: attr.visitorUuid || null,
+      session_uuid: attr.sessionUuid || null
+    };
+    if (!payload.consent) { status('error', 'Please provide consent before submitting.'); return; }
+    if (submitBtn) submitBtn.disabled = true;
+    status('', 'Submitting your enquiry…');
     try {
-      if (!API_URL) {
-        throw new Error('The enquiry service is not connected yet. The website is hosted on GitHub Pages, which cannot run the Node.js API. Please configure the deployed backend URL before accepting enquiries.');
-      }
-      const res = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const contentType = res.headers.get('content-type') || '';
-      if (!contentType.includes('application/json')) {
-        await res.text();
-        throw new Error('The enquiry API returned a webpage instead of JSON (HTTP ' + res.status + '). Check the backend URL and deployment.');
-      }
-      const result = await res.json();
-
-      if (!res.ok || !result.ok) {
-        throw new Error(result.message || 'Submission failed. Please try again.');
-      }
-
-      sessionStorage.setItem(RATE_KEY, String(Date.now()));
-      setStatus('success', result.message || 'Thank you! Your request has been received. We will get back to you shortly.');
+      const { data: saved, error } = await supabase.from('leads').insert(payload).select('id,lead_number').single();
+      if (error) throw error;
+      safeStorageSet(RATE_KEY, String(Date.now()));
+      status('success', 'Thank you. Your enquiry has been received. Our team will contact you shortly. Reference: KP-' + saved.lead_number);
       form.reset();
-      form.querySelectorAll('.form-group').forEach(function (g) {
-        g.classList.remove('invalid');
-        const err = g.querySelector('.field-error');
+      form.querySelectorAll('.form-group').forEach(group => {
+        group.classList.remove('invalid');
+        const err = group.querySelector('.field-error');
         if (err) err.textContent = '';
       });
-
-      if (result.leadId) {
-        console.info('Lead saved:', result.leadId);
-        // Dispatch custom analytics conversion event (for GA4 / tag managers)
-        try {
-          if (window.dataLayer && Array.isArray(window.dataLayer)) {
-            window.dataLayer.push({
-              event: 'generate_lead',
-              lead_id: result.leadId,
-              service: payload.service
-            });
-          }
-          window.dispatchEvent(new CustomEvent('karma_lead_submitted', { detail: { leadId: result.leadId } }));
-        } catch (_) {}
-      }
-    } catch (err) {
-      setStatus('error', err.message || 'Something went wrong. Please try again or call us directly.');
+      window.dispatchEvent(new CustomEvent('karma_lead_submitted', { detail: { leadId: saved.id } }));
+    } catch (error) {
+      console.error('Karma lead submission failed:', error);
+      status('error', 'We could not submit your enquiry right now. Please call +91 95949 67751 or try again later.');
     } finally {
-      setLoading(false);
+      if (submitBtn) submitBtn.disabled = false;
     }
   });
 })();
