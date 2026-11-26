@@ -80,6 +80,15 @@
 </section>
 <section id="view-team" class="view"><article class="card"><div class="card-head"><div><h2>Team & administrators</h2><p>Manage standard admin accounts and employee profiles. Super Admin identities are excluded from this directory.</p></div><button id="employee-add" class="btn soft">＋ Add employee</button></div>
 <form id="invite-form" class="invite-grid"><label>Admin email<input id="invite-email" type="email" required></label><label>Display name<input id="invite-name" maxlength="100"></label><button class="btn primary" type="submit">Invite standard admin</button></form><p id="invite-message" role="status"></p>
+<div class="divider"></div>
+<form id="employee-invite-form" class="invite-grid">
+<label>Employee email<input id="employee-email" type="email" required></label>
+<label>Full name<input id="employee-full-name" maxlength="120" required></label>
+<label>Job title<input id="employee-job-title" maxlength="100"></label>
+<label>Department<select id="employee-department" required></select></label>
+<label>Role<select id="employee-role" required></select></label>
+<button class="btn soft" type="submit">Invite employee</button>
+</form><p id="employee-invite-message" role="status"></p>
 <div class="content-grid"><article class="card"><h3>Standard administrators</h3><div id="admin-directory" class="content-list"></div></article><article class="card"><h3>Employees</h3><div id="employee-directory" class="content-list"></div></article></div></article></section>
 <section id="view-control" class="view">
  <article class="card"><div class="card-head"><div><h2>System control</h2><p>Restricted governance and platform oversight.</p></div></div>
