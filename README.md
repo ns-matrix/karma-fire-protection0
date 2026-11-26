@@ -50,4 +50,4 @@ GitHub Pages publishes the static files from the configured branch/folder. No bu
 - Supabase setup is separate from GitHub Pages. Until the project URL/key and SQL schema are configured, enquiry submission and admin sign-in remain intentionally disabled with a clear setup message.
 - Anonymous public inserts are protected by RLS validation but public browser forms cannot provide the same abuse resistance as a server-side CAPTCHA/rate-limiter. Configure Supabase Auth/abuse controls and add CAPTCHA/Edge Function validation before high-volume production use.
 - Visitor analytics are not yet connected to the admin reporting dashboard in this release; dashboard reports are based on actual enquiries in the database.
-- Existing Node/CSV implementation is retained only as legacy source during migration and is not loaded or required by GitHub Pages.
+- The Node.js backend, package manifests, Docker files, and custom-domain CNAME have been removed from this branch. The static GitHub Pages application has no Node runtime dependency.
