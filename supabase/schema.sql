@@ -191,7 +191,7 @@ alter table public.site_settings enable row level security;
 
 drop policy if exists "Admins can read admin list" on public.admin_users;
 create policy "Admins can read admin list" on public.admin_users
-for select to authenticated using((select private.is_karma_admin()));
+for select to authenticated using(user_id=(select auth.uid()) or (select private.is_karma_super_admin()));
 drop policy if exists "Super admins manage admin list" on public.admin_users;
 create policy "Super admins manage admin list" on public.admin_users
 for all to authenticated using((select private.is_karma_super_admin()))
@@ -247,7 +247,7 @@ drop policy if exists "Admins can delete leads" on public.leads;
 create policy "Admins can delete leads" on public.leads for delete to authenticated
 using((select private.is_karma_admin()));
 drop policy if exists "Admins can read visitor events" on public.visitor_events;
-create policy "Admins can read visitor events" on public.visitor_events for select to authenticated
-using((select private.is_karma_admin()));
+create policy "Super admins can read visitor events" on public.visitor_events for select to authenticated
+using((select private.is_karma_super_admin()));
 
 drop function if exists public.is_karma_admin();
