@@ -85,8 +85,7 @@ async function runTests() {
       email: 'test@example.com',
       company: 'Test Co',
       service: 'Fire Hydrant System',
-      message: 'First line, with a comma
-Second line with "quoted" text',
+      message: 'First line, with a comma\nSecond line with "quoted" text',
       source: 'test',
       ip: 'test-hash'
     });
@@ -95,8 +94,7 @@ Second line with "quoted" text',
     assert.strictEqual(lead.status, 'New');
     assert.strictEqual(lead.name, 'Test User');
     const saved = csvStore.getLeadById(lead.id);
-    assert.strictEqual(saved.message, 'First line, with a comma
-Second line with "quoted" text');
+    assert.strictEqual(saved.message, 'First line, with a comma\nSecond line with "quoted" text');
     const persisted = fs.readFileSync(path.join(__dirname, 'data-test', 'leads.csv'), 'utf-8');
     assert(persisted.includes('"First line, with a comma'));
     assert.strictEqual(csvStore.getLeadById(lead.id).message, saved.message, 'CSV round-trip must preserve embedded newlines and quotes');
