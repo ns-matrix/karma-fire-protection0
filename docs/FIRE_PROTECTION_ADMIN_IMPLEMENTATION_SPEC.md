@@ -3,7 +3,7 @@
 **Status:** Approved architecture / implementation blueprint  
 **Repository:** `ns-matrix/karma-fire-protection0`  
 **Current deployment model:** GitHub Pages static frontend + Supabase Auth, Postgres, Storage and Edge Functions  
-**Architecture decisions:** Full fire-protection management system; departmental permissions; Operations first; Developer Super Admin hidden from ordinary navigation.
+**Architecture decisions:** Full fire-protection management system; departmental permissions; Operations first; one shared login/dashboard with role-specific sections and database-enforced Super Admin identity isolation.
 
 ---
 
@@ -36,7 +36,7 @@ The system must retain the existing public website and current CRM records. Buil
 - Supabase provides Auth, PostgreSQL, Storage and Edge Functions.
 - Browser code must use only the Supabase publishable key.
 - Service/secret keys remain in Supabase Edge Function secrets and must never enter GitHub Pages assets.
-- Current admin entry point: `backend/telegram-leads/admin/`.
+- Current admin entry point: `backend/telegram-leads/admin-v2/` (the legacy `admin/` path redirects here).
 - Existing public content tables: `team_members`, `products`, `services`, `social_links`, `site_settings`.
 - Existing operational/analytics tables: `leads`, `visitor_events`, `admin_users`.
 - Existing Storage bucket: `site-media`.
@@ -409,37 +409,44 @@ Continue consent-based visitor events. Join enquiries to attribution using visit
 
 ---
 
-## 7. Hidden Developer Super Admin control plane
+## 7. One shared role-aware admin portal
 
-The Developer Super Admin is deliberately **not part of the ordinary admin navigation**.
+All users enter through the same login page and dashboard shell at `backend/telegram-leads/admin-v2/`. The legacy `backend/telegram-leads/admin/` path redirects to this portal. There are no separate login pages or separately maintained dashboards. After authentication, the database role resolver enables only the sections allowed for that role.
 
-### Visibility requirements
+### Super Admin view
 
-- No super-admin label, icon, menu item, public link, sitemap entry or ordinary dashboard card.
-- No visible “switch to super admin” action for regular admins.
-- A separate unadvertised route may be used for the developer console, but route secrecy is only a UX choice.
-- Do not leak its route or capabilities through ordinary API responses, navigation payloads or error messages.
+- System-wide operational analytics and governance controls.
+- Standard Admin directory and employee directory.
+- Security audit trail, including actor/action/time and available request IP/device metadata.
+- Role catalogue and permission-grant management.
+- Super Admin's own identity/profile must not be displayed, including in member lists, employee profiles, role mappings or audit actor labels.
 
-### Authorization requirements
+### Standard Admin view
 
-- Existing owner account remains the initial super-admin.
-- Only a super-admin can access the developer route and its APIs.
-- Re-check role and permission server-side on every privileged request.
-- Require MFA for super-admin access before production use.
-- Admin invitations must create ordinary Admin accounts only; never allow the invite payload to select a privileged role.
-- Role grants/revocations require re-authentication, reason capture and immutable audit event.
-- Protect against self-lockout and prevent removing/demoting the final active super-admin.
-- Rotate the exposed secret key previously shared in chat; it must never be placed in frontend code or committed.
+- Operational modules and records.
+- Invitation of standard Admin accounts and employees.
+- View/manage standard Admin and employee records as permitted.
+- No access to Super Admin identity, email, profile, role mapping or audit history. This must hold through direct PostgREST/API requests, not merely hidden UI elements.
 
-### Developer console capabilities
+### Database authorization requirements
 
-- invite/deactivate admin accounts;
-- role and permission management;
-- audit log search;
-- system health and failed job view;
-- integration configuration status (not secret values);
-- data retention/export controls;
-- security events and recent privileged operations.
+- Super Admin identity exclusion must use a private SECURITY DEFINER predicate, because querying `admin_users` directly from an RLS policy is itself subject to the caller's RLS filter and can fail open.
+- Apply the predicate to `admin_users`, `admin_directory`, `employee_profiles` (by Auth UUID and email), `user_roles`, and any other identity directory.
+- Audit reads are Super Admin-only. Normal Admins cannot query audit events directly.
+- Only the true Super Admin mapping in `admin_users` can grant Super Admin authority. A `user_roles` label must never promote a user to Super Admin.
+- Only Super Admin can mutate system roles, permission definitions or role-permission grants.
+- Admin invitations always create `admin`; employee invitations accept only an explicit allowlist of operational roles. Never accept role codes from an untrusted request without server-side validation.
+- Require MFA for Super Admin access before production use.
+- Protect against self-lockout and prevent removing/demoting the final active Super Admin.
+- Rotate the exposed secret key previously shared in chat; it must never be placed in frontend code, GitHub or documentation.
+
+### Shared portal capabilities
+
+- Admin/employee invitations and directory management, with Super Admin identity excluded.
+- Super Admin-only audit and system health views.
+- Role and permission management restricted to the Super Admin.
+- Integration configuration status (never secret values).
+- Data retention/export controls with explicit authorization.
 
 Do not add arbitrary SQL execution, secret display, or unrestricted production data export to the UI.
 
@@ -796,7 +803,7 @@ Storage policies must check the linked business record's department/assignment p
 1. Business/operations analytics.
 2. Notification automation.
 3. Audit log and system health.
-4. Hidden Developer Super Admin console with MFA.
+4. Super Admin-only governance section inside the shared portal, with MFA.
 
 ### Release 7 — Public website and polish
 1. Product/service/team publication workflow.
