@@ -303,6 +303,7 @@
 
     document.getElementById('btn-consent-accept').addEventListener('click', function () {
       setConsentState('granted');
+      trackPageView();
     });
 
     document.getElementById('btn-consent-decline').addEventListener('click', function () {
