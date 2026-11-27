@@ -27,10 +27,9 @@ function card({title,image,subtitle,description,extra='',link=''}) {
 }
 async function renderTeam(){
  const host=document.getElementById('managed-team'); if(!host)return;
- const rows=await fetchPublic('team_members','id,team_name,name,role_title,bio,image_url,sort_order,is_active',host);
+ const rows=await fetchPublic('team_members','id,name,role_title,bio,image_url,sort_order,is_active',host);
  if(!rows.length)return;
- const groups=new Map();
- rows.forEach(member=>{const team=(member.team_name||'Our Team').trim()||'Our Team';if(!groups.has(team))groups.set(team,[]);groups.get(team).push(member)});
+ const groups=new Map([['Our Team',rows]]);
  host.classList.add('managed-team-groups');
  host.innerHTML=Array.from(groups.entries()).map(([team,members])=>
   '<section class="managed-team-group"><div class="managed-team-heading"><span>OUR PEOPLE</span><h3>'+esc(team)+'</h3></div><div class="managed-grid">'+
