@@ -90,3 +90,15 @@ test("login uses Supabase password authentication and the database role resolver
   assert.match(js, /rpc\("resolve_current_role"\)/);
   assert.match(js, /This account has no active admin or employee role/);
 });
+
+
+test("current admin queries contain no removed team_name or biography columns", () => {
+  const admin = read("backend/telegram-leads/admin-v2/js/admin.js");
+  assert.doesNotMatch(admin, /team_name|biography/);
+});
+
+test("admin login page loads the shared Supabase config and active admin module", () => {
+  const html = read("backend/telegram-leads/admin-v2/index.html");
+  assert.match(html, /src="\.\.\/\.\.\/\.\.\/js\/supabase-config\.js"/);
+  assert.match(html, /type="module" src="js\/admin\.js"/);
+});
