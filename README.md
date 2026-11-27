@@ -15,12 +15,17 @@ Both application URLs use the GitHub Pages host. The admin panel has one shared 
 - HTML/CSS/vanilla JavaScript: public website and admin UI.
 - Supabase Auth: admin sign-in.
 - Supabase Postgres: enquiries, CRM operations, website content, CMS versions, visitor analytics and audit records.
-- Row Level Security (RLS): public visitors can only INSERT enquiries; only allow-listed admin users can read/update/delete CRM data.
+- Row Level Security (RLS): public visitors can read active published website content and insert validated enquiries/consented analytics events; they cannot read CRM leads, CMS drafts, visitor identities or audit records. Admin and employee operations are restricted by database role and row scope.
 - Browser uses only the Supabase publishable/anon key. Never expose a service-role key.
 
 ## One-time Supabase setup
-1. Create a Supabase project.
-2. Link the repository to the intended project and inspect migration history with `supabase migration list` before applying SQL.
+1. Use the existing Supabase project for the current deployment, or create a separate development project.
+2. Authenticate and link the repository, then inspect migration history before applying SQL:
+   ```bash
+   supabase login
+   supabase link --project-ref YOUR_PROJECT_REF
+   supabase migration list
+   ```
 3. **Migration history must be reconciled before a fresh database push.** The connected live project currently has 22 applied migration records, while this repository contains 21 migration files with different version timestamps/names. Do not blindly run `supabase db push` or re-run `supabase/schema.sql` against the existing project; that could create migration drift or reapply schema changes. Reconcile the baseline, preview with `supabase db push --dry-run`, then apply only after the plan is verified.
 4. In Authentication → Users, create the admin user with a strong password.
 5. Copy that user's UUID and email. Run:
