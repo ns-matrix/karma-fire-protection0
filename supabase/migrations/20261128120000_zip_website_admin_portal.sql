@@ -55,6 +55,7 @@ drop policy if exists "Admins manage public testimonials" on public.public_testi
 create policy "Website roles manage public testimonials" on public.public_testimonials for all to authenticated
  using((select private.can_manage_website_content())) with check((select private.can_manage_website_content()));
 
+grant insert on public.leads to anon,authenticated;
 grant insert on public.public_testimonials to anon,authenticated;
 drop policy if exists "Public can submit pending testimonials" on public.public_testimonials;
 create policy "Public can submit pending testimonials" on public.public_testimonials for insert to anon,authenticated
