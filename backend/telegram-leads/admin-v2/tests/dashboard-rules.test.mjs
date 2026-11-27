@@ -23,7 +23,7 @@ test("Team Member metrics are limited to granted modules", () => {
 test("Admin receives operational metrics but no audit metric", () => {
   const keys = dashboardMetrics("admin").map((item) => item.key);
   assert.ok(keys.includes("leads"));
-  assert.ok(keys.includes("employees"));
+  assert.ok(keys.includes("customers"));
   assert.ok(!keys.includes("audit"));
 });
 
