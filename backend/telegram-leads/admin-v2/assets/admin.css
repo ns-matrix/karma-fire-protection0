@@ -168,3 +168,11 @@ tbody tr:hover{background:#F8FAFC}
   .rd-welcome{align-items:flex-start;flex-direction:column}
   .rd-date{text-align:left;min-width:0}
 }
+
+
+/* Desktop shell measurements from the reference system. */
+@media(min-width:1024px){
+  .sidebar{width:240px}
+  .main{margin-left:240px;padding:24px 28px 48px}
+  .topbar{position:sticky;top:0;z-index:12;min-height:56px;padding:10px 0 14px;background:#F4F7FC}
+}
