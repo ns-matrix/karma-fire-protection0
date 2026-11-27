@@ -143,20 +143,12 @@ function render(role, metrics, values, tasks, visits, enquiries, audit) {
     </article>`);
   }
 
-  if (can("tasks") || can("service")) {
+  if (can("tasks") || can("service") || mode === "super_admin") {
     panels.push(`<article class="rd-panel">
       <div class="rd-panel-head"><div><span class="rd-eyebrow">OPERATIONS</span><h3>Upcoming work</h3></div></div>
       ${can("tasks") ? `<div class="rd-subsection"><div class="rd-subhead"><b>Tasks</b><span>${Array.isArray(tasks) ? tasks.length : "!"}</span></div><div class="rd-list">${renderTasks(tasks)}</div></div>` : ""}
       ${can("service") ? `<div class="rd-subsection"><div class="rd-subhead"><b>Service visits</b><span>${Array.isArray(visits) ? visits.length : "!"}</span></div><div class="rd-list">${renderVisits(visits)}</div></div>` : ""}
-    </article>`);
-  }
-
-  if (mode === "super_admin") {
-    panels.push(`<article class="rd-panel rd-audit-panel">
-      <div class="rd-panel-head"><div><span class="rd-eyebrow">SUPER ADMIN</span><h3>Recent security activity</h3></div>
-        <button type="button" class="rd-link" data-open-view="control">View audit →</button>
-      </div>
-      <div class="rd-list">${renderAudit(audit)}</div>
+      ${mode === "super_admin" ? `<div class="rd-subsection"><div class="rd-subhead"><b>Recent security activity</b><button type="button" class="rd-link" data-open-view="control">View audit →</button></div><div class="rd-list">${renderAudit(audit)}</div></div>` : ""}
     </article>`);
   }
 
