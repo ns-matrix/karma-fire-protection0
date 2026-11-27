@@ -24,3 +24,5 @@ window.handleLeadSubmit=submitLead;window.handleReviewSubmit=submitReview;
 window.setReviewRating=n=>{rating=Math.max(1,Math.min(5,Number(n)||5));$$('.rev-star').forEach((b,i)=>{b.classList.toggle('text-warning',i<rating);b.classList.toggle('text-light-outline-variant',i>=rating)})};
 const originalConsent=window.setCookieConsent;window.setCookieConsent=level=>{if(typeof originalConsent==='function')originalConsent(level);saveConsent(level)};
 loadPublicContent().then(()=>{const route=location.hash.replace(/^#/,'');if(route&&['home','about','services','projects','contact','privacy-policy'].includes(route))window.navigateTo?.(route)}).catch(e=>console.error('[Karma public]',e));
+
+window.addEventListener('popstate',()=>{const route=location.hash.replace(/^#/,'');if(['home','about','services','projects','contact','privacy-policy'].includes(route))window.navigateTo?.(route)});
