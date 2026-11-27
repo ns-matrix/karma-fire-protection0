@@ -20,7 +20,8 @@ test("dashboard only renders security activity for Super Admin", () => {
   assert.doesNotMatch(dashboard, /actor_user_id|privileged email/i);
 });
 
-test("legacy dashboard cards are hidden when role-aware dashboard loads", () => {
-  assert.match(dashboard, /legacy\.forEach/);
-  assert.match(html, /id="role-dashboard-root"/);
+test("dashboard markup has one clean root with no old duplicate panels", () => {
+  const dashboardSection = html.match(/<section id="view-dashboard"[\\s\\S]*?<\\/section>/)?.[0] || "";
+  assert.match(dashboardSection, /id="role-dashboard-root"/);
+  assert.doesNotMatch(dashboardSection, /class="welcome"|kpi-grid|content-grid|module-grid|data-tab/);
 });
