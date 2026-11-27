@@ -115,3 +115,43 @@
 @media(max-width:1100px){.rd-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.rd-welcome{padding:19px;gap:12px}.rd-welcome h2{font-size:21px}.rd-date{text-align:left}.rd-grid{grid-template-columns:1fr}.rd-panel{padding:15px}}
 @media(max-width:420px){.rd-kpi{padding:12px}.rd-kpi strong{font-size:23px}.rd-kpi-label{font-size:11px}}
+
+/* Login reference design — scoped to the login screen only */
+.login-reference{min-height:100vh;padding:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);place-items:stretch;background:#f4f7fc;color:#0f172a}
+.login-reference .login-hero{position:relative;min-height:100vh;overflow:hidden;display:flex;background:#0b1120;color:#f1f5f9;padding:32px;isolation:isolate}
+.login-reference .login-hero-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.login-reference .login-hero-shade{position:absolute;inset:0;background:linear-gradient(110deg,rgba(11,17,32,.96),rgba(11,17,32,.76) 55%,rgba(11,17,32,.42));z-index:-0}
+.login-reference .login-hero-content{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between;width:100%;gap:36px}
+.login-reference .login-brand{display:flex;align-items:center;gap:12px;color:#f8fafc}
+.login-reference .login-brand-shield{display:grid;place-items:center;width:42px;height:42px;border-radius:9px;background:#0f244a;border:1px solid #64748b}
+.login-reference .login-brand-shield svg{width:27px;height:27px}
+.login-reference .login-brand strong{display:block;font:600 20px Jost,Manrope,sans-serif;line-height:1.15}
+.login-reference .login-brand small{display:block;font-size:13px;color:#cbd5e1;margin-top:3px}
+.login-reference .login-hero-message{margin:auto 0;max-width:500px}
+.login-reference .login-hero-message h2{font:700 clamp(32px,3.4vw,48px)/1.18 Jost,Manrope,sans-serif;letter-spacing:-.035em;margin:0 0 18px;color:#f8fafc}
+.login-reference .login-hero-message h2 span{color:#e8edf5}
+.login-reference .login-hero-message p{font-size:16px;line-height:1.65;color:#cbd5e1;margin:0}
+.login-reference .login-hero-pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:520px}
+.login-reference .login-hero-pillars>div{display:flex;flex-direction:column;gap:9px}
+.login-reference .login-hero-pillars .material-symbols-outlined{font-size:25px;color:#f8fafc}
+.login-reference .login-hero-pillars p{font-size:12px;line-height:1.5;color:#f1f5f9;margin:0;font-weight:600}
+.login-reference .login-hero-copyright{font-size:12px;color:#aab8c8;margin:0}
+.login-reference .login-form-panel{display:flex;align-items:center;justify-content:center;padding:clamp(24px,5vw,68px);background:#fff}
+.login-reference .login-card{width:min(100%,440px);padding:0;border:0;border-radius:0;box-shadow:none;background:transparent}
+.login-reference .login-form-heading{text-align:center;margin-bottom:32px}
+.login-reference .login-form-heading h1{font:600 28px/1.3 Jost,Manrope,sans-serif;letter-spacing:-.02em;color:#0f172a;margin:0 0 7px}
+.login-reference .login-form-heading p{font-size:14px;color:#64748b;margin:0}
+.login-reference .login-security-note{font-size:11px;line-height:1.55;color:#7b8798;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:11px 13px;margin:0 0 24px}
+.login-reference .login-card label{font-size:13px;font-weight:600;color:#334155;margin:18px 0 7px}
+.login-reference .login-input-wrap{position:relative;display:flex;align-items:center}
+.login-reference .login-input-wrap>span{position:absolute;left:12px;color:#94a3b8;font-size:20px;pointer-events:none}
+.login-reference .login-input-wrap input{width:100%;padding:13px 14px 13px 42px;border-radius:8px;border:1px solid #dce4f0;background:#f8fafc;color:#0f172a;font-size:14px;outline:none;transition:border-color .15s,box-shadow .15s}
+.login-reference .login-input-wrap input::placeholder{color:#94a3b8}
+.login-reference .login-input-wrap input:focus{border-color:#0f244a;box-shadow:0 0 0 3px #0f244a18;background:#fff}
+.login-reference .login-submit{margin-top:25px;width:100%;min-height:48px;background:#0f244a;color:#fff;border-radius:8px;font-size:14px;display:flex;gap:9px}
+.login-reference .login-submit .material-symbols-outlined{font-size:20px}
+.login-reference .login-submit:hover{background:#1c2f56}
+.login-reference .login-card .error{min-height:0;margin:0;text-align:center}
+.login-reference .login-help{text-align:center;font-size:12px;color:#64748b;margin:26px 0 0}
+@media(max-width:900px){.login-reference{grid-template-columns:1fr}.login-reference .login-hero{min-height:430px;padding:26px}.login-reference .login-hero-content{gap:26px}.login-reference .login-hero-message h2{font-size:36px}.login-reference .login-hero-pillars{gap:12px}.login-reference .login-form-panel{padding:40px 24px 52px}}
+@media(max-width:520px){.login-reference .login-hero{min-height:380px;padding:22px}.login-reference .login-hero-message h2{font-size:31px}.login-reference .login-hero-message p{font-size:14px}.login-reference .login-hero-pillars p{font-size:11px}.login-reference .login-form-panel{padding:34px 22px 42px}.login-reference .login-form-heading h1{font-size:26px}}
