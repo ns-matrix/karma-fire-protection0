@@ -82,7 +82,7 @@ The rebuild migration is:
 
 `supabase/migrations/20261128120000_zip_website_admin_portal.sql`
 
-It adds the website settings table, content-management permissions, review moderation fields and demo website content. The migration SQL has been applied directly to the connected Supabase project and the live role/RLS behaviour was checked; this new migration has not yet been registered in the remote migration history. The repository and remote migration history had a pre-existing timestamp/name mismatch, so reconcile `supabase migration list` and mark/reconcile the applied version before running `supabase db push`. Do not blindly replay the entire historical migration set against the existing production project.
+It adds the website settings table, content-management permissions, review moderation fields and demo website content. The migration SQL has been applied directly to the connected Supabase project and the live role/RLS behaviour was checked; this new migration has not yet been registered in the remote migration history. Its seed inserts use conflict-do-nothing semantics so a future re-run will not overwrite admin-edited content. The repository and remote migration history had a pre-existing timestamp/name mismatch, so reconcile `supabase migration list` and mark/reconcile the applied version before running `supabase db push`. Do not blindly replay the entire historical migration set against the existing production project.
 
 For a new development project, configure the project URL and publishable key in `js/supabase-config.js`, apply the schema/migrations in order, and set the Supabase Auth Site URL and Redirect URLs to:
 
