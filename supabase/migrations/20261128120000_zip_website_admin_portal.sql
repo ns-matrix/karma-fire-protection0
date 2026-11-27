@@ -37,21 +37,27 @@ create policy website_site_settings_content_admin on public.website_site_setting
  using((select private.can_manage_website_content())) with check((select private.can_manage_website_content()));
 
 drop policy if exists "Admins manage team" on public.team_members;
+drop policy if exists "Website roles manage team" on public.team_members;
 create policy "Website roles manage team" on public.team_members for all to authenticated
  using((select private.can_manage_website_content())) with check((select private.can_manage_website_content()));
 drop policy if exists "Admins manage products" on public.products;
+drop policy if exists "Website roles manage products" on public.products;
 create policy "Website roles manage products" on public.products for all to authenticated
  using((select private.can_manage_website_content())) with check((select private.can_manage_website_content()));
 drop policy if exists "Admins manage services" on public.services;
+drop policy if exists "Website roles manage services" on public.services;
 create policy "Website roles manage services" on public.services for all to authenticated
  using((select private.can_manage_website_content())) with check((select private.can_manage_website_content()));
 drop policy if exists "Admins manage social links" on public.social_links;
+drop policy if exists "Website roles manage social links" on public.social_links;
 create policy "Website roles manage social links" on public.social_links for all to authenticated
  using((select private.can_manage_website_content())) with check((select private.can_manage_website_content()));
 drop policy if exists "Admins manage public portfolio projects" on public.public_portfolio_projects;
+drop policy if exists "Website roles manage public portfolio projects" on public.public_portfolio_projects;
 create policy "Website roles manage public portfolio projects" on public.public_portfolio_projects for all to authenticated
  using((select private.can_manage_website_content())) with check((select private.can_manage_website_content()));
 drop policy if exists "Admins manage public testimonials" on public.public_testimonials;
+drop policy if exists "Website roles manage public testimonials" on public.public_testimonials;
 create policy "Website roles manage public testimonials" on public.public_testimonials for all to authenticated
  using((select private.can_manage_website_content())) with check((select private.can_manage_website_content()));
 
@@ -76,7 +82,7 @@ begin
  or jsonb_array_length(coalesce(p_content->'sections','[]'::jsonb))>30 then raise exception 'Invalid CMS content'; end if;
  insert into public.website_cms_drafts(slug,content,updated_by,updated_at)
  values(p_slug,p_content,auth.uid(),now())
- on conflict(slug) do update set content=excluded.content,updated_by=excluded.updated_by,updated_at=now();
+ on conflict(slug) do nothing;
 end $function$;
 
 create or replace function public.cms_publish_page(p_slug text)
@@ -90,21 +96,7 @@ begin
  select coalesce(max(version_no),0)+1 into v from public.website_cms_versions where slug=p_slug;
  insert into public.website_cms_versions(slug,version_no,content,published_by) values(p_slug,v,c,auth.uid());
  insert into public.website_cms_published(slug,version_no,content,published_at)
- values(p_slug,v,c,now()) on conflict(slug) do update set version_no=excluded.version_no,content=excluded.content,published_at=now();
- return v;
-end $function$;
-
-create or replace function public.cms_restore_version(p_slug text,p_version integer)
-returns void language plpgsql security definer set search_path='public','private'
-as $function$
-declare c jsonb;
-begin
- if not private.can_manage_website_content() then raise exception 'Access denied'; end if;
- select content into c from public.website_cms_versions where slug=p_slug and version_no=p_version;
- if c is null then raise exception 'Version not found'; end if;
- insert into public.website_cms_drafts(slug,content,updated_by,updated_at)
- values(p_slug,c,auth.uid(),now())
- on conflict(slug) do update set content=excluded.content,updated_by=excluded.updated_by,updated_at=now();
+ values(p_slug,v,c,now()) on conflict(slug) do nothing;
 end $function$;
 
 revoke all on function public.cms_save_draft(text,jsonb) from public,anon;
@@ -127,9 +119,7 @@ values(1,'Karma Fire Protection LLP','+91 95949 67751','karmafireprotectionllp@g
 'https://www.google.com/maps/search/?api=1&query=Police+Station+04+near+Surya+Nagar+Suryanagar+No+2+Surya+Nagar+HMPL+Surya+Nagar+Vikhroli+West+Mumbai+Maharashtra+400083',
 19.119104982994685,72.92270215289905,
 '{"days":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"19:00"}'::jsonb,true)
-on conflict(id) do update set business_name=excluded.business_name,phone=excluded.phone,email=excluded.email,address=excluded.address,
- map_embed_url=excluded.map_embed_url,map_directions_url=excluded.map_directions_url,latitude=excluded.latitude,longitude=excluded.longitude,
- opening_hours=excluded.opening_hours,social_dock_enabled=excluded.social_dock_enabled,updated_at=now();
+on conflict(id) do nothing;
 
 -- Remove only the two verified placeholder records; preserve enquiries, users and visitor/audit history.
 delete from public.products where id='4a7bc6ff-1994-40cf-adf1-02f07a1e32e8'::uuid and name='Sample' and slug='Slug sample';
@@ -141,43 +131,35 @@ insert into public.services(id,name,slug,short_description,description,image_url
 ('a0000000-0000-4000-8000-000000000003','Fire Sprinkler System','fire-sprinkler-system','Automatic sprinkler networks for building fire protection.','Sprinkler piping, heads, valves and testing for warehouses, offices and other protected occupancies.','assets/images/service-sprinkler.webp',3,true,false),
 ('a0000000-0000-4000-8000-000000000004','Fire Suppression System','fire-suppression-system','Specialised suppression solutions for critical areas.','Fire suppression solutions for electrical rooms, server rooms and other areas requiring application-specific protection.','assets/images/hero-2.webp',4,true,false),
 ('a0000000-0000-4000-8000-000000000005','Maintenance & Inspection','maintenance-inspection','Periodic inspection, testing and preventive maintenance.','Inspection, testing, preventive maintenance and service support for installed fire protection systems.','assets/images/about-1.webp',5,true,false)
-on conflict(id) do update set name=excluded.name,slug=excluded.slug,short_description=excluded.short_description,description=excluded.description,
- image_url=excluded.image_url,sort_order=excluded.sort_order,is_active=excluded.is_active,is_demo=excluded.is_demo,updated_at=now();
+on conflict(id) do nothing;
 
 insert into public.products(id,name,slug,category,description,specifications,image_url,price_label,sort_order,is_active,is_demo) values
 ('a1000000-0000-4000-8000-000000000001','Sample Fire Hydrant Landing Valve','sample-hydrant-landing-valve','Hydrant Equipment','DEMO CATALOGUE ITEM — replace with verified manufacturer, model and specifications before publishing.','{"status":"sample","notes":"Confirm approved make, size, pressure rating and certification before publication."}'::jsonb,'assets/images/service-hydrant.webp',null,1,false,true),
 ('a1000000-0000-4000-8000-000000000002','Sample Addressable Fire Alarm Panel','sample-addressable-fire-alarm-panel','Fire Alarm Equipment','DEMO CATALOGUE ITEM — replace with verified manufacturer, model and specifications before publishing.','{"status":"sample","notes":"Confirm loop capacity, compatibility and applicable certification before publication."}'::jsonb,'assets/images/service-alarm.webp',null,2,false,true),
 ('a1000000-0000-4000-8000-000000000003','Sample Automatic Sprinkler Head','sample-automatic-sprinkler-head','Sprinkler Equipment','DEMO CATALOGUE ITEM — replace with verified manufacturer, model and specifications before publishing.','{"status":"sample","notes":"Confirm K-factor, temperature rating, response type and certification before publication."}'::jsonb,'assets/images/service-sprinkler.webp',null,3,false,true)
-on conflict(id) do update set name=excluded.name,slug=excluded.slug,category=excluded.category,description=excluded.description,
- specifications=excluded.specifications,image_url=excluded.image_url,price_label=excluded.price_label,sort_order=excluded.sort_order,is_active=excluded.is_active,is_demo=excluded.is_demo,updated_at=now();
+on conflict(id) do nothing;
 
 insert into public.team_members(id,name,role_title,bio,image_url,sort_order,is_active,is_demo) values
 ('a2000000-0000-4000-8000-000000000001','Sample Operations Lead','Operations Lead','DEMO PROFILE — replace with verified team details before publishing.','assets/images/about-1.webp',1,false,true),
 ('a2000000-0000-4000-8000-000000000002','Sample Survey Engineer','Survey Engineer','DEMO PROFILE — replace with verified team details before publishing.','assets/images/about-2.webp',2,false,true),
 ('a2000000-0000-4000-8000-000000000003','Sample Service Technician','Service Technician','DEMO PROFILE — replace with verified team details before publishing.','assets/images/about-1.webp',3,false,true)
-on conflict(id) do update set name=excluded.name,role_title=excluded.role_title,bio=excluded.bio,image_url=excluded.image_url,
- sort_order=excluded.sort_order,is_active=excluded.is_active,is_demo=excluded.is_demo,updated_at=now();
+on conflict(id) do nothing;
 
 insert into public.public_portfolio_projects(id,title,client_name,location,category,description,image_url,project_url,completion_date,sort_order,is_active,is_demo) values
 ('a3000000-0000-4000-8000-000000000001','Sample Commercial Fire Protection Project','Demo Client','Mumbai, Maharashtra','Fire Hydrant','DEMO PROJECT — replace with approved project details and client permission before publishing.','assets/images/hero-1.webp',null,null,1,false,true),
 ('a3000000-0000-4000-8000-000000000002','Sample Fire Alarm Upgrade','Demo Facility','Mumbai, Maharashtra','Fire Alarm','DEMO PROJECT — replace with verified project details and approved photographs before publishing.','assets/images/service-alarm.webp',null,null,2,false,true)
-on conflict(id) do update set title=excluded.title,client_name=excluded.client_name,location=excluded.location,category=excluded.category,
- description=excluded.description,image_url=excluded.image_url,project_url=excluded.project_url,completion_date=excluded.completion_date,
- sort_order=excluded.sort_order,is_active=excluded.is_active,is_demo=excluded.is_demo,updated_at=now();
+on conflict(id) do nothing;
 
 insert into public.public_testimonials(id,reviewer_name,company_name,review_text,rating,sort_order,is_active,is_demo,moderation_status,admin_reply) values
 ('a4000000-0000-4000-8000-000000000001','Sample Client','Demo Facility','DEMO REVIEW — replace with a genuine customer-approved testimonial before publishing.',5,1,false,true,'pending',null),
 ('a4000000-0000-4000-8000-000000000002','Sample Facility Manager','Demo Organisation','DEMO REVIEW — replace with a genuine customer-approved testimonial before publishing.',5,2,false,true,'pending',null)
-on conflict(id) do update set reviewer_name=excluded.reviewer_name,company_name=excluded.company_name,review_text=excluded.review_text,
- rating=excluded.rating,sort_order=excluded.sort_order,is_active=excluded.is_active,is_demo=excluded.is_demo,
- moderation_status=excluded.moderation_status,admin_reply=excluded.admin_reply,updated_at=now();
+on conflict(id) do nothing;
 
 insert into public.social_links(id,platform,label,url,icon_url,sort_order,is_active) values
 ('a5000000-0000-4000-8000-000000000001','WhatsApp','WhatsApp','https://wa.me/919594967751',null,1,true),
 ('a5000000-0000-4000-8000-000000000002','Phone','Call us','tel:+919594967751',null,2,true),
 ('a5000000-0000-4000-8000-000000000003','Email','Email','mailto:karmafireprotectionllp@gmail.com',null,3,true)
-on conflict(id) do update set platform=excluded.platform,label=excluded.label,url=excluded.url,icon_url=excluded.icon_url,
- sort_order=excluded.sort_order,is_active=excluded.is_active,updated_at=now();
+on conflict(id) do nothing;
 
 insert into public.website_cms_drafts(slug,content,updated_by,updated_at) values
 ('home','{"title":"Fire Protection Systems Built Around Your Site","intro":"Karma Fire Protection LLP provides fire hydrant, fire alarm, sprinkler, suppression, testing and maintenance solutions for safer buildings.","sections":[{"heading":"End-to-end fire safety","body":"From system planning and installation to inspection, testing and maintenance."},{"heading":"Serving Mumbai and surrounding areas","body":"Contact our team to discuss your site, compliance requirements and project scope."}]}'::jsonb,null,now()),
@@ -186,6 +168,6 @@ insert into public.website_cms_drafts(slug,content,updated_by,updated_at) values
 ('projects','{"title":"Projects and Work","intro":"Project gallery content is managed here. Add only approved client projects and photographs before publishing.","sections":[{"heading":"Project showcase","body":"Demo project entries are intentionally unpublished until verified."}]}'::jsonb,null,now()),
 ('contact','{"title":"Request a Fire Safety Consultation","intro":"Share your site details and our team will contact you to discuss the next steps.","sections":[{"heading":"Visit or contact us","body":"Vikhroli West, Mumbai, Maharashtra 400083."}]}'::jsonb,null,now()),
 ('privacy','{"title":"Privacy Policy","intro":"How Karma Fire Protection LLP handles enquiry information and consent.","sections":[{"heading":"Enquiry information","body":"Information submitted through the contact form is used to respond to your enquiry and coordinate relevant services."}]}'::jsonb,null,now())
-on conflict(slug) do update set content=excluded.content,updated_by=excluded.updated_by,updated_at=now();
+on conflict(slug) do nothing;
 
 commit;
