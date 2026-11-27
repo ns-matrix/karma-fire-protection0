@@ -1,5 +1,5 @@
 /* ZIP reference public website — live Supabase content and forms. */
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.119.2';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const cfg=window.KARMA_SUPABASE||{};
 const db=cfg.url&&cfg.anonKey?createClient(cfg.url,cfg.anonKey,{auth:{persistSession:false,autoRefreshToken:false}}):null;
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
