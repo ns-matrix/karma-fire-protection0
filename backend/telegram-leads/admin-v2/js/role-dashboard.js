@@ -21,7 +21,6 @@ function can(module, action = "read") {
 }
 
 async function countRecords(metric) {
-  if (!db) return null;
   let query = db.from(metric.table).select("*", { count: "exact", head: true });
   if (metric.filter) query = query.eq(metric.filter[0], metric.filter[1]);
   const { count, error } = await query;
@@ -33,9 +32,8 @@ async function loadTasks() {
   const { data, error } = await db.from("tasks")
     .select("id,title,status,priority,due_at,task_type")
     .order("due_at", { ascending: true, nullsFirst: false })
-    .limit(6);
-  if (error) return { error: error.message };
-  return data || [];
+    .limit(5);
+  return error ? { error: error.message } : (data || []);
 }
 
 async function loadVisits() {
@@ -44,9 +42,8 @@ async function loadVisits() {
     .select("id,visit_number,visit_type,scheduled_start,status")
     .gte("scheduled_start", new Date().toISOString().slice(0, 10))
     .order("scheduled_start", { ascending: true })
-    .limit(6);
-  if (error) return { error: error.message };
-  return data || [];
+    .limit(5);
+  return error ? { error: error.message } : (data || []);
 }
 
 async function loadRecentEnquiries() {
@@ -55,8 +52,7 @@ async function loadRecentEnquiries() {
     .select("id,lead_number,name,service,status,created_at")
     .order("created_at", { ascending: false })
     .limit(5);
-  if (error) return { error: error.message };
-  return data || [];
+  return error ? { error: error.message } : (data || []);
 }
 
 async function loadAudit() {
@@ -64,72 +60,120 @@ async function loadAudit() {
   const { data, error } = await db.from("audit_events")
     .select("id,action,module,outcome,created_at")
     .order("created_at", { ascending: false })
-    .limit(5);
-  if (error) return { error: error.message };
-  return data || [];
+    .limit(4);
+  return error ? { error: error.message } : (data || []);
 }
 
 function metricCard(metric, value) {
   const shown = value === null ? "—" : Number(value).toLocaleString();
-  return `<article class="rd-kpi"><div class="rd-kpi-label">${escapeHtml(metric.label)}</div><strong>${shown}</strong><small>${value === null ? "Unavailable for this session" : "Live records visible to your account"}</small></article>`;
+  return `<article class="rd-kpi">
+    <span class="rd-kpi-label">${escapeHtml(metric.label)}</span>
+    <strong>${shown}</strong>
+    <small>${value === null ? "Not available" : "Live records"}</small>
+  </article>`;
 }
 
 function renderList(items, empty, row) {
-  if (items?.error) return `<div class="rd-empty">Could not load this section: ${escapeHtml(items.error)}</div>`;
+  if (items?.error) return `<div class="rd-empty">Could not load: ${escapeHtml(items.error)}</div>`;
   if (!items?.length) return `<div class="rd-empty">${escapeHtml(empty)}</div>`;
   return items.map(row).join("");
 }
 
-function actionButton(label, view, icon = "↗") {
-  return `<button class="rd-action" type="button" data-open-view="${escapeHtml(view)}"><span>${icon}</span>${escapeHtml(label)}<b>→</b></button>`;
+function renderTasks(tasks) {
+  return renderList(tasks, "No pending tasks.", (task) => `
+    <div class="rd-row">
+      <div class="rd-row-icon">✓</div>
+      <div class="rd-row-copy"><strong>${escapeHtml(task.title)}</strong>
+        <small>${escapeHtml(task.task_type || "Task")} · Due ${escapeHtml(formatDate(task.due_at, { day: "numeric", month: "short" }))}</small>
+      </div>
+      <span class="rd-status ${escapeHtml(task.priority || "normal")}">${escapeHtml(task.status || "Open")}</span>
+    </div>`);
+}
+
+function renderVisits(visits) {
+  return renderList(visits, "No upcoming service visits.", (visit) => `
+    <div class="rd-row">
+      <div class="rd-row-icon red">◷</div>
+      <div class="rd-row-copy"><strong>${escapeHtml("Visit #" + (visit.visit_number || "—"))}</strong>
+        <small>${escapeHtml(visit.visit_type || "Service")} · ${escapeHtml(formatDate(visit.scheduled_start))}</small>
+      </div>
+      <span class="rd-status">${escapeHtml(visit.status || "Scheduled")}</span>
+    </div>`);
+}
+
+function renderEnquiries(enquiries) {
+  return renderList(enquiries, "No recent enquiries.", (lead) => `
+    <div class="rd-row">
+      <div class="rd-row-icon">▤</div>
+      <div class="rd-row-copy"><strong>${escapeHtml(lead.name || "New enquiry")}</strong>
+        <small>${escapeHtml(lead.lead_number ? "KFP-" + lead.lead_number : "New request")} · ${escapeHtml(lead.service || "General enquiry")}</small>
+      </div>
+      <span class="rd-status">${escapeHtml(lead.status || "New")}</span>
+    </div>`);
+}
+
+function renderAudit(audit) {
+  return renderList(audit, "No recent security events.", (event) => `
+    <div class="rd-row">
+      <div class="rd-row-icon red">◆</div>
+      <div class="rd-row-copy"><strong>${escapeHtml(event.action)}</strong>
+        <small>${escapeHtml(event.module)} · ${escapeHtml(formatDate(event.created_at))}</small>
+      </div>
+      <span class="rd-status">${escapeHtml(event.outcome || "Recorded")}</span>
+    </div>`);
 }
 
 function render(role, metrics, values, tasks, visits, enquiries, audit) {
   const mode = dashboardRole(role);
   const heading = mode === "super_admin" ? "System overview" : mode === "admin" ? "Business overview" : "My workspace";
   const description = mode === "super_admin"
-    ? "A secure, system-wide view of operations, team access and platform activity."
+    ? "A clear view of business operations and system health."
     : mode === "admin"
-      ? "Keep customer work, delivery teams and service operations moving."
-      : "Your permitted work, upcoming visits and next actions in one place.";
+      ? "Your key customer, project and service activity."
+      : "Your assigned work and upcoming activity.";
   const cards = metrics.map((metric) => metricCard(metric, values[metric.key])).join("");
-  const quickActions = mode === "team_member"
-    ? [
-        can("tasks") && actionButton("Open tasks", "tasks", "✓"),
-        can("service") && actionButton("Service visits", "service", "◷"),
-        can("surveys") && actionButton("Surveys & audits", "surveys", "⌕"),
-        can("projects") && actionButton("Projects", "projects", "◫"),
-        can("leads") && actionButton("Enquiries", "enquiries", "▤")
-      ].filter(Boolean).join("")
-    : [
-        actionButton("Manage enquiries", "enquiries", "▤"),
-        actionButton("View projects", "projects", "◫"),
-        actionButton("Team & admins", "team", "♙"),
-        actionButton("Operational reports", "reports", "▥")
-      ].join("");
+  const panels = [];
+
+  if (can("leads")) {
+    panels.push(`<article class="rd-panel">
+      <div class="rd-panel-head"><div><span class="rd-eyebrow">CUSTOMER PIPELINE</span><h3>Recent enquiries</h3></div>
+        <button type="button" class="rd-link" data-open-view="enquiries">View all →</button>
+      </div>
+      <div class="rd-list">${renderEnquiries(enquiries)}</div>
+    </article>`);
+  }
+
+  if (can("tasks") || can("service")) {
+    panels.push(`<article class="rd-panel">
+      <div class="rd-panel-head"><div><span class="rd-eyebrow">OPERATIONS</span><h3>Upcoming work</h3></div></div>
+      ${can("tasks") ? `<div class="rd-subsection"><div class="rd-subhead"><b>Tasks</b><span>${Array.isArray(tasks) ? tasks.length : "!"}</span></div><div class="rd-list">${renderTasks(tasks)}</div></div>` : ""}
+      ${can("service") ? `<div class="rd-subsection"><div class="rd-subhead"><b>Service visits</b><span>${Array.isArray(visits) ? visits.length : "!"}</span></div><div class="rd-list">${renderVisits(visits)}</div></div>` : ""}
+    </article>`);
+  }
+
+  if (mode === "super_admin") {
+    panels.push(`<article class="rd-panel rd-audit-panel">
+      <div class="rd-panel-head"><div><span class="rd-eyebrow">SUPER ADMIN</span><h3>Recent security activity</h3></div>
+        <button type="button" class="rd-link" data-open-view="control">View audit →</button>
+      </div>
+      <div class="rd-list">${renderAudit(audit)}</div>
+    </article>`);
+  }
 
   root.innerHTML = `
     <section class="rd-welcome">
-      <div><div class="rd-eyebrow">KARMA FIRE PROTECTION · ${escapeHtml(roleLabel(role).toUpperCase())}</div>
-      <h2>${escapeHtml(heading)}</h2><p>${escapeHtml(description)}</p></div>
+      <div><span class="rd-eyebrow">KARMA FIRE PROTECTION · ${escapeHtml(roleLabel(role).toUpperCase())}</span>
+        <h2>${escapeHtml(heading)}</h2><p>${escapeHtml(description)}</p>
+      </div>
       <div class="rd-date"><span>Today</span><strong>${escapeHtml(new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" }))}</strong></div>
     </section>
-    <section class="rd-kpis" aria-label="Dashboard metrics">${cards || '<div class="rd-empty">No dashboard modules have been assigned to this account yet.</div>'}</section>
-    <section class="rd-grid">
-      ${can("tasks") ? `<article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">WORK QUEUE</span><h3>${mode === "team_member" ? "Your work queue" : "Upcoming tasks"}</h3></div><span class="rd-chip">${Array.isArray(tasks) ? tasks.length : "!"} items</span></div>
-        <div class="rd-list">${renderList(tasks, "No tasks are currently visible for your account.", (task) => `<div class="rd-row"><div class="rd-row-icon">✓</div><div class="rd-row-copy"><strong>${escapeHtml(task.title)}</strong><small>${escapeHtml(task.task_type || "Task")} · Due ${escapeHtml(formatDate(task.due_at, { day: "numeric", month: "short" }))}</small></div><span class="rd-status ${escapeHtml(task.priority || "normal")}">${escapeHtml(task.status || "open")}</span></div>`)}</div>
-      </article>` : ""}
-      ${can("service") ? `<article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">FIELD OPERATIONS</span><h3>Upcoming visits</h3></div><span class="rd-chip">${Array.isArray(visits) ? visits.length : "!"} scheduled</span></div>
-        <div class="rd-list">${renderList(visits, "No upcoming visits are visible for your account.", (visit) => `<div class="rd-row"><div class="rd-row-icon red">◷</div><div class="rd-row-copy"><strong>${escapeHtml("Visit #" + visit.visit_number)}</strong><small>${escapeHtml(visit.visit_type || "Service")} · ${escapeHtml(formatDate(visit.scheduled_start))}</small></div><span class="rd-status">${escapeHtml(visit.status || "scheduled")}</span></div>`)}</div>
-      </article>` : ""}
-      ${can("leads") ? `<article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">CUSTOMER PIPELINE</span><h3>Recent enquiries</h3></div><button type="button" class="rd-link" data-open-view="enquiries">View all →</button></div>
-        <div class="rd-list">${renderList(enquiries, "No enquiries are visible for your account.", (lead) => `<div class="rd-row"><div class="rd-row-icon">▤</div><div class="rd-row-copy"><strong>${escapeHtml(lead.name || "New enquiry")}</strong><small>${escapeHtml("KFP-" + lead.lead_number)} · ${escapeHtml(lead.service || "General enquiry")}</small></div><span class="rd-status">${escapeHtml(lead.status || "New")}</span></div>`)}</div></article>` : ""}
-      ${mode === "super_admin" ? `<article class="rd-panel"><div class="rd-panel-head"><div><span class="rd-eyebrow">GOVERNANCE</span><h3>Recent security activity</h3></div><button type="button" class="rd-link" data-open-view="control">Open system control →</button></div>
-        <div class="rd-list">${renderList(audit, "No audit events are currently available.", (event) => `<div class="rd-row"><div class="rd-row-icon red">◆</div><div class="rd-row-copy"><strong>${escapeHtml(event.action)}</strong><small>${escapeHtml(event.module)} · ${escapeHtml(formatDate(event.created_at))}</small></div><span class="rd-status">${escapeHtml(event.outcome || "recorded")}</span></div>`)}</div></article>` : ""}
+    <section class="rd-kpis" aria-label="Dashboard metrics">
+      ${cards || '<div class="rd-empty">No dashboard data is assigned to this account.</div>'}
     </section>
-    <section class="rd-panel rd-quick"><div class="rd-panel-head"><div><span class="rd-eyebrow">SHORTCUTS</span><h3>Quick actions</h3></div></div><div class="rd-actions">${quickActions || '<p class="rd-empty">No quick actions are available for your assigned permissions.</p>'}</div></section>
-    <p class="rd-footnote">Dashboard totals reflect records returned by Supabase under your current account permissions. Restricted records are not fetched or counted.</p>
+    <section class="rd-grid">${panels.join("") || '<article class="rd-panel"><div class="rd-empty">No work is assigned to your account yet.</div></article>'}</section>
+    <p class="rd-footnote">Figures and lists are limited to records your account is permitted to access.</p>
   `;
+
   root.querySelectorAll("[data-open-view]").forEach((button) => button.addEventListener("click", () => {
     const target = document.querySelector(`[data-view="${CSS.escape(button.dataset.openView)}"]`);
     if (target && !target.classList.contains("hidden")) target.click();
@@ -137,19 +181,22 @@ function render(role, metrics, values, tasks, visits, enquiries, audit) {
 }
 
 async function loadDashboard() {
-  if (!current || !db || !root) return;
+  if (!current || !root) return;
   root.classList.remove("hidden");
   legacy.forEach((element) => element.classList.add("hidden"));
-  root.innerHTML = '<div class="rd-loading"><span></span> Loading your permission-scoped dashboard…</div>';
+  if (!db) {
+    root.innerHTML = '<div class="rd-empty">Dashboard connection is unavailable. Check the Supabase configuration and refresh.</div>';
+    return;
+  }
+  root.innerHTML = '<div class="rd-loading"><span></span> Loading dashboard…</div>';
 
   const metrics = dashboardMetrics(current.role, current.permissions);
-  const tasksPromise = loadTasks();
-  const visitsPromise = loadVisits();
-  const enquiriesPromise = loadRecentEnquiries();
-  const auditPromise = loadAudit();
   const [metricValues, tasks, visits, enquiries, audit] = await Promise.all([
     Promise.all(metrics.map(countRecords)),
-    tasksPromise, visitsPromise, enquiriesPromise, auditPromise
+    loadTasks(),
+    loadVisits(),
+    loadRecentEnquiries(),
+    loadAudit()
   ]);
   const values = Object.fromEntries(metrics.map((metric, index) => [metric.key, metricValues[index]]));
   render(current.role, metrics, values, tasks, visits, enquiries, audit);
@@ -167,21 +214,20 @@ window.addEventListener("karma:authorized", (event) => {
 });
 
 function closeMobileNav() {
-  document.querySelector(".sidebar")?.classList.remove("open");
+  const sidebar = document.querySelector(".sidebar");
+  sidebar?.classList.remove("open");
+  document.getElementById("sidebar-backdrop")?.classList.remove("visible");
   document.getElementById("mobile-nav-toggle")?.setAttribute("aria-expanded", "false");
 }
 document.getElementById("mobile-nav-toggle")?.addEventListener("click", () => {
   const sidebar = document.querySelector(".sidebar");
-  const isOpen = sidebar?.classList.toggle("open") || false;
-  document.getElementById("mobile-nav-toggle")?.setAttribute("aria-expanded", String(isOpen));
+  const open = sidebar?.classList.toggle("open") || false;
+  document.getElementById("sidebar-backdrop")?.classList.toggle("visible", open);
+  document.getElementById("mobile-nav-toggle")?.setAttribute("aria-expanded", String(open));
 });
+document.getElementById("sidebar-backdrop")?.addEventListener("click", closeMobileNav);
 document.querySelector(".sidebar")?.addEventListener("click", (event) => {
   if (event.target.closest("[data-view]")) closeMobileNav();
-});
-document.body.addEventListener("click", (event) => {
-  const sidebar = document.querySelector(".sidebar");
-  const toggle = document.getElementById("mobile-nav-toggle");
-  if (sidebar?.classList.contains("open") && !sidebar.contains(event.target) && !toggle?.contains(event.target)) closeMobileNav();
 });
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeMobileNav();
