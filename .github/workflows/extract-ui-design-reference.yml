@@ -1,0 +1,34 @@
+name: Extract UI design reference (temporary)
+
+on:
+  push:
+    branches:
+      - feat/karma-complete-website-admin-ui
+    paths:
+      - .github/workflows/extract-ui-design-reference.yml
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/karma-complete-website-admin-ui
+          fetch-depth: 1
+      - name: Extract supplied design archive
+        run: |
+          mkdir -p design-reference-extracted
+          unzip -oq "Karma UI desinge for admin and website both.zip" -d design-reference-extracted
+          find design-reference-extracted -type f -maxdepth 6 -print
+      - name: Commit extracted reference files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add design-reference-extracted
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: extract supplied UI design references for implementation"
+            git push origin HEAD:feat/karma-complete-website-admin-ui
+          fi
