@@ -81,3 +81,12 @@ test("README exposes GitHub Pages website and the single admin login entry point
   assert.match(readme, /https:\/\/github\.com\/ns-matrix\/karma-fire-protection0/);
   assert.doesNotMatch(readme, /karmafireprotection\.com/);
 });
+
+
+test("login uses Supabase password authentication and the database role resolver", () => {
+  const js = read("backend/telegram-leads/admin-v2/js/admin.js");
+  assert.match(js, /auth\.signInWithPassword/);
+  assert.match(js, /auth\.getUser\(\)/);
+  assert.match(js, /rpc\("resolve_current_role"\)/);
+  assert.match(js, /This account has no active admin or employee role/);
+});
