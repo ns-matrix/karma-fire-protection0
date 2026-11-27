@@ -1,6 +1,6 @@
 export const SCROLL_THRESHOLDS=Object.freeze([25,50,75,90]);
 export function normalizePath(path='/'){const v=String(path||'/').split('?')[0].split('#')[0];return v.length>500?v.slice(0,500):(v||'/')}
-export function safeLabel(value,max=80){return String(value??'').replace(/[\\u0000-\\u001f\\u007f]/g,' ').replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/gi,'[email]').replace(/(?:\\+?\\d[\\d ()-]{7,}\\d)/g,'[phone]').replace(/\\s+/g,' ').trim().slice(0,max)}
+export function safeLabel(value,max=80){return String(value??'').replace(/[\u0000-\u001f\u007f]/g,' ').replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]').replace(/(?:\+?\d[\d ()-]{7,}\d)/g,'[phone]').replace(/\s+/g,' ').trim().slice(0,max)}
 export function scrollPercent(y,vh,dh){return Math.max(0,Math.min(100,Math.round(y/Math.max(1,dh-vh)*100)))}
 export function crossedThresholds(previous,current,thresholds=SCROLL_THRESHOLDS){return thresholds.filter(v=>previous<v&&current>=v)}
 export function clampDurationSeconds(ms){return Math.max(0,Math.min(86400,Math.round(Number(ms||0)/1000)))}
