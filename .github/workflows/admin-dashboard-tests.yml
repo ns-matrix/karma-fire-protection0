@@ -2,6 +2,10 @@ name: Admin dashboard checks
 on:
   pull_request:
     paths:
+      - "*.html"
+      - "css/**"
+      - "js/forms.js"
+      - "js/validation.js"
       - "backend/telegram-leads/admin-v2/**"
       - "js/analytics.js"
       - "js/analytics-core.mjs"
