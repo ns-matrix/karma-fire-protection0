@@ -36,7 +36,9 @@ function showApp(){
  $("profile-role").textContent=role==="super_admin"?"System operator":role==="admin"?"Admin":"Team Member";
  $("today").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"});
  if(role==="super_admin")$("super-entry").classList.remove("hidden");
- const teamNav=document.querySelector('[data-view="team"]');if(teamNav)teamNav.classList.toggle("hidden",!["admin","super_admin"].includes(role));
+ const isAdmin=["admin","super_admin"].includes(role);
+ document.querySelectorAll(".admin-only-nav").forEach(el=>el.classList.toggle("hidden",!isAdmin));
+ const teamNav=document.querySelector('[data-view="team"]');if(teamNav)teamNav.classList.toggle("hidden",!isAdmin);
  document.querySelectorAll("[data-view]").forEach(b=>{const v=b.dataset.view;const map={enquiries:"leads",website:"website",customers:"customers",sites:"customers",surveys:"surveys",quotations:"quotations",projects:"projects",service:"service",assets:"assets",inventory:"inventory",compliance:"compliance",tasks:"tasks",contacts:"customers",survey_templates:"surveys",survey_responses:"surveys",quotation_items:"quotations",quotation_approvals:"quotations",project_milestones:"projects",project_tasks:"projects",amc_contracts:"service",defects:"service",suppliers:"inventory",warehouses:"inventory",stock_movements:"inventory",purchase_orders:"inventory",purchase_order_items:"inventory"};if(map[v])b.classList.toggle("hidden",!canAccess(map[v],"read"))});
  const dashboardContext={role,userId:user?.id,permissions:modulePermissions};window.KARMA_DASHBOARD_CONTEXT=dashboardContext;window.dispatchEvent(new CustomEvent("karma:authorized",{detail:dashboardContext}));
 }
@@ -143,4 +145,10 @@ $("invite-form").onsubmit=async e=>{e.preventDefault();const {data:{session}}=aw
 $("employee-invite-form").onsubmit=async e=>{e.preventDefault();const button=e.currentTarget.querySelector("button");button.disabled=true;try{const {data,error}=await db.functions.invoke("invite-crm-employee",{body:{email:$("employee-email").value.trim(),full_name:$("employee-full-name").value.trim(),job_title:$("employee-job-title").value.trim(),department_code:$("employee-department").value,role_code:$("employee-role").value}});if(error)throw error;if(data?.error)throw new Error(data.error);say("employee-invite-message","Invitation sent to "+data.invited_email+".","success");$("employee-invite-form").reset();await loadTeam()}catch(err){say("employee-invite-message",err.message||"Employee invitation failed.")}finally{button.disabled=false}};
 function showView(name){const module=MODULES[name];document.querySelectorAll(".nav[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===name));document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));let target="view-"+name;if(module){target="view-module";loadModule(name)}else if(name==="team"){loadTeam()}else if(name==="control"){if(role!=="super_admin"){showView("dashboard");return}loadControl()}$(target)?.classList.add("active");$("view-title").textContent=module?module.title:({dashboard:"Dashboard",enquiries:"Enquiries",website:"Website Manager",reports:"Reports",profile:"My Profile",team:"Team & Admins",control:"System Control"}[name]||"Dashboard")}
 document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>showView(b.dataset.view));document.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>showView(b.dataset.goto));
+const sidebar=$("app-sidebar"),backdrop=$("sidebar-backdrop"),navToggle=$("mobile-nav-toggle");
+function closeSidebar(){sidebar?.classList.remove("open");backdrop?.classList.remove("visible");navToggle?.setAttribute("aria-expanded","false");navToggle?.setAttribute("aria-label","Open navigation")}
+function openSidebar(){sidebar?.classList.add("open");backdrop?.classList.add("visible");navToggle?.setAttribute("aria-expanded","true");navToggle?.setAttribute("aria-label","Close navigation")}
+navToggle?.addEventListener("click",()=>sidebar?.classList.contains("open")?closeSidebar():openSidebar());
+backdrop?.addEventListener("click",closeSidebar);
+document.querySelectorAll(".sidebar .nav").forEach(link=>link.addEventListener("click",closeSidebar));
 start();
