@@ -106,9 +106,11 @@ grant execute on function public.cms_save_draft(text,jsonb) to authenticated;
 grant execute on function public.cms_publish_page(text) to authenticated;
 grant execute on function public.cms_restore_version(text,integer) to authenticated;
 drop policy if exists cms_admin_drafts on public.website_cms_drafts;
+drop policy if exists cms_website_roles_drafts on public.website_cms_drafts;
 create policy cms_website_roles_drafts on public.website_cms_drafts for all to authenticated
  using((select private.can_manage_website_content())) with check((select private.can_manage_website_content()));
 drop policy if exists cms_admin_versions on public.website_cms_versions;
+drop policy if exists cms_website_roles_versions on public.website_cms_versions;
 create policy cms_website_roles_versions on public.website_cms_versions for select to authenticated
  using((select private.can_manage_website_content()));
 
