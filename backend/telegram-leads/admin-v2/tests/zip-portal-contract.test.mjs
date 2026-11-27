@@ -25,6 +25,8 @@ test('public website content, enquiry and review forms are Supabase-backed', () 
   assert.match(js, /handleLeadSubmit=submitLead/);
   assert.match(js, /contact_method/);
   assert.match(js, /moderation_status:'pending'/);
+  assert.match(js, /DEMO REVIEW/);
+  assert.match(js, /is_demo/);
   assert.match(js, /KarmaAnalytics/);
   assert.match(js, /tel:','mailto:/);
   assert.doesNotMatch(js, /PUBLIC_PROJECTS|PUBLIC_TEAM|PUBLIC_REVIEWS/);
@@ -47,6 +49,7 @@ test('admin portal uses Supabase auth, database roles and real CRUD/CMS workflow
   assert.match(js, /auth\.signInWithPassword/);
   assert.match(js, /rpc\('resolve_current_role'\)/);
   assert.match(js, /website_editor/);
+  assert.match(js, /is_demo/);
   for (const table of ['leads','services','products','team_members','public_portfolio_projects','public_testimonials','social_links','website_site_settings','website_cms_drafts','website_cms_versions','analytics_events','website_audit_insights']) {
     assert.ok(js.includes(table), 'admin portal should use ' + table);
   }
