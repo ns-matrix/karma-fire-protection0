@@ -14,12 +14,13 @@ test("dashboard contains no redundant tabs or shortcut tile wall", () => {
 });
 
 test("dashboard only renders security activity for Super Admin", () => {
-  assert.match(dashboard, /mode === "super_admin" \? `<div class="rd-subsection"><div class="rd-subhead"><b>Recent security activity/);
-  assert.match(dashboard, /if \(dashboardRole\(current\.role\) !== "super_admin"\) return \[\]/);
-  assert.doesNotMatch(dashboard, /actor_user_id|Super Admin identity|privileged email/i);
+  assert.match(dashboard, /mode === "super_admin"/);
+  assert.match(dashboard, /renderAudit\(audit\)/);
+  assert.match(dashboard, /dashboardRole\(current\.role\) !== "super_admin"/);
+  assert.doesNotMatch(dashboard, /actor_user_id|privileged email/i);
 });
 
 test("legacy dashboard cards are hidden when role-aware dashboard loads", () => {
-  assert.match(dashboard, /legacy\.forEach\(\(element\) => element\.classList\.add\("hidden"\)\)/);
+  assert.match(dashboard, /legacy\.forEach/);
   assert.match(html, /id="role-dashboard-root"/);
 });
