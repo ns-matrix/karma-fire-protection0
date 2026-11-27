@@ -1,0 +1,10 @@
+-- Tighten insights and fix analytics policy helper, retention ownership and consent admin visibility.
+grant update(status) on public.website_audit_insights to authenticated;
+drop policy if exists audit_insights_admin_update on public.website_audit_insights;
+create policy audit_insights_admin_update on public.website_audit_insights for update to authenticated using(private.is_karma_admin()) with check(private.is_karma_admin());
+drop policy if exists "Super Admin reads consent history" on public.website_consent_records;
+create policy "Super Admin reads consent history" on public.website_consent_records for select to authenticated using(private.is_karma_super_admin());
+create or replace function public.read_website_analytics_events(p_since timestamptz default now()-interval '30 days',p_limit int default 10000)
+returns table(id uuid,event_name text,page_path text,page_title text,element_id text,element_label text,value numeric,visitor_uuid text,session_uuid text,device_category text,created_at timestamptz,unique_visitors bigint,unique_sessions bigint)
+language plpgsql security definer set search_path=public,private as $$ declare is_super boolean;is_admin boolean;begin is_super:=private.is_karma_super_admin();is_admin:=private.is_karma_admin();if not is_admin then raise exception 'Access denied';end if;return query with f as(select a.* from public.analytics_events a where a.created_at>=p_since and a.retention_until>now() order by a.created_at desc limit least(greatest(coalesce(p_limit,10000),1),20000)),c as(select count(distinct f.visitor_uuid) v,count(distinct f.session_uuid) s from f)select f.id,f.event_name,f.page_path,f.page_title,f.element_id,f.element_label,f.value,case when is_super then f.visitor_uuid else null end,case when is_super then f.session_uuid else null end,f.device_category,f.created_at,c.v,c.s from f cross join c order by f.created_at desc;end $$;
+revoke all on function public.read_website_analytics_events(timestamptz,int) from public,anon;grant execute on function public.read_website_analytics_events(timestamptz,int) to authenticated;

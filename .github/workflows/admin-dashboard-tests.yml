@@ -3,25 +3,35 @@ on:
   pull_request:
     paths:
       - "backend/telegram-leads/admin-v2/**"
+      - "js/analytics.js"
+      - "js/analytics-core.mjs"
+      - "supabase/migrations/**"
       - ".github/workflows/admin-dashboard-tests.yml"
   push:
     branches:
       - "feat/role-based-responsive-dashboard"
+      - "feat/website-analytics-cms-audit"
     paths:
       - "backend/telegram-leads/admin-v2/**"
+      - "js/analytics.js"
+      - "js/analytics-core.mjs"
+      - "supabase/migrations/**"
       - ".github/workflows/admin-dashboard-tests.yml"
 jobs:
-  dashboard-rules:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Check dashboard modules
+      - name: Syntax checks
         run: |
           node --check backend/telegram-leads/admin-v2/js/dashboard-rules.js
           node --check backend/telegram-leads/admin-v2/js/role-dashboard.js
           node --check backend/telegram-leads/admin-v2/js/admin.js
-      - name: Run role permission tests
-        run: node --experimental-default-type=module --test backend/telegram-leads/admin-v2/tests/dashboard-rules.test.mjs
+          node --check js/analytics.js
+          node --check js/website-cms-public.js
+          node --check js/website-audit-recommendations.mjs
+      - name: Run analytics and role tests
+        run: node --experimental-default-type=module --test backend/telegram-leads/admin-v2/tests/dashboard-rules.test.mjs backend/telegram-leads/admin-v2/tests/analytics-core.test.mjs backend/telegram-leads/admin-v2/tests/website-audit-recommendations.test.mjs backend/telegram-leads/admin-v2/tests/cms-editor-syntax.test.mjs
