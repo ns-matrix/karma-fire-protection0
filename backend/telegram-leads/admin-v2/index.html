@@ -287,13 +287,7 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
     </aside>
     <button class="absolute inset-0 -z-10" onclick="toggleDrawer(false)" aria-label="Close menu"></button>
   </div>
-  <nav id="mobile-bottom-nav" aria-label="Mobile admin navigation" class="hidden fixed bottom-0 inset-x-0 z-40 bg-light-surface-container-lowest border-t border-light-outline-variant px-2 py-2 grid grid-cols-5 gap-1">
-    <button type="button" data-mtab="overview" onclick="selectTab('overview')" class="flex flex-col items-center text-label-sm"><span class="material-symbols-outlined">dashboard</span>Home</button>
-    <button type="button" data-mtab="enquiries" onclick="selectTab('enquiries')" class="flex flex-col items-center text-label-sm"><span class="material-symbols-outlined">inbox</span>Requests</button>
-    <button type="button" data-mtab="reviews" onclick="selectTab('reviews')" class="flex flex-col items-center text-label-sm"><span class="material-symbols-outlined">reviews</span>Reviews</button>
-    <button type="button" data-mtab="analytics" onclick="selectTab('analytics')" class="flex flex-col items-center text-label-sm"><span class="material-symbols-outlined">monitoring</span>Analytics</button>
-    <button type="button" onclick="toggleDrawer(true)" class="flex flex-col items-center text-label-sm"><span class="material-symbols-outlined">apps</span>More</button>
-  </nav>
+  <nav id="mobile-bottom-nav" aria-label="Mobile admin navigation" class="hidden fixed bottom-0 inset-x-0 z-40 bg-light-surface-container-lowest border-t border-light-outline-variant px-2 py-2 grid grid-cols-5 gap-1"></nav>
 
   <!-- CMS Editor & Website Preview Modal -->
   <div id="cms-modal" class="hidden fixed inset-0 z-50 bg-light-scrim/60 flex items-center justify-center p-gutter-xl"></div>
