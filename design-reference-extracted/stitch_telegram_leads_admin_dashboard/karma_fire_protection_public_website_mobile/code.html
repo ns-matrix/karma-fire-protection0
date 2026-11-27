@@ -1,0 +1,1155 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karma Fire Protection LLP — Public Website (Mobile)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'brand-flame': '#E54826',
+        'info': '#1D74D8',
+        'on-info': '#FFFFFF',
+        'info-container': '#E8F2FF',
+        'on-info-container': '#0E4A8F',
+        'success': '#15803D',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'warning-container': '#FEF3C7',
+        'on-warning-container': '#78350F',
+        'purple': '#6D28D9',
+        'on-purple': '#FFFFFF',
+        'purple-container': '#EDE9FE',
+        'on-purple-container': '#4C1D95',
+        'light-primary': '#0F244A',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#E2E8F5',
+        'light-on-primary-container': '#0F244A',
+        'light-secondary': '#475569',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#E2E8F0',
+        'light-on-secondary-container': '#1E293B',
+        'light-tertiary': '#1D74D8',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#E8F2FF',
+        'light-on-tertiary-container': '#0E4A8F',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FEE2E2',
+        'light-on-error-container': '#7F1D1D',
+        'light-background': '#F4F7FC',
+        'light-on-background': '#0F172A',
+        'light-surface': '#F4F7FC',
+        'light-surface-dim': '#E2E8F0',
+        'light-surface-bright': '#FFFFFF',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#F8FAFC',
+        'light-surface-container': '#F1F5F9',
+        'light-surface-container-high': '#E8EEF6',
+        'light-surface-container-highest': '#DCE4F0',
+        'light-on-surface': '#0F172A',
+        'light-surface-variant': '#E2E8F0',
+        'light-on-surface-variant': '#475569',
+        'light-outline': '#64748B',
+        'light-outline-variant': '#DCE4F0',
+        'light-inverse-surface': '#0F244A',
+        'light-inverse-on-surface': '#F8FAFC',
+        'light-inverse-primary': '#B3C6F5',
+        'light-shadow': '#0F244A',
+        'light-scrim': '#0F172A',
+        'dark-primary': '#B3C6F5',
+        'dark-on-primary': '#0F244A',
+        'dark-primary-container': '#1C2F56',
+        'dark-on-primary-container': '#D8E2FF',
+        'dark-secondary': '#CBD5E1',
+        'dark-on-secondary': '#1E293B',
+        'dark-secondary-container': '#334155',
+        'dark-on-secondary-container': '#E2E8F0',
+        'dark-tertiary': '#93C5FD',
+        'dark-on-tertiary': '#0E3A6E',
+        'dark-tertiary-container': '#1E3A8A',
+        'dark-on-tertiary-container': '#DBEAFE',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#0B1120',
+        'dark-on-background': '#F1F5F9',
+        'dark-surface': '#0B1120',
+        'dark-surface-dim': '#0B1120',
+        'dark-surface-bright': '#1E293B',
+        'dark-surface-container-lowest': '#0F172A',
+        'dark-surface-container-low': '#131C31',
+        'dark-surface-container': '#18233B',
+        'dark-surface-container-high': '#1E293B',
+        'dark-surface-container-highest': '#27354F',
+        'dark-on-surface': '#F1F5F9',
+        'dark-surface-variant': '#334155',
+        'dark-on-surface-variant': '#9FACBF',
+        'dark-outline': '#64748B',
+        'dark-outline-variant': '#27354F',
+        'dark-inverse-surface': '#F1F5F9',
+        'dark-inverse-on-surface': '#0F172A',
+        'dark-inverse-primary': '#0F244A',
+        'dark-shadow': '#000000',
+        'dark-scrim': '#000000',
+      },
+      borderRadius: {
+        'sm': '6px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '12px',
+        'gutter-lg': '16px',
+        'gutter-xl': '20px',
+        'gutter-2xl': '24px',
+        'section': '32px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Jost"', 'sans-serif'],
+        'headline': ['"Jost"', 'sans-serif'],
+        'title': ['"Instrument Sans"', 'sans-serif'],
+        'body': ['"Instrument Sans"', 'sans-serif'],
+        'label': ['"Instrument Sans"', 'sans-serif'],
+        'mono': ['"Source Code Pro"', 'monospace'],
+      },
+      fontSize: {
+        'display-md': ['36px', { lineHeight: '44px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '32px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.15px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '200ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Jost:wght@500;600;700&amp;family=Source+Code+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body class="bg-light-surface-container-lowest text-light-on-surface font-body antialiased selection:bg-light-error-container selection:text-light-on-error-container">
+
+  <!-- ===================================================================== -->
+  <!-- STICKY MOBILE PUBLIC HEADER                                           -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-dark-background text-dark-on-surface border-b border-dark-outline-variant">
+    <div class="px-gutter-lg h-14 flex items-center justify-between gap-gutter-sm">
+      <a href="#home" onclick="navigateTo(&#39;home&#39;); return false;" class="flex items-center shrink-0">
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrCdO5zt1u22I4x-Fs7FDCUJlvq1zmjU83AffWPfe21F3eCvgM21ciLoSKzTHggRGFq6NhBbtADoJEK39bmIdt00jmbkVZQ2BEKV3mHIUrv1I3fwKn2g-fX9rsGkwwuO9kPfQ4ZO8TeImjU_OyDDNqdSABihlOEt7-4a4Y2PGWH9qEd3JgODrEtfeyqva0j5tx7bk9Mt4sDX4XdrzVkqJCyGiPd_PGvgvqethF7Q1NFzz8wzTUVRdjI1cN4" alt="Karma Fire Protection LLP" class="h-8 w-auto object-contain">
+      </a>
+      <div class="flex items-center gap-gutter-xs">
+        <a href="tel:+912240189200" aria-label="Call Karma Fire Protection" class="inline-flex items-center gap-1 px-gutter-sm py-gutter-xs rounded-DEFAULT bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm text-dark-on-surface">
+          <span class="material-symbols-outlined text-label-lg text-dark-error">call</span>
+          <span>Call</span>
+        </a>
+        <button type="button" aria-label="Open menu" onclick="toggleMobileMenu(true)" class="p-gutter-xs rounded-DEFAULT text-dark-on-surface hover:bg-dark-surface-container">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-50 bg-dark-background text-dark-on-surface flex flex-col p-gutter-xl overflow-y-auto">
+    <div class="flex items-center justify-between pb-gutter-md border-b border-dark-outline-variant">
+      <img src="https://lh3.googleusercontent.com/aida/ALJJyrCdO5zt1u22I4x-Fs7FDCUJlvq1zmjU83AffWPfe21F3eCvgM21ciLoSKzTHggRGFq6NhBbtADoJEK39bmIdt00jmbkVZQ2BEKV3mHIUrv1I3fwKn2g-fX9rsGkwwuO9kPfQ4ZO8TeImjU_OyDDNqdSABihlOEt7-4a4Y2PGWH9qEd3JgODrEtfeyqva0j5tx7bk9Mt4sDX4XdrzVkqJCyGiPd_PGvgvqethF7Q1NFzz8wzTUVRdjI1cN4" alt="Karma Fire Protection LLP" class="h-8 w-auto object-contain">
+      <button type="button" aria-label="Close menu" onclick="toggleMobileMenu(false)" class="p-gutter-xs rounded-DEFAULT text-dark-on-surface hover:bg-dark-surface-container">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-gutter-md py-gutter-lg flex-1">
+      <button type="button" onclick="navigateTo(&#39;home&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">Home</button>
+      <button type="button" onclick="navigateTo(&#39;about&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">About</button>
+      <div class="flex flex-col gap-gutter-xs">
+        <button type="button" onclick="navigateTo(&#39;services&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">Services</button>
+        <div class="pl-gutter-md flex flex-col gap-gutter-xs border-l border-dark-outline-variant">
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;hydrant&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-1">Fire Hydrant System</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;alarm&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-1">Fire Alarm System</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;sprinkler&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-1">Fire Sprinkler System</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;suppression&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-1">Fire Suppression System</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;maintenance&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-1">Maintenance &amp; Inspection</button>
+        </div>
+      </div>
+      <button type="button" onclick="navigateTo(&#39;projects&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">Projects</button>
+      <button type="button" onclick="navigateTo(&#39;contact&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">Contact</button>
+    </nav>
+    <div class="border-t border-dark-outline-variant pt-gutter-md flex flex-col gap-gutter-sm">
+      <a href="tel:+912240189200" class="font-mono text-mono-sm text-dark-secondary">+91 22 4018 9200</a>
+      <a href="mailto:info@karmafireprotection.com" class="font-body text-body-sm text-dark-secondary">info@karmafireprotection.com</a>
+      <button type="button" onclick="navigateTo(&#39;contact&#39;); toggleMobileMenu(false);" class="w-full py-gutter-md rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-lg">Request a Quote</button>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE CONTAINER                                                        -->
+  <!-- ===================================================================== -->
+  <main id="page-root" class="min-h-[884px]" data-stitch-vh="min-h-[884px]===min-h-screen">
+
+    <!-- =================================================================== -->
+    <!-- PAGE 1: HOME                                                        -->
+    <!-- =================================================================== -->
+    <div id="page-home" class="page-section">
+      <!-- Hero -->
+      <section class="relative bg-dark-background text-dark-on-surface overflow-hidden">
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrDLTehCVOdNfB4WNXRiMAHpuv4OSzUQPziN90VjNlx4wQ8k5tugS37gaY9loTVelLFMgo3aklLs9M5uhHsdeRVyDVCJNVuKzhtOCu6k0xOUhzxGvsBASLJ3autQxpd5czWUq-J6qhcqvqgC0qTzsrTz9VEDbn2wJ22cNCQ_id1ENW7ZtlaLy8rM3J5R2Ej06akYfT87-sdpGO_GZcCZrcfgt4Mfbg-_b8w02b7orsK28IG8BGlxGZpdYU4" alt="Fire protection engineering and emergency readiness" class="absolute inset-0 w-full h-full object-cover opacity-35">
+        <div class="absolute inset-0 bg-dark-background/80"></div>
+        <div class="relative z-10 px-gutter-lg py-12 flex flex-col gap-gutter-lg">
+          <div class="inline-flex items-center gap-gutter-xs self-start px-gutter-md py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant">
+            <span class="w-2 h-2 rounded-full bg-dark-error"></span>
+            <span class="font-label text-label-sm text-dark-on-surface">Karma Fire Protection LLP</span>
+          </div>
+          <h1 class="font-headline text-headline-lg text-light-on-primary text-balance">
+            Complete Fire Protection Solutions for Safer Buildings
+          </h1>
+          <p class="font-body text-body-md text-dark-secondary text-pretty">
+            Karma Fire Protection LLP designs, installs, tests and maintains fire hydrant, fire alarm, fire sprinkler and fire suppression systems, helping protect buildings, property and people from fire hazards.
+          </p>
+          <div class="flex flex-col gap-gutter-sm pt-gutter-xs">
+            <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="w-full inline-flex items-center justify-center gap-gutter-xs px-gutter-lg py-gutter-md rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-lg">
+              <span>Request a Quote</span>
+              <span class="material-symbols-outlined text-title-md">arrow_forward</span>
+            </button>
+            <div class="grid grid-cols-2 gap-gutter-sm">
+              <button type="button" onclick="navigateTo(&#39;services&#39;)" class="inline-flex items-center justify-center px-gutter-md py-gutter-sm rounded-DEFAULT bg-dark-surface-container text-dark-on-surface border border-dark-outline-variant font-label text-label-md">
+                <span>Explore Services</span>
+              </button>
+              <a href="tel:+912240189200" class="inline-flex items-center justify-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-DEFAULT border border-dark-outline text-dark-on-surface font-label text-label-md">
+                <span class="material-symbols-outlined text-label-lg">call</span>
+                <span>Call Now</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Company Introduction -->
+      <section class="py-10 px-gutter-lg bg-light-surface-container-lowest border-b border-light-outline-variant flex flex-col gap-gutter-lg">
+        <div class="flex flex-col gap-gutter-sm">
+          <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Engineering &amp; Life Safety</span>
+          <h2 class="font-headline text-headline-md text-light-on-surface">Protecting Buildings with End-to-End Fire Safety</h2>
+          <p class="font-body text-body-md text-light-on-surface-variant text-pretty">
+            From initial site evaluation and hydraulic system planning to precision piping installation, testing, and ongoing maintenance, Karma Fire Protection LLP delivers integrated fire safety infrastructure tailored to each facility&#39;s hazard profile.
+          </p>
+          <button type="button" onclick="navigateTo(&#39;about&#39;)" class="self-start inline-flex items-center gap-gutter-xs font-label text-label-md text-light-primary mt-1">
+            <span>Learn About Our Company</span>
+            <span class="material-symbols-outlined text-label-lg">arrow_forward</span>
+          </button>
+        </div>
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Fire hydrant riser manifold and pump room engineering" loading="lazy" class="w-full h-52 object-cover rounded-md border border-light-outline-variant shadow-sm">
+      </section>
+
+      <!-- Complete Fire Protection Services (6 Cards) -->
+      <section class="py-10 px-gutter-lg bg-light-surface flex flex-col gap-gutter-lg">
+        <div class="flex flex-col gap-gutter-xs">
+          <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Core Capabilities</span>
+          <h2 class="font-headline text-headline-md text-light-on-surface">Complete Fire Protection Services</h2>
+          <button type="button" onclick="navigateTo(&#39;services&#39;)" class="self-start font-label text-label-sm text-light-primary underline mt-1">View Technical Specifications →</button>
+        </div>
+
+        <div class="flex flex-col gap-gutter-md">
+          <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Fire Hydrant System" loading="lazy" class="w-full h-40 object-cover">
+            <div class="p-gutter-lg flex flex-col gap-gutter-sm">
+              <h3 class="font-title text-title-md text-light-on-surface">Fire Hydrant System</h3>
+              <p class="font-body text-body-sm text-light-on-surface-variant">Hydrant network planning, piping, landing valves, hose reels, pump room integration, and pressure testing.</p>
+              <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;hydrant&#39;)" class="self-start font-label text-label-sm text-light-primary inline-flex items-center gap-1 mt-1">
+                <span>Learn More</span><span class="material-symbols-outlined text-label-md">arrow_forward</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrBBiB_fVAwP-7NRWM70NzVntN6Emucq0ktRGedoL1ohZ9lT61hGPXcEfD-NvF6XieNvRBTmEABLbNwt6zp3L3mhjZY3_onevmEs8u4LqMXomom9qsmCXtIkPOya8DLl7Erwk8Jg6oQlqPOFOVAFDVvk2Qb1pTPmCIzzLEBY-gWkjErTosm9jTjYRij8WAyYOfG4_PBAzmWCXOEydmYtmpKxby5wZbJp8zTVFHK56hM55Z98CErq" alt="Fire Alarm System" loading="lazy" class="w-full h-40 object-cover">
+            <div class="p-gutter-lg flex flex-col gap-gutter-sm">
+              <h3 class="font-title text-title-md text-light-on-surface">Fire Alarm System</h3>
+              <p class="font-body text-body-sm text-light-on-surface-variant">Addressable detection panels, smoke and heat detectors, manual call points, and notification loops.</p>
+              <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;alarm&#39;)" class="self-start font-label text-label-sm text-light-primary inline-flex items-center gap-1 mt-1">
+                <span>Learn More</span><span class="material-symbols-outlined text-label-md">arrow_forward</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrCOwdUeBbOp1G4B7kyrQ-S8rOCuoFT37FwzIjgBTNmXwqKp790LF3-qvotgc-OSrfduZhOFMwNLQJLLzrYvIbE4ndLMBy_Z-Zrsvgxc2OIMklkf2ONOREL1CZ6YvhGv_9AGfRxA2paqMsjHwa8BUwdQYpHGDJ8mhakeV4caYJYR9PDGGEtPwFx2P6u7eNLQXgqO1I4H0s2g23wn06J4hnrUwaM7wolVhewQw6KKo98QI96JctD5TwyL9rE" alt="Fire Sprinkler System" loading="lazy" class="w-full h-40 object-cover">
+            <div class="p-gutter-lg flex flex-col gap-gutter-sm">
+              <h3 class="font-title text-title-md text-light-on-surface">Fire Sprinkler System</h3>
+              <p class="font-body text-body-sm text-light-on-surface-variant">Automatic sprinkler piping networks, control valve assemblies, water supply connections, and zone testing.</p>
+              <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;sprinkler&#39;)" class="self-start font-label text-label-sm text-light-primary inline-flex items-center gap-1 mt-1">
+                <span>Learn More</span><span class="material-symbols-outlined text-label-md">arrow_forward</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrCrQOaRHJzYpy4pPXzQVThbWdBq1sRFCT0jkaOONbgOgzWiuopWKRF5cRTk_IKtLbIs6rgPH_oZKKabDHG6kgmvAF41ZpjsKEcgT172BmbuhDhnp78WdCDswTg-ID_h1IJrWqdl0_YwLXsXe33wZjlm2wZ7oJbj1r78sARpgwY2mfWerHMHbdvDtCEFn1pJm2Q7Ks6p-vpJejho8E5bVNcXbK_JXJUSTDsCisIv4u2Vsjja2xHnzrwa9gSvtIk" alt="Fire Suppression System" loading="lazy" class="w-full h-40 object-cover">
+            <div class="p-gutter-lg flex flex-col gap-gutter-sm">
+              <h3 class="font-title text-title-md text-light-on-surface">Fire Suppression System</h3>
+              <p class="font-body text-body-sm text-light-on-surface-variant">Specialized suppression planning, cylinder manifold installation, panel integration, and commissioning.</p>
+              <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;suppression&#39;)" class="self-start font-label text-label-sm text-light-primary inline-flex items-center gap-1 mt-1">
+                <span>Learn More</span><span class="material-symbols-outlined text-label-md">arrow_forward</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant p-gutter-lg shadow-sm flex flex-col gap-gutter-sm">
+            <div class="w-10 h-10 rounded-md bg-light-primary-container text-light-primary flex items-center justify-center">
+              <span class="material-symbols-outlined">engineering</span>
+            </div>
+            <h3 class="font-title text-title-md text-light-on-surface">Installation &amp; Commissioning</h3>
+            <p class="font-body text-body-sm text-light-on-surface-variant">End-to-end site execution, hydro-testing, functional verification, and structured system handover.</p>
+            <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;maintenance&#39;)" class="self-start font-label text-label-sm text-light-primary inline-flex items-center gap-1 mt-1">
+              <span>Learn More</span><span class="material-symbols-outlined text-label-md">arrow_forward</span>
+            </button>
+          </article>
+
+          <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant p-gutter-lg shadow-sm flex flex-col gap-gutter-sm">
+            <div class="w-10 h-10 rounded-md bg-success-container text-on-success-container flex items-center justify-center">
+              <span class="material-symbols-outlined">verified</span>
+            </div>
+            <h3 class="font-title text-title-md text-light-on-surface">Maintenance &amp; Inspection</h3>
+            <p class="font-body text-body-sm text-light-on-surface-variant">Periodic preventive maintenance, AMC visits, pressure &amp; alarm testing, and corrective repairs.</p>
+            <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;maintenance&#39;)" class="self-start font-label text-label-sm text-light-primary inline-flex items-center gap-1 mt-1">
+              <span>Learn More</span><span class="material-symbols-outlined text-label-md">arrow_forward</span>
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <!-- Why Choose Karma + Our Approach -->
+      <section class="py-10 px-gutter-lg bg-dark-background text-dark-on-surface flex flex-col gap-gutter-lg">
+        <div class="flex flex-col gap-gutter-xs">
+          <span class="font-label text-label-sm text-dark-error uppercase tracking-wider">Why Choose Karma Fire Protection</span>
+          <h2 class="font-headline text-headline-md text-light-on-primary">Safety-Focused. Building-Protection Driven.</h2>
+          <p class="font-body text-body-sm text-dark-secondary">Structured engineering execution from initial site evaluation to long-term preventive maintenance.</p>
+        </div>
+
+        <div class="relative pl-6 border-l-2 border-dark-error/40 flex flex-col gap-gutter-md ml-3">
+          <div class="relative p-gutter-lg rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-1">
+            <span class="absolute -left-9 top-5 w-6 h-6 rounded-full bg-dark-error text-dark-on-error font-mono text-[11px] flex items-center justify-center font-bold">01</span>
+            <span class="font-mono text-mono-sm text-dark-error">STAGE 01</span>
+            <h3 class="font-title text-title-md text-dark-on-surface">Site Evaluation</h3>
+            <p class="font-body text-body-sm text-dark-on-surface-variant text-balance">Physical inspection of layout, occupancy, and fire hazard zones.</p>
+          </div>
+          <div class="relative p-gutter-lg rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-1">
+            <span class="absolute -left-9 top-5 w-6 h-6 rounded-full bg-dark-error text-dark-on-error font-mono text-[11px] flex items-center justify-center font-bold">02</span>
+            <span class="font-mono text-mono-sm text-dark-error">STAGE 02</span>
+            <h3 class="font-title text-title-md text-dark-on-surface">Planning &amp; System Design</h3>
+            <p class="font-body text-body-sm text-dark-on-surface-variant text-balance">Building-specific engineering layouts and BOQ preparation.</p>
+          </div>
+          <div class="relative p-gutter-lg rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-1">
+            <span class="absolute -left-9 top-5 w-6 h-6 rounded-full bg-dark-error text-dark-on-error font-mono text-[11px] flex items-center justify-center font-bold">03</span>
+            <span class="font-mono text-mono-sm text-dark-error">STAGE 03</span>
+            <h3 class="font-title text-title-md text-dark-on-surface">Equipment Selection</h3>
+            <p class="font-body text-body-sm text-dark-on-surface-variant text-balance">Matching pumps, panels, valves, and detectors to site requirements.</p>
+          </div>
+          <div class="relative p-gutter-lg rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-1">
+            <span class="absolute -left-9 top-5 w-6 h-6 rounded-full bg-dark-error text-dark-on-error font-mono text-[11px] flex items-center justify-center font-bold">04</span>
+            <span class="font-mono text-mono-sm text-dark-error">STAGE 04</span>
+            <h3 class="font-title text-title-md text-dark-on-surface">Installation</h3>
+            <p class="font-body text-body-sm text-dark-on-surface-variant text-balance">Disciplined piping, cabling, valve assembly, and panel mounting.</p>
+          </div>
+          <div class="relative p-gutter-lg rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-1">
+            <span class="absolute -left-9 top-5 w-6 h-6 rounded-full bg-dark-error text-dark-on-error font-mono text-[11px] flex items-center justify-center font-bold">05</span>
+            <span class="font-mono text-mono-sm text-dark-error">STAGE 05</span>
+            <h3 class="font-title text-title-md text-dark-on-surface">Testing &amp; Commissioning</h3>
+            <p class="font-body text-body-sm text-dark-on-surface-variant text-balance">Hydro-pressure verification, loop checks, and functional handover.</p>
+          </div>
+          <div class="relative p-gutter-lg rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-1">
+            <span class="absolute -left-9 top-5 w-6 h-6 rounded-full bg-dark-error text-dark-on-error font-mono text-[11px] flex items-center justify-center font-bold">06</span>
+            <span class="font-mono text-mono-sm text-dark-error">STAGE 06</span>
+            <h3 class="font-title text-title-md text-dark-on-surface">Maintenance &amp; Inspection</h3>
+            <p class="font-body text-body-sm text-dark-on-surface-variant text-balance">Scheduled AMC service visits, defect resolution, and readiness checks.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Selected Projects -->
+      <section class="py-10 px-gutter-lg bg-light-surface flex flex-col gap-gutter-lg">
+        <div class="flex items-end justify-between gap-gutter-sm">
+          <div>
+            <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Public Portfolio</span>
+            <h2 class="font-headline text-headline-md text-light-on-surface">Selected Projects</h2>
+          </div>
+          <button type="button" onclick="navigateTo(&#39;projects&#39;)" class="font-label text-label-sm text-light-primary underline shrink-0">View All →</button>
+        </div>
+        <div id="home-projects-grid" class="flex flex-col gap-gutter-md"></div>
+      </section>
+
+      <!-- Reviews and Testimonials (Swipeable Carousel) -->
+      <section class="py-10 px-gutter-lg bg-light-surface-container-lowest border-t border-light-outline-variant flex flex-col gap-gutter-md">
+        <div class="flex items-end justify-between gap-gutter-sm">
+          <div>
+            <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Client Feedback</span>
+            <h2 class="font-headline text-headline-md text-light-on-surface">Reviews &amp; Testimonials</h2>
+          </div>
+          <button type="button" onclick="openReviewModal()" class="inline-flex items-center gap-1 px-gutter-sm py-gutter-xs rounded-DEFAULT border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-sm text-light-primary shrink-0">
+            <span class="material-symbols-outlined text-label-md">rate_review</span>
+            <span>Review</span>
+          </button>
+        </div>
+        <div class="flex items-center justify-between text-light-on-surface-variant font-label text-label-sm">
+          <span>Verified client ratings</span>
+          <span class="inline-flex items-center gap-1 text-light-primary"><span>Swipe</span><span class="material-symbols-outlined text-label-md">arrow_forward</span></span>
+        </div>
+        <div id="home-reviews-grid" class="flex flex-row gap-gutter-md overflow-x-auto snap-x snap-mandatory pb-2"></div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="py-10 px-gutter-lg bg-light-primary text-light-on-primary flex flex-col gap-gutter-md">
+        <div class="flex flex-col gap-1">
+          <h2 class="font-headline text-headline-md text-light-on-primary">Protect Your Property. Plan Your Fire Safety System.</h2>
+          <p class="font-body text-body-sm text-dark-secondary">Discuss your building&#39;s hydrant, alarm, sprinkler, or AMC requirements with our engineering team.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-gutter-sm">
+          <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="py-gutter-sm rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md">Request a Quote</button>
+          <a href="tel:+912240189200" class="py-gutter-sm rounded-DEFAULT border border-dark-outline text-light-on-primary font-label text-label-md text-center">Call Now</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 2: ABOUT US                                                    -->
+    <!-- =================================================================== -->
+    <div id="page-about" class="page-section hidden">
+      <section class="bg-dark-background text-dark-on-surface px-gutter-lg py-10">
+        <span class="font-label text-label-sm text-dark-error uppercase tracking-wider">About Us</span>
+        <h1 class="font-headline text-headline-lg text-light-on-primary mt-1">About Karma Fire Protection LLP</h1>
+        <p class="font-body text-body-md text-dark-secondary mt-2">A fire protection engineering and service partner focused on reliable building life-safety systems.</p>
+      </section>
+
+      <section class="py-10 px-gutter-lg flex flex-col gap-10">
+        <!-- Company Introduction -->
+        <div class="flex flex-col gap-gutter-md">
+          <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Company Introduction</span>
+          <h2 class="font-headline text-headline-md text-light-on-surface">A Fire Protection Consultant Built Around Building Safety</h2>
+          <p class="font-body text-body-md text-light-on-surface-variant">
+            Karma Fire Protection LLP handles the planning, supply, installation, testing, and ongoing maintenance of fire hydrant, fire alarm, fire sprinkler, and fire suppression systems across commercial, healthcare, industrial, and institutional buildings.
+          </p>
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Karma Fire Protection LLP engineering installation" loading="lazy" class="w-full h-48 object-cover rounded-md border border-light-outline-variant shadow-sm">
+        </div>
+
+        <!-- Four Core Systems -->
+        <div class="flex flex-col gap-gutter-md">
+          <div>
+            <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Core Systems</span>
+            <h2 class="font-headline text-headline-md text-light-on-surface">Four Core Systems</h2>
+          </div>
+          <div class="flex flex-col gap-gutter-md">
+            <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Fire Hydrant Systems" loading="lazy" class="w-full h-36 object-cover">
+              <div class="p-gutter-lg flex flex-col gap-gutter-xs">
+                <h3 class="font-title text-title-md">Fire Hydrant Systems</h3>
+                <p class="font-body text-body-sm text-light-on-surface-variant">Pressurized riser mains, landing valves, hose reels, and pump house piping for rapid firefighting access.</p>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;hydrant&#39;)" class="self-start font-label text-label-sm text-light-primary mt-1">View Service →</button>
+              </div>
+            </article>
+            <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrBBiB_fVAwP-7NRWM70NzVntN6Emucq0ktRGedoL1ohZ9lT61hGPXcEfD-NvF6XieNvRBTmEABLbNwt6zp3L3mhjZY3_onevmEs8u4LqMXomom9qsmCXtIkPOya8DLl7Erwk8Jg6oQlqPOFOVAFDVvk2Qb1pTPmCIzzLEBY-gWkjErTosm9jTjYRij8WAyYOfG4_PBAzmWCXOEydmYtmpKxby5wZbJp8zTVFHK56hM55Z98CErq" alt="Fire Alarm Systems" loading="lazy" class="w-full h-36 object-cover">
+              <div class="p-gutter-lg flex flex-col gap-gutter-xs">
+                <h3 class="font-title text-title-md">Fire Alarm Systems</h3>
+                <p class="font-body text-body-sm text-light-on-surface-variant">Early smoke &amp; heat detection with addressable control panels and occupant notification loops.</p>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;alarm&#39;)" class="self-start font-label text-label-sm text-light-primary mt-1">View Service →</button>
+              </div>
+            </article>
+            <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrCOwdUeBbOp1G4B7kyrQ-S8rOCuoFT37FwzIjgBTNmXwqKp790LF3-qvotgc-OSrfduZhOFMwNLQJLLzrYvIbE4ndLMBy_Z-Zrsvgxc2OIMklkf2ONOREL1CZ6YvhGv_9AGfRxA2paqMsjHwa8BUwdQYpHGDJ8mhakeV4caYJYR9PDGGEtPwFx2P6u7eNLQXgqO1I4H0s2g23wn06J4hnrUwaM7wolVhewQw6KKo98QI96JctD5TwyL9rE" alt="Fire Sprinkler Systems" loading="lazy" class="w-full h-36 object-cover">
+              <div class="p-gutter-lg flex flex-col gap-gutter-xs">
+                <h3 class="font-title text-title-md">Fire Sprinkler Systems</h3>
+                <p class="font-body text-body-sm text-light-on-surface-variant">Automatic overhead suppression networks and zone control valves for 24/7 localized fire control.</p>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;sprinkler&#39;)" class="self-start font-label text-label-sm text-light-primary mt-1">View Service →</button>
+              </div>
+            </article>
+            <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrCrQOaRHJzYpy4pPXzQVThbWdBq1sRFCT0jkaOONbgOgzWiuopWKRF5cRTk_IKtLbIs6rgPH_oZKKabDHG6kgmvAF41ZpjsKEcgT172BmbuhDhnp78WdCDswTg-ID_h1IJrWqdl0_YwLXsXe33wZjlm2wZ7oJbj1r78sARpgwY2mfWerHMHbdvDtCEFn1pJm2Q7Ks6p-vpJejho8E5bVNcXbK_JXJUSTDsCisIv4u2Vsjja2xHnzrwa9gSvtIk" alt="Fire Suppression Systems" loading="lazy" class="w-full h-36 object-cover">
+              <div class="p-gutter-lg flex flex-col gap-gutter-xs">
+                <h3 class="font-title text-title-md">Fire Suppression Systems</h3>
+                <p class="font-body text-body-sm text-light-on-surface-variant">Targeted enclosure protection for server rooms, switchgear panels, and critical assets.</p>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;suppression&#39;)" class="self-start font-label text-label-sm text-light-primary mt-1">View Service →</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Maintenance Philosophy -->
+        <article class="p-gutter-lg rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-md">
+          <div>
+            <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Maintenance Philosophy</span>
+            <h2 class="font-headline text-headline-md text-light-on-surface mt-1">Installed Systems Are Only Safe When Maintained</h2>
+          </div>
+          <div class="flex flex-col gap-gutter-sm">
+            <div><h3 class="font-title text-title-md">Regular Inspections</h3><p class="font-body text-body-sm text-light-on-surface-variant">Scheduled visual and physical checks across all building zones.</p></div>
+            <div><h3 class="font-title text-title-md">Equipment Condition Checks</h3><p class="font-body text-body-sm text-light-on-surface-variant">Verifying valves, gauges, extinguishers, and pump readiness.</p></div>
+            <div><h3 class="font-title text-title-md">Functional Testing</h3><p class="font-body text-body-sm text-light-on-surface-variant">Pressure run tests, alarm loop checks, and detector verification.</p></div>
+            <div><h3 class="font-title text-title-md">Maintenance Planning</h3><p class="font-body text-body-sm text-light-on-surface-variant">Structured AMC schedules aligned to site operations.</p></div>
+            <div><h3 class="font-title text-title-md">Corrective Action</h3><p class="font-body text-body-sm text-light-on-surface-variant">Tracking and resolving defects discovered during inspections.</p></div>
+            <div><h3 class="font-title text-title-md">Proper Documentation</h3><p class="font-body text-body-sm text-light-on-surface-variant">Clear service visit logs and inspection records.</p></div>
+          </div>
+        </article>
+
+        <!-- Team -->
+        <div class="flex flex-col gap-gutter-md">
+          <div>
+            <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Meet Our Team</span>
+            <h2 class="font-headline text-headline-md text-light-on-surface">Engineering &amp; Operations Team</h2>
+          </div>
+          <div id="about-team-grid" class="flex flex-col gap-gutter-md"></div>
+        </div>
+
+        <!-- CTA -->
+        <article class="p-gutter-lg rounded-md bg-light-primary text-light-on-primary flex flex-col gap-gutter-md">
+          <div>
+            <h2 class="font-headline text-headline-md text-light-on-primary">Discuss Your Building&#39;s Fire Protection Requirements</h2>
+            <p class="font-body text-body-sm text-dark-secondary mt-1">Connect with our engineering team for a site evaluation or system consultation.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-gutter-sm">
+            <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="py-gutter-sm rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md">Request a Quote</button>
+            <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="py-gutter-sm rounded-DEFAULT border border-dark-outline text-light-on-primary font-label text-label-md">Contact Us</button>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 3: SERVICES                                                    -->
+    <!-- =================================================================== -->
+    <div id="page-services" class="page-section hidden">
+      <section class="bg-dark-background text-dark-on-surface px-gutter-lg py-10">
+        <span class="font-label text-label-sm text-dark-error uppercase tracking-wider">Technical Capabilities</span>
+        <h1 class="font-headline text-headline-lg text-light-on-primary mt-1">Our Services</h1>
+        <p class="font-body text-body-md text-dark-secondary mt-2">Detailed engineering, installation, testing, and maintenance services.</p>
+        <div class="flex flex-wrap gap-gutter-xs mt-gutter-md">
+          <button type="button" onclick="scrollToAnchor(&#39;hydrant&#39;)" class="px-gutter-sm py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm">Hydrant</button>
+          <button type="button" onclick="scrollToAnchor(&#39;alarm&#39;)" class="px-gutter-sm py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm">Alarm</button>
+          <button type="button" onclick="scrollToAnchor(&#39;sprinkler&#39;)" class="px-gutter-sm py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm">Sprinkler</button>
+          <button type="button" onclick="scrollToAnchor(&#39;suppression&#39;)" class="px-gutter-sm py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm">Suppression</button>
+          <button type="button" onclick="scrollToAnchor(&#39;maintenance&#39;)" class="px-gutter-sm py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm">Maintenance</button>
+        </div>
+      </section>
+
+      <section class="py-10 px-gutter-lg flex flex-col gap-10">
+        <article id="hydrant" class="flex flex-col gap-gutter-md">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Fire Hydrant System" loading="lazy" class="w-full h-48 object-cover rounded-md border border-light-outline-variant">
+          <h2 class="font-headline text-headline-md text-light-on-surface">Fire Hydrant System</h2>
+          <p class="font-body text-body-md text-light-on-surface-variant">High-pressure water supply networks engineered for rapid firefighting access across multi-storey buildings, warehouses, and industrial plants.</p>
+          <p class="font-body text-body-sm text-light-on-surface"><strong>Key Components:</strong> Main &amp; jockey fire pumps, MS/GI hydrant riser piping, single/double landing valves, hose reels, courtyard hydrants, and pressure gauges.</p>
+          <button type="button" onclick="requestQuoteForService(&#39;Fire Hydrant System&#39;)" class="w-full py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md">Request Quote for Hydrant System</button>
+        </article>
+
+        <article id="alarm" class="flex flex-col gap-gutter-md">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrBBiB_fVAwP-7NRWM70NzVntN6Emucq0ktRGedoL1ohZ9lT61hGPXcEfD-NvF6XieNvRBTmEABLbNwt6zp3L3mhjZY3_onevmEs8u4LqMXomom9qsmCXtIkPOya8DLl7Erwk8Jg6oQlqPOFOVAFDVvk2Qb1pTPmCIzzLEBY-gWkjErTosm9jTjYRij8WAyYOfG4_PBAzmWCXOEydmYtmpKxby5wZbJp8zTVFHK56hM55Z98CErq" alt="Fire Alarm System" loading="lazy" class="w-full h-48 object-cover rounded-md border border-light-outline-variant">
+          <h2 class="font-headline text-headline-md text-light-on-surface">Fire Alarm System</h2>
+          <p class="font-body text-body-md text-light-on-surface-variant">Early-warning detection and occupant notification systems designed for rapid zone identification and safe evacuation.</p>
+          <p class="font-body text-body-sm text-light-on-surface"><strong>Key Components:</strong> Addressable &amp; conventional FACP panels, optical smoke detectors, heat detectors, manual call points, hooters, and FRLS loop cabling.</p>
+          <button type="button" onclick="requestQuoteForService(&#39;Fire Alarm System&#39;)" class="w-full py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md">Request Quote for Alarm System</button>
+        </article>
+
+        <article id="sprinkler" class="flex flex-col gap-gutter-md">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrCOwdUeBbOp1G4B7kyrQ-S8rOCuoFT37FwzIjgBTNmXwqKp790LF3-qvotgc-OSrfduZhOFMwNLQJLLzrYvIbE4ndLMBy_Z-Zrsvgxc2OIMklkf2ONOREL1CZ6YvhGv_9AGfRxA2paqMsjHwa8BUwdQYpHGDJ8mhakeV4caYJYR9PDGGEtPwFx2P6u7eNLQXgqO1I4H0s2g23wn06J4hnrUwaM7wolVhewQw6KKo98QI96JctD5TwyL9rE" alt="Fire Sprinkler System" loading="lazy" class="w-full h-48 object-cover rounded-md border border-light-outline-variant">
+          <h2 class="font-headline text-headline-md text-light-on-surface">Fire Sprinkler System</h2>
+          <p class="font-body text-body-md text-light-on-surface-variant">Automated thermal-activated water distribution networks providing 24/7 localized fire control across commercial floors and storage bays.</p>
+          <p class="font-body text-body-sm text-light-on-surface"><strong>Key Components:</strong> Pendent &amp; upright sprinkler heads, wet riser branch piping, installation control valves, flow switches, and zone isolation valves.</p>
+          <button type="button" onclick="requestQuoteForService(&#39;Fire Sprinkler System&#39;)" class="w-full py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md">Request Quote for Sprinkler System</button>
+        </article>
+
+        <article id="suppression" class="flex flex-col gap-gutter-md">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrCrQOaRHJzYpy4pPXzQVThbWdBq1sRFCT0jkaOONbgOgzWiuopWKRF5cRTk_IKtLbIs6rgPH_oZKKabDHG6kgmvAF41ZpjsKEcgT172BmbuhDhnp78WdCDswTg-ID_h1IJrWqdl0_YwLXsXe33wZjlm2wZ7oJbj1r78sARpgwY2mfWerHMHbdvDtCEFn1pJm2Q7Ks6p-vpJejho8E5bVNcXbK_JXJUSTDsCisIv4u2Vsjja2xHnzrwa9gSvtIk" alt="Fire Suppression System" loading="lazy" class="w-full h-48 object-cover rounded-md border border-light-outline-variant">
+          <h2 class="font-headline text-headline-md text-light-on-surface">Fire Suppression System</h2>
+          <p class="font-body text-body-md text-light-on-surface-variant">Engineered suppression solutions for server rooms, electrical switchgear enclosures, and sensitive industrial equipment.</p>
+          <p class="font-body text-body-sm text-light-on-surface"><strong>Key Components:</strong> Cylinder banks, discharge manifolds, release control panels, cross-zone detection, and room integrity verification.</p>
+          <button type="button" onclick="requestQuoteForService(&#39;Fire Suppression System&#39;)" class="w-full py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md">Request Quote for Suppression System</button>
+        </article>
+
+        <article id="maintenance" class="p-gutter-lg rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-md">
+          <h2 class="font-headline text-headline-md text-light-on-surface">Installation, Testing &amp; Maintenance</h2>
+          <div class="flex flex-col gap-gutter-sm">
+            <div><h3 class="font-title text-title-md">Planning &amp; Design</h3><p class="font-body text-body-sm text-light-on-surface-variant">Site assessment, building requirements, and system planning.</p></div>
+            <div><h3 class="font-title text-title-md">Excavation &amp; Piping</h3><p class="font-body text-body-sm text-light-on-surface-variant">Underground ring mains, risers, and bracketed distribution piping.</p></div>
+            <div><h3 class="font-title text-title-md">Valves &amp; Fittings</h3><p class="font-body text-body-sm text-light-on-surface-variant">Installation and inspection of isolation, non-return, and landing valves.</p></div>
+            <div><h3 class="font-title text-title-md">Testing &amp; Inspection</h3><p class="font-body text-body-sm text-light-on-surface-variant">Functional pump run tests, hydro-testing, and detector sensitivity checks.</p></div>
+            <div><h3 class="font-title text-title-md">Final Connections</h3><p class="font-body text-body-sm text-light-on-surface-variant">System tie-ins, panel programming, and commissioning handover.</p></div>
+            <div><h3 class="font-title text-title-md">Maintenance &amp; Inspection</h3><p class="font-body text-body-sm text-light-on-surface-variant">Periodic AMC visits, preventive checks, and corrective repairs.</p></div>
+          </div>
+          <button type="button" onclick="requestQuoteForService(&#39;Maintenance &amp; Inspection&#39;)" class="w-full py-gutter-sm rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md">Schedule a Consultation</button>
+        </article>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 4: PROJECTS                                                    -->
+    <!-- =================================================================== -->
+    <div id="page-projects" class="page-section hidden">
+      <section class="bg-dark-background text-dark-on-surface px-gutter-lg py-10">
+        <span class="font-label text-label-sm text-dark-error uppercase tracking-wider">Portfolio</span>
+        <h1 class="font-headline text-headline-lg text-light-on-primary mt-1">Projects, Clients &amp; Certifications</h1>
+        <p class="font-body text-body-md text-dark-secondary mt-2">Approved public project references across commercial, healthcare, logistics, and institutional facilities.</p>
+      </section>
+
+      <section class="py-10 px-gutter-lg flex flex-col gap-10">
+        <div id="all-projects-grid" class="flex flex-col gap-gutter-md"></div>
+
+        <div class="flex flex-col gap-gutter-md">
+          <div class="flex items-end justify-between gap-gutter-sm">
+            <div>
+              <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Client Feedback</span>
+              <h2 class="font-headline text-headline-md text-light-on-surface">Reviews &amp; Testimonials</h2>
+            </div>
+            <button type="button" onclick="openReviewModal()" class="inline-flex items-center gap-1 px-gutter-sm py-gutter-xs rounded-DEFAULT border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-sm text-light-primary shrink-0">
+              <span class="material-symbols-outlined text-label-md">rate_review</span>
+              <span>Review</span>
+            </button>
+          </div>
+          <div id="projects-reviews-grid" class="flex flex-row gap-gutter-md overflow-x-auto snap-x snap-mandatory pb-2"></div>
+        </div>
+
+        <article class="p-gutter-lg rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-sm">
+          <h2 class="font-title text-title-md text-light-on-surface">Who We Work With</h2>
+          <div class="flex flex-wrap gap-gutter-xs">
+            <span class="px-gutter-sm py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Warehouses &amp; Logistics</span>
+            <span class="px-gutter-sm py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Hospitals &amp; Healthcare</span>
+            <span class="px-gutter-sm py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Commercial IT Parks</span>
+            <span class="px-gutter-sm py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Educational Institutions</span>
+            <span class="px-gutter-sm py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Manufacturing Plants</span>
+          </div>
+        </article>
+
+        <article class="p-gutter-lg rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-sm">
+          <h2 class="font-title text-title-md text-light-on-surface">Have a Project in Mind?</h2>
+          <p class="font-body text-body-sm text-light-on-surface-variant">Share your building drawings or site location to request a fire safety survey and quotation.</p>
+          <div class="grid grid-cols-2 gap-gutter-sm mt-1">
+            <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="py-gutter-sm rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md">Request a Quote</button>
+            <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="py-gutter-sm rounded-DEFAULT border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-md">Contact Us</button>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 5: CONTACT & REQUEST A QUOTE                                   -->
+    <!-- =================================================================== -->
+    <div id="page-contact" class="page-section hidden">
+      <section class="bg-dark-background text-dark-on-surface px-gutter-lg py-10">
+        <span class="font-label text-label-sm text-dark-error uppercase tracking-wider">Let&#39;s Plan Your Fire Safety System</span>
+        <h1 class="font-headline text-headline-lg text-light-on-primary mt-1">Contact Us &amp; Request a Quote</h1>
+        <p class="font-body text-body-md text-dark-secondary mt-2">Submit your building and system requirements below. All enquiries are securely routed to our operations team.</p>
+      </section>
+
+      <section class="py-10 px-gutter-lg flex flex-col gap-gutter-lg">
+        <!-- Direct Contact & Map on Top -->
+        <article class="p-gutter-lg rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-md">
+          <h2 class="font-title text-title-md text-light-on-surface">Direct Contact</h2>
+          <div class="flex items-start gap-gutter-sm">
+            <span class="material-symbols-outlined text-light-error">call</span>
+            <div>
+              <span class="font-label text-label-sm text-light-on-surface-variant block">Phone</span>
+              <a href="tel:+912240189200" class="font-mono text-mono-sm text-light-on-surface">+91 22 4018 9200</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-gutter-sm">
+            <span class="material-symbols-outlined text-light-error">mail</span>
+            <div>
+              <span class="font-label text-label-sm text-light-on-surface-variant block">Official Email</span>
+              <a href="mailto:info@karmafireprotection.com" class="font-body text-body-sm text-light-on-surface">info@karmafireprotection.com</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-gutter-sm">
+            <span class="material-symbols-outlined text-light-error">location_on</span>
+            <div>
+              <span class="font-label text-label-sm text-light-on-surface-variant block">Registered Office</span>
+              <p class="font-body text-body-sm text-light-on-surface">Karma Fire Protection LLP, Navi Mumbai, Maharashtra, India</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm flex flex-col">
+          <div class="h-44 bg-light-surface-container flex flex-col items-center justify-center p-gutter-md text-center border-b border-light-outline-variant">
+            <div class="w-10 h-10 rounded-full bg-light-error text-light-on-error flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined">location_on</span>
+            </div>
+            <p class="font-title text-title-md text-light-on-surface mt-2">Karma Fire Protection LLP</p>
+            <p class="font-body text-body-sm text-light-on-surface-variant">Turbhe / Navi Mumbai, Maharashtra 400703</p>
+            <span class="font-mono text-mono-sm text-light-outline mt-1 tabular-nums">19.0728° N, 73.0172° E</span>
+          </div>
+          <div class="p-gutter-md flex items-center justify-between bg-light-surface-container-low">
+            <span class="font-label text-label-sm text-light-on-surface-variant">Google Maps</span>
+            <a href="https://maps.google.com/?q=Navi+Mumbai,+Maharashtra,+India" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-label text-label-sm text-light-primary">
+              <span>Open Maps</span>
+              <span class="material-symbols-outlined text-label-md">open_in_new</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Quote Form Below -->
+        <form id="lead-form" novalidate onsubmit="handleLeadSubmit(event)" class="p-gutter-lg rounded-md bg-light-surface-container-lowest border border-light-outline-variant shadow-sm flex flex-col gap-gutter-md">
+          <h2 class="font-headline text-headline-md text-light-on-surface">Request a Consultation</h2>
+
+          <div class="hidden" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="lead-name" class="font-label text-label-sm">Full Name <span class="text-light-error">*</span></label>
+            <input id="lead-name" name="name" type="text" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+            <span id="err-name" class="hidden font-body text-body-sm text-light-error">Please enter your full name.</span>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="lead-phone" class="font-label text-label-sm">Phone Number <span class="text-light-error">*</span></label>
+            <input id="lead-phone" name="phone" type="tel" required placeholder="+91 98..." class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+            <span id="err-phone" class="hidden font-body text-body-sm text-light-error">Please enter a valid 10+ digit phone number.</span>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="lead-email" class="font-label text-label-sm">Email Address <span class="text-light-error">*</span></label>
+            <input id="lead-email" name="email" type="email" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+            <span id="err-email" class="hidden font-body text-body-sm text-light-error">Please enter a valid email address.</span>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="lead-company" class="font-label text-label-sm">Company / Organization</label>
+            <input id="lead-company" name="company" type="text" class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="lead-building" class="font-label text-label-sm">Building Type <span class="text-light-error">*</span></label>
+            <select id="lead-building" name="building_type" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+              <option value>Select building type</option>
+              <option>Commercial Tower</option>
+              <option>Warehouse / Logistics</option>
+              <option>Hospital / Healthcare</option>
+              <option>Industrial Plant</option>
+              <option>Educational Institution</option>
+              <option>Residential Society</option>
+            </select>
+            <span id="err-building" class="hidden font-body text-body-sm text-light-error">Please select a building type.</span>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="lead-service" class="font-label text-label-sm">Requested Service <span class="text-light-error">*</span></label>
+            <select id="lead-service" name="service" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+              <option value>Select a service</option>
+              <option>Fire Hydrant System</option>
+              <option>Fire Alarm System</option>
+              <option>Fire Sprinkler System</option>
+              <option>Fire Suppression System</option>
+              <option>Maintenance &amp; Inspection</option>
+            </select>
+            <span id="err-service" class="hidden font-body text-body-sm text-light-error">Please select a service.</span>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="lead-location" class="font-label text-label-sm">Site Location (City / Area) <span class="text-light-error">*</span></label>
+            <input id="lead-location" name="location" type="text" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+            <span id="err-location" class="hidden font-body text-body-sm text-light-error">Please enter the site location.</span>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="lead-pref" class="font-label text-label-sm">Preferred Contact Method</label>
+            <select id="lead-pref" name="contact_preference" class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+              <option>Phone Call</option>
+              <option>Email</option>
+              <option>WhatsApp</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="lead-message" class="font-label text-label-sm">Project Details / Message</label>
+            <textarea id="lead-message" name="message" rows="3" class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md"></textarea>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <label class="inline-flex items-start gap-gutter-sm cursor-pointer">
+              <input id="lead-consent" name="consent" type="checkbox" required class="mt-1 rounded-sm border-light-outline text-light-error focus:ring-light-error">
+              <span class="font-body text-body-sm text-light-on-surface-variant">I agree to Karma Fire Protection LLP processing this enquiry in accordance with the <button type="button" onclick="navigateTo(&#39;privacy-policy&#39;)" class="text-light-primary underline">Privacy Policy</button>. <span class="text-light-error">*</span></span>
+            </label>
+            <span id="err-consent" class="hidden font-body text-body-sm text-light-error">Consent is required to submit your enquiry.</span>
+          </div>
+
+          <div id="form-success" class="hidden rounded-DEFAULT bg-success-container text-on-success-container p-gutter-md font-body text-body-sm">
+            Thank you. Your enquiry has been received by our team.
+          </div>
+
+          <button id="lead-submit-btn" type="submit" class="w-full py-gutter-md rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-lg">
+            Submit Enquiry
+          </button>
+        </form>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 6: PRIVACY POLICY                                              -->
+    <!-- =================================================================== -->
+    <div id="page-privacy-policy" class="page-section hidden">
+      <section class="bg-dark-background text-dark-on-surface px-gutter-lg py-10">
+        <h1 class="font-headline text-headline-lg text-light-on-primary">Privacy Policy</h1>
+        <p class="font-body text-body-md text-dark-secondary mt-1">How Karma Fire Protection LLP handles visitor and enquiry information.</p>
+      </section>
+      <section class="py-10 px-gutter-lg flex flex-col gap-gutter-lg">
+        <article><h2 class="font-title text-title-md">1. Information We Collect</h2><p class="font-body text-body-sm text-light-on-surface-variant mt-1">When you submit an enquiry via our Request a Quote form, we collect your name, phone number, email address, company name, building type, requested service, site location, and message.</p></article>
+        <article><h2 class="font-title text-title-md">2. How We Use Your Information</h2><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Enquiry details are used solely to review your fire safety requirements, schedule site evaluations, and prepare quotations.</p></article>
+        <article><h2 class="font-title text-title-md">3. First-Party Analytics &amp; Cookies</h2><p class="font-body text-body-sm text-light-on-surface-variant mt-1">First-party analytics events (page views, referral source, and form interactions) are recorded only when you grant analytics consent via our cookie settings.</p></article>
+        <article><h2 class="font-title text-title-md">4. Data Retention &amp; Security</h2><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Submitted records are stored in protected Supabase PostgreSQL tables governed by Row Level Security policies.</p></article>
+        <article><h2 class="font-title text-title-md">5. Sharing of Information</h2><p class="font-body text-body-sm text-light-on-surface-variant mt-1">We do not sell or rent visitor information to third-party marketers.</p></article>
+        <article><h2 class="font-title text-title-md">6. Your Rights &amp; Contact</h2><p class="font-body text-body-sm text-light-on-surface-variant mt-1">For privacy requests, contact <a href="mailto:info@karmafireprotection.com" class="text-light-primary underline">info@karmafireprotection.com</a>.</p></article>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- MOBILE FOOTER                                                         -->
+  <!-- ===================================================================== -->
+  <footer class="bg-dark-background text-dark-on-surface border-t border-dark-outline-variant">
+    <div class="px-gutter-lg py-10 flex flex-col gap-gutter-xl">
+      <div class="flex flex-col gap-gutter-sm">
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrCdO5zt1u22I4x-Fs7FDCUJlvq1zmjU83AffWPfe21F3eCvgM21ciLoSKzTHggRGFq6NhBbtADoJEK39bmIdt00jmbkVZQ2BEKV3mHIUrv1I3fwKn2g-fX9rsGkwwuO9kPfQ4ZO8TeImjU_OyDDNqdSABihlOEt7-4a4Y2PGWH9qEd3JgODrEtfeyqva0j5tx7bk9Mt4sDX4XdrzVkqJCyGiPd_PGvgvqethF7Q1NFzz8wzTUVRdjI1cN4" alt="Karma Fire Protection LLP" class="h-8 w-auto object-contain self-start">
+        <p class="font-body text-body-sm text-dark-on-surface-variant">Fire hydrant, alarm, sprinkler, and suppression engineering, installation, testing, and AMC services.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-gutter-lg">
+        <div class="flex flex-col gap-gutter-xs">
+          <h3 class="font-label text-label-sm text-dark-on-surface uppercase tracking-wider">Quick Links</h3>
+          <button type="button" onclick="navigateTo(&#39;home&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant">Home</button>
+          <button type="button" onclick="navigateTo(&#39;about&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant">About Us</button>
+          <button type="button" onclick="navigateTo(&#39;projects&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant">Projects</button>
+          <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant">Contact &amp; Quote</button>
+          <button type="button" onclick="navigateTo(&#39;privacy-policy&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant">Privacy Policy</button>
+        </div>
+        <div class="flex flex-col gap-gutter-xs">
+          <h3 class="font-label text-label-sm text-dark-on-surface uppercase tracking-wider">Services</h3>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;hydrant&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant">Fire Hydrant</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;alarm&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant">Fire Alarm</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;sprinkler&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant">Fire Sprinkler</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;suppression&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant">Fire Suppression</button>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1 pt-gutter-md border-t border-dark-outline-variant">
+        <a href="tel:+912240189200" class="font-mono text-mono-sm text-dark-on-surface-variant">+91 22 4018 9200</a>
+        <a href="mailto:info@karmafireprotection.com" class="font-body text-body-sm text-dark-on-surface-variant">info@karmafireprotection.com</a>
+        <p class="font-body text-body-sm text-dark-on-surface-variant">Navi Mumbai, Maharashtra, India</p>
+      </div>
+      <div class="flex items-center justify-between gap-gutter-sm font-body text-body-sm text-dark-on-surface-variant pt-gutter-sm border-t border-dark-outline-variant">
+        <span>© 2026 Karma Fire Protection LLP</span>
+        <button type="button" onclick="openCookiePopup()" class="underline">Cookie Settings</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- FIXED RIGHT-SIDE FLOATING SOCIAL & CALL SHORTCUTS (Hidden on Contact) -->
+  <!-- ===================================================================== -->
+  <aside id="mobile-social-dock" aria-label="Social Media Shortcuts" class="fixed right-3 top-24 z-40 flex flex-col gap-gutter-xs bg-dark-surface-container-lowest/95 p-gutter-xs rounded-full border border-dark-outline-variant shadow-lg">
+    <a href="https://wa.me/912240189200" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp" class="w-9 h-9 rounded-full bg-success text-on-success flex items-center justify-center hover:opacity-90">
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.82 14.02c-.24.68-1.42 1.3-1.95 1.38-.5.07-1.13.1-1.82-.11-.42-.14-.96-.32-1.65-.62-2.9-1.25-4.79-4.18-4.94-4.37-.14-.19-1.18-1.57-1.18-2.99 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.77-.36h.55c.18 0 .42-.07.66.5.24.58.83 2.02.9 2.17.07.14.12.31.02.5-.1.19-.14.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.39-.24.65-.14.27.1 1.69.8 1.98.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"></path></svg>
+    </a>
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook" class="w-9 h-9 rounded-full bg-info text-on-info flex items-center justify-center hover:opacity-90">
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 9H16V6h-2.5C11.57 6 10 7.57 10 9.5V11H8v3h2v7h3v-7h2.25l.75-3H13v-1.5c0-.28.22-.5.5-.5z"></path></svg>
+    </a>
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram" class="w-9 h-9 rounded-full bg-light-error text-light-on-error flex items-center justify-center hover:opacity-90">
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path></svg>
+    </a>
+    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-light-primary text-light-on-primary flex items-center justify-center hover:opacity-90">
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 8.5H3.56V19.5H6.94V8.5ZM5.25 3.5C4.14 3.5 3.25 4.39 3.25 5.5C3.25 6.6 4.14 7.5 5.25 7.5C6.35 7.5 7.25 6.6 7.25 5.5C7.25 4.39 6.35 3.5 5.25 3.5ZM20.44 13.02C20.44 9.88 18.76 8.22 16.16 8.22C14.37 8.22 13.48 9.21 13.02 9.93V8.5H9.65C9.7 9.48 9.65 19.5 9.65 19.5H13.02V13.36C13.02 13.02 13.05 12.69 13.15 12.45C13.42 11.78 14.03 11.09 15.07 11.09C16.41 11.09 17.06 12.11 17.06 13.6V19.5H20.44V13.02Z"></path></svg>
+    </a>
+    <a href="tel:+912240189200" title="Call Now" aria-label="Call Now" class="w-9 h-9 rounded-full bg-dark-surface-container text-dark-on-surface border border-dark-outline-variant flex items-center justify-center hover:bg-dark-surface-container-high">
+      <span class="material-symbols-outlined text-title-md">call</span>
+    </a>
+  </aside>
+
+  <!-- ===================================================================== -->
+  <!-- COOKIE CONSENT POPUP (Mobile Bottom Sheet)                            -->
+  <!-- ===================================================================== -->
+  <div id="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-modal-title" class="fixed bottom-3 inset-x-3 z-50">
+    <div class="w-full bg-dark-surface-container-lowest text-dark-on-surface border border-dark-outline-variant rounded-md p-gutter-lg shadow-xl flex flex-col gap-gutter-sm">
+      <div class="flex items-start justify-between gap-gutter-sm">
+        <div class="flex items-center gap-gutter-xs">
+          <span class="material-symbols-outlined text-dark-error">cookie</span>
+          <h3 id="cookie-modal-title" class="font-title text-title-md text-dark-on-surface">Cookie &amp; Analytics Consent</h3>
+        </div>
+        <button type="button" aria-label="Dismiss cookie popup" onclick="setCookieConsent(&#39;essential&#39;)" class="text-dark-on-surface-variant">
+          <span class="material-symbols-outlined text-label-lg">close</span>
+        </button>
+      </div>
+      <p class="font-body text-body-sm text-dark-on-surface-variant">We use essential storage for form protection and optional first-party analytics to improve service pages.</p>
+      <div class="grid grid-cols-2 gap-gutter-sm">
+        <button type="button" onclick="setCookieConsent(&#39;essential&#39;)" class="py-gutter-xs rounded-DEFAULT border border-dark-outline-variant font-label text-label-md">Decline</button>
+        <button type="button" onclick="setCookieConsent(&#39;all&#39;)" class="py-gutter-xs rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md">Accept</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- LEAVE A REVIEW POPUP MODAL                                            -->
+  <!-- ===================================================================== -->
+  <div id="review-modal" role="dialog" aria-modal="true" aria-labelledby="review-modal-title" class="hidden fixed inset-0 z-50 flex items-center justify-center p-gutter-lg bg-light-scrim/60">
+    <form id="review-form" novalidate onsubmit="handleReviewSubmit(event)" class="w-full max-w-sm bg-light-surface-container-lowest text-light-on-surface border border-light-outline-variant rounded-md p-gutter-xl shadow-lg flex flex-col gap-gutter-md">
+      <div class="flex items-start justify-between gap-gutter-sm">
+        <div>
+          <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Client Feedback</span>
+          <h3 id="review-modal-title" class="font-headline text-headline-md text-light-on-surface">Share Your Review</h3>
+        </div>
+        <button type="button" aria-label="Close review modal" onclick="closeReviewModal()" class="p-gutter-xs rounded-DEFAULT text-light-on-surface-variant">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="flex flex-col gap-gutter-xs">
+        <label for="rev-name" class="font-label text-label-sm">Your Name <span class="text-light-error">*</span></label>
+        <input id="rev-name" type="text" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+      </div>
+      <div class="flex flex-col gap-gutter-xs">
+        <label for="rev-company" class="font-label text-label-sm">Company / Building</label>
+        <input id="rev-company" type="text" class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+      </div>
+      <div class="flex flex-col gap-gutter-xs">
+        <span class="font-label text-label-sm">Rating</span>
+        <div id="rev-stars" class="flex items-center gap-gutter-xs">
+          <button type="button" onclick="setReviewRating(1)" class="rev-star text-warning" aria-label="1 star"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+          <button type="button" onclick="setReviewRating(2)" class="rev-star text-warning" aria-label="2 stars"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+          <button type="button" onclick="setReviewRating(3)" class="rev-star text-warning" aria-label="3 stars"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+          <button type="button" onclick="setReviewRating(4)" class="rev-star text-warning" aria-label="4 stars"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+          <button type="button" onclick="setReviewRating(5)" class="rev-star text-warning" aria-label="5 stars"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+        </div>
+      </div>
+      <div class="flex flex-col gap-gutter-xs">
+        <label for="rev-text" class="font-label text-label-sm">Your Feedback <span class="text-light-error">*</span></label>
+        <textarea id="rev-text" rows="3" required placeholder="Share your experience..." class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md"></textarea>
+      </div>
+      <div id="rev-success" class="hidden rounded-DEFAULT bg-success-container text-on-success-container p-gutter-sm font-body text-body-sm">
+        Thank you! Your review has been submitted for admin approval.
+      </div>
+      <div class="grid grid-cols-2 gap-gutter-sm">
+        <button type="button" onclick="closeReviewModal()" class="py-gutter-sm rounded-DEFAULT border border-light-outline-variant font-label text-label-md">Cancel</button>
+        <button type="submit" class="py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md">Submit Review</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- CLIENT ROUTER, DYNAMIC LOADERS & FORM VALIDATION                      -->
+  <!-- ===================================================================== -->
+  <script data-stitch-original-script="6f8c508e5327b353===../../images/service_hydrant.jpg|||d926485eb1740530===../../images/service_suppression.jpg|||4aff5b3b10f07aa7===../../images/service_alarm.jpg|||33f13263e40206c1===../../images/team_vikram.jpg|||0710e1d174a22a6c===../../images/team_rohan.jpg|||75221e582f0fff2b===../../images/team_amitabh.jpg">
+    let cookieDecided = false;
+    try { cookieDecided = Boolean(localStorage.getItem('karma_cookie_consent')); } catch (_) {}
+
+    const PUBLIC_PROJECTS = [
+      { title: 'Bhiwandi Hydrant Ring Main', client: 'Apex Logistics Hub', location: 'Bhiwandi, MH', category: 'Fire Hydrant System', img: 'https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw', desc: 'Complete external hydrant ring main, pump house manifold, and riser network.' },
+      { title: 'Crescent ICU Gas Suppression', client: 'Crescent Multispeciality', location: 'Pune, MH', category: 'Fire Suppression System', img: 'https://lh3.googleusercontent.com/aida/ALJJyrCrQOaRHJzYpy4pPXzQVThbWdBq1sRFCT0jkaOONbgOgzWiuopWKRF5cRTk_IKtLbIs6rgPH_oZKKabDHG6kgmvAF41ZpjsKEcgT172BmbuhDhnp78WdCDswTg-ID_h1IJrWqdl0_YwLXsXe33wZjlm2wZ7oJbj1r78sARpgwY2mfWerHMHbdvDtCEFn1pJm2Q7Ks6p-vpJejho8E5bVNcXbK_JXJUSTDsCisIv4u2Vsjja2xHnzrwa9gSvtIk', desc: 'Clean-agent enclosure protection and cross-zone detection for critical hospital wings.' },
+      { title: 'Zenith Tower Alarm Retrofit', client: 'Zenith IT Park', location: 'Navi Mumbai, MH', category: 'Fire Alarm System', img: 'https://lh3.googleusercontent.com/aida/ALJJyrBBiB_fVAwP-7NRWM70NzVntN6Emucq0ktRGedoL1ohZ9lT61hGPXcEfD-NvF6XieNvRBTmEABLbNwt6zp3L3mhjZY3_onevmEs8u4LqMXomom9qsmCXtIkPOya8DLl7Erwk8Jg6oQlqPOFOVAFDVvk2Qb1pTPmCIzzLEBY-gWkjErTosm9jTjYRij8WAyYOfG4_PBAzmWCXOEydmYtmpKxby5wZbJp8zTVFHK56hM55Z98CErq', desc: 'Multi-floor addressable detection loop upgrade and PA integration.' }
+    ];
+
+    const PUBLIC_TEAM = [
+      { name: 'Vikram Deshmukh', role: 'Operations Lead', dept: 'Project Execution', img: 'https://lh3.googleusercontent.com/aida/ALJJyrBp01NwGv-bIASB2qqymThvRV6ukD1IdlsTfAMoxn0ZptY4zGe1kvqHLWCJg1XWRuLAxiuiBdJWgrbFqDab25jeiExMkljuYSDssD8hcfgNJeIlyH8fUMpCvQ0fXTVZHm5CJMcfw4AzfGwQHd45vfclqwzr4aawclGvu5OWTsGgRshNxAWV5ir_Hm0OqGtSo6kO-uzr3MRCQEGnHMK8Olz0cdMyED9GHdYaG2DdmWiFGlfaBo0', bio: 'Coordinates site engineering, client handovers, and multi-site fire safety deployments.' },
+      { name: 'Rohan Kulkarni', role: 'Lead Survey Engineer', dept: 'Surveys & Audits', img: 'https://lh3.googleusercontent.com/aida/ALJJyrDNJgECl8xMWQjPsKlfivLDDwq7ArHcySZfrMaDAsev-shq4RqtF02pIetX6z-kfSvofMspYxoTwpYlpDtcTdnshEneYkwGuCtVWmVURzA9l5_O00P9_Img4H9b7xmrpmkOVqQkGDaZOm70JS5PznH6lZ0S_09-5CEiousiH9V0uXMzKhl19hxtlTch_STIZpBhq1vAOvOIiAF5oWOfm3PuWWW8-UyTPcQY7-IiePg8NuQ3Dw', bio: 'Conducts building hazard assessments, hydraulic pressure checks, and audit reporting.' },
+      { name: 'Amitabh Verma', role: 'Senior Service Technician', dept: 'AMC & Maintenance', img: 'https://lh3.googleusercontent.com/aida/ALJJyrAB6L2LDp4V2EYlqxC791vaHgVeYJm5__aVh-PFuM8963bw6emCGRQ0hLNultr_6aw4aV5yDUTV9L6vzZkIItGrF5jd-avkEmMk65Ax7FtDCOQ868ePBtCmuIyk42JJW_9zHJCRFNS-zEopL24QJwEwJE2ha91H3TqW1USf_nxQsljMHw7f8r9OOBYvFF8Ife9XpOVJH2_6PffALTPo7QoVzEs-qTIw3_z90BZ2ohknyARTynBy', bio: 'Manages preventive maintenance schedules, pump testing, and breakdown resolution.' }
+    ];
+
+    const PUBLIC_REVIEWS = [
+      { reviewer: 'Rajeshwari Nair', company: 'Apex Logistics Hub', rating: 5, approved: true, text: 'The hydrant ring main installation and pump room commissioning at our Bhiwandi warehouse were executed cleanly and documented thoroughly.' },
+      { reviewer: 'Siddharth Mehta', company: 'Crescent Multispeciality', rating: 5, approved: true, text: 'Reliable hospital safety audits and prompt AMC inspection visits across our main wing and critical care enclosures.' },
+      { reviewer: 'Ananya Chatterjee', company: 'Zenith IT Park', rating: 5, approved: true, text: 'Clear communication during our multi-floor fire alarm loop upgrade with minimal disruption to building tenants.' }
+    ];
+
+    function renderDynamicData() {
+      const projectCard = p => `
+        <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col">
+          <img src="${p.img}" alt="${p.title}" loading="lazy" class="w-full h-40 object-cover" />
+          <div class="p-gutter-lg flex flex-col gap-gutter-xs">
+            <span class="font-label text-label-sm text-light-error">${p.category}</span>
+            <h3 class="font-title text-title-md text-light-on-surface">${p.title}</h3>
+            <p class="font-body text-body-sm text-light-on-surface-variant">${p.client} · ${p.location}</p>
+            <p class="font-body text-body-sm text-light-on-surface-variant mt-1">${p.desc}</p>
+          </div>
+        </article>
+      `;
+      document.getElementById('home-projects-grid').innerHTML = PUBLIC_PROJECTS.map(projectCard).join('');
+      document.getElementById('all-projects-grid').innerHTML = PUBLIC_PROJECTS.map(projectCard).join('');
+
+      document.getElementById('about-team-grid').innerHTML = PUBLIC_TEAM.map(t => `
+        <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm flex flex-col">
+          <img src="${t.img}" alt="${t.name} — ${t.role}" loading="lazy" class="w-full h-52 object-cover object-top" />
+          <div class="p-gutter-lg flex flex-col gap-gutter-xs">
+            <span class="font-label text-label-sm text-light-error">${t.dept}</span>
+            <h3 class="font-title text-title-md text-light-on-surface">${t.name}</h3>
+            <p class="font-label text-label-sm text-light-on-surface-variant">${t.role}</p>
+            <p class="font-body text-body-sm text-light-on-surface-variant mt-1">${t.bio}</p>
+          </div>
+        </article>
+      `).join('');
+
+      const approvedReviews = PUBLIC_REVIEWS.filter(r => r.approved);
+      const reviewCard = r => `
+        <article class="snap-start shrink-0 w-[85%] p-gutter-lg rounded-md bg-light-surface-container-lowest border border-light-outline-variant shadow-sm flex flex-col justify-between gap-gutter-sm">
+          <div class="flex flex-col gap-gutter-sm">
+            <div class="flex items-center gap-gutter-xs text-warning" aria-label="${r.rating} out of 5 stars">
+              ${Array.from({ length: r.rating }).map(() => '<span class="material-symbols-outlined text-title-md" style="font-variation-settings: \'FILL\' 1;">star</span>').join('')}
+            </div>
+            <p class="font-body text-body-sm text-light-on-surface">"${r.text}"</p>
+          </div>
+          <div class="pt-gutter-xs border-t border-light-outline-variant">
+            <p class="font-title text-title-md text-light-on-surface">${r.reviewer}</p>
+            <p class="font-body text-body-sm text-light-on-surface-variant">${r.company}</p>
+          </div>
+        </article>
+      `;
+      document.getElementById('home-reviews-grid').innerHTML = approvedReviews.map(reviewCard).join('');
+      document.getElementById('projects-reviews-grid').innerHTML = approvedReviews.map(reviewCard).join('');
+    }
+
+    function navigateTo(pageId, anchorId = null) {
+      document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById('page-' + pageId);
+      if (target) target.classList.remove('hidden');
+
+      const socialDock = document.getElementById('mobile-social-dock');
+      if (socialDock) socialDock.classList.toggle('hidden', pageId === 'contact');
+
+      const cookieModal = document.getElementById('cookie-banner');
+      if (pageId === 'home' && !cookieDecided) {
+        cookieModal.classList.remove('hidden');
+      } else {
+        cookieModal.classList.add('hidden');
+      }
+
+      if (anchorId) {
+        setTimeout(() => scrollToAnchor(anchorId), 60);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function scrollToAnchor(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function requestQuoteForService(serviceName) {
+      navigateTo('contact');
+      const sel = document.getElementById('lead-service');
+      if (sel) sel.value = serviceName;
+    }
+
+    function toggleMobileMenu(open) {
+      document.getElementById('mobile-menu').classList.toggle('hidden', !open);
+    }
+
+    function openReviewModal() {
+      document.getElementById('rev-success').classList.add('hidden');
+      document.getElementById('review-modal').classList.remove('hidden');
+    }
+
+    function closeReviewModal() {
+      document.getElementById('review-modal').classList.add('hidden');
+    }
+
+    function openCookiePopup() {
+      document.getElementById('cookie-banner').classList.remove('hidden');
+    }
+
+    function setCookieConsent(level) {
+      cookieDecided = true;
+      try { localStorage.setItem('karma_cookie_consent', level); } catch (_) {}
+      document.getElementById('cookie-banner').classList.add('hidden');
+    }
+
+    function handleLeadSubmit(e) {
+      e.preventDefault();
+      if (document.getElementById('website').value.trim() !== '') return;
+
+      const checks = [
+        { id: 'lead-name', err: 'err-name', valid: v => v.trim().length >= 2 },
+        { id: 'lead-phone', err: 'err-phone', valid: v => v.replace(/\D/g, '').length >= 10 },
+        { id: 'lead-email', err: 'err-email', valid: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+        { id: 'lead-building', err: 'err-building', valid: v => v.trim() !== '' },
+        { id: 'lead-service', err: 'err-service', valid: v => v.trim() !== '' },
+        { id: 'lead-location', err: 'err-location', valid: v => v.trim().length >= 2 }
+      ];
+
+      let firstInvalid = null;
+      checks.forEach(c => {
+        const input = document.getElementById(c.id);
+        const ok = c.valid(input.value);
+        document.getElementById(c.err).classList.toggle('hidden', ok);
+        if (!ok && !firstInvalid) firstInvalid = input;
+      });
+
+      const consent = document.getElementById('lead-consent');
+      const consentOk = consent.checked;
+      document.getElementById('err-consent').classList.toggle('hidden', consentOk);
+      if (!consentOk && !firstInvalid) firstInvalid = consent;
+
+      if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+      }
+
+      document.getElementById('form-success').classList.remove('hidden');
+      document.getElementById('lead-form').reset();
+    }
+
+    let selectedReviewRating = 5;
+    function setReviewRating(val) {
+      selectedReviewRating = val;
+      document.querySelectorAll('.rev-star').forEach((btn, idx) => {
+        btn.classList.toggle('text-warning', idx < val);
+        btn.classList.toggle('text-light-outline-variant', idx >= val);
+      });
+    }
+
+    function handleReviewSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('rev-name');
+      const text = document.getElementById('rev-text');
+      if (name.value.trim().length < 2) { name.focus(); return; }
+      if (text.value.trim().length < 5) { text.focus(); return; }
+      document.getElementById('rev-success').classList.remove('hidden');
+      document.getElementById('review-form').reset();
+      setReviewRating(5);
+    }
+
+    renderDynamicData();
+    navigateTo('home');
+  </script>
+
+
+</body></html>
