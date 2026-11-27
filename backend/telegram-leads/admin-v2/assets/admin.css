@@ -153,3 +153,18 @@ tbody tr:hover{background:#F8FAFC}
   .filters{grid-template-columns:1fr}
   .top-actions .btn{padding:9px 10px}
 }
+
+
+/* Collapse the full admin navigation into the drawer below the design-system lg breakpoint. */
+@media(max-width:1023px){
+  .topbar-title{width:100%}
+  .mobile-nav-toggle{display:inline-grid;place-items:center;flex:0 0 42px}
+  .sidebar{position:fixed;inset:0 auto 0 0;width:min(300px,86vw);height:100dvh;max-height:none;transform:translateX(-105%);transition:transform .22s ease;box-shadow:12px 0 35px rgba(16,36,55,.18);z-index:30}
+  .sidebar.open{transform:translateX(0)}
+  body:has(.sidebar.open)::before{content:"";position:fixed;inset:0;background:rgba(16,36,55,.5);z-index:20}
+  .main{margin:0;padding:20px 18px 40px}
+  .content-grid,.content-manage,.report-grid,.readiness-grid{grid-template-columns:1fr}
+  .rd-grid{grid-template-columns:1fr}
+  .rd-welcome{align-items:flex-start;flex-direction:column}
+  .rd-date{text-align:left;min-width:0}
+}
