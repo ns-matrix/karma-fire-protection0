@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Karma Fire Protection Admin v2</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'brand-flame': '#E54826',
+        'info': '#1D74D8',
+        'on-info': '#FFFFFF',
+        'info-container': '#E8F2FF',
+        'on-info-container': '#0E4A8F',
+        'success': '#15803D',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'warning-container': '#FEF3C7',
+        'on-warning-container': '#78350F',
+        'purple': '#6D28D9',
+        'on-purple': '#FFFFFF',
+        'purple-container': '#EDE9FE',
+        'on-purple-container': '#4C1D95',
+        'light-primary': '#0F244A',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#E2E8F5',
+        'light-on-primary-container': '#0F244A',
+        'light-secondary': '#475569',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#E2E8F0',
+        'light-on-secondary-container': '#1E293B',
+        'light-tertiary': '#1D74D8',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#E8F2FF',
+        'light-on-tertiary-container': '#0E4A8F',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FEE2E2',
+        'light-on-error-container': '#7F1D1D',
+        'light-background': '#F4F7FC',
+        'light-on-background': '#0F172A',
+        'light-surface': '#F4F7FC',
+        'light-surface-dim': '#E2E8F0',
+        'light-surface-bright': '#FFFFFF',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#F8FAFC',
+        'light-surface-container': '#F1F5F9',
+        'light-surface-container-high': '#E8EEF6',
+        'light-surface-container-highest': '#DCE4F0',
+        'light-on-surface': '#0F172A',
+        'light-surface-variant': '#E2E8F0',
+        'light-on-surface-variant': '#475569',
+        'light-outline': '#64748B',
+        'light-outline-variant': '#DCE4F0',
+        'light-inverse-surface': '#0F244A',
+        'light-inverse-on-surface': '#F8FAFC',
+        'light-inverse-primary': '#B3C6F5',
+        'light-shadow': '#0F244A',
+        'light-scrim': '#0F172A',
+        'dark-primary': '#B3C6F5',
+        'dark-on-primary': '#0F244A',
+        'dark-primary-container': '#1C2F56',
+        'dark-on-primary-container': '#D8E2FF',
+        'dark-secondary': '#CBD5E1',
+        'dark-on-secondary': '#1E293B',
+        'dark-secondary-container': '#334155',
+        'dark-on-secondary-container': '#E2E8F0',
+        'dark-tertiary': '#93C5FD',
+        'dark-on-tertiary': '#0E3A6E',
+        'dark-tertiary-container': '#1E3A8A',
+        'dark-on-tertiary-container': '#DBEAFE',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#0B1120',
+        'dark-on-background': '#F1F5F9',
+        'dark-surface': '#0B1120',
+        'dark-surface-dim': '#0B1120',
+        'dark-surface-bright': '#1E293B',
+        'dark-surface-container-lowest': '#0F172A',
+        'dark-surface-container-low': '#131C31',
+        'dark-surface-container': '#18233B',
+        'dark-surface-container-high': '#1E293B',
+        'dark-surface-container-highest': '#27354F',
+        'dark-on-surface': '#F1F5F9',
+        'dark-surface-variant': '#334155',
+        'dark-on-surface-variant': '#9FACBF',
+        'dark-outline': '#64748B',
+        'dark-outline-variant': '#27354F',
+        'dark-inverse-surface': '#F1F5F9',
+        'dark-inverse-on-surface': '#0F172A',
+        'dark-inverse-primary': '#0F244A',
+        'dark-shadow': '#000000',
+        'dark-scrim': '#000000',
+      },
+      borderRadius: {
+        'sm': '6px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '12px',
+        'gutter-lg': '16px',
+        'gutter-xl': '20px',
+        'gutter-2xl': '24px',
+        'section': '32px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Jost"', 'sans-serif'],
+        'headline': ['"Jost"', 'sans-serif'],
+        'title': ['"Instrument Sans"', 'sans-serif'],
+        'body': ['"Instrument Sans"', 'sans-serif'],
+        'label': ['"Instrument Sans"', 'sans-serif'],
+        'mono': ['"Source Code Pro"', 'monospace'],
+      },
+      fontSize: {
+        'display-md': ['36px', { lineHeight: '44px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '32px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.15px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '200ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Jost:wght@500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined, .material-symbols-rounded, .material-symbols-sharp, .material-icons { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body antialiased">
+  <main class="min-h-[1024px] grid grid-cols-1 lg:grid-cols-2 bg-light-surface-container-lowest" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Left Brand & Hero Panel -->
+    <section class="relative min-h-[1024px] flex flex-col justify-between p-gutter-2xl lg:p-section bg-dark-background text-dark-on-background overflow-hidden" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <img src="https://lh3.googleusercontent.com/aida/ALJJyrCnRV457RZLueFVTRhzBuOcPd4e57hSgKb0p69ubQvQc_EkI0yA2Xu71TInPViKSSbq8P2x8heRI0YP34OliOVT7IKe6Yq-fBizhBcLVynl5ZgL9RqCtTf5x81GtraQsr3jE2Yr-iq_qTgpd6WrbbC75PvckuADydo2t9yPm8ZCN5J7emo_Eal15snyf9IczP11jL1DgKrJXuPiwGfj-tAE5VcuMKtMYxoMpQCmv8cBS8jRSBAydhlw-Uw" alt="Firefighter in protective gear facing glowing embers" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-r from-dark-background/95 via-dark-background/75 to-dark-background/45" aria-hidden="true"></div>
+
+      <!-- Brand Logo -->
+      <header class="relative z-10 flex items-center">
+        <img src="data:image/png;base64,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" alt="Karma Fire Protection LLP" class="h-12 w-auto object-contain">
+      </header>
+
+      <!-- Hero Headline -->
+      <div class="relative z-10 flex flex-col gap-gutter-md max-w-md my-auto py-section">
+        <h1 data-design-text-token="display-md" class="font-display text-display-md-mobile lg:text-display-md text-dark-on-background text-balance">
+          Stay Prepared.<br>Stay Protected.
+        </h1>
+        <p data-design-text-token="body-lg" class="font-body text-body-lg text-dark-on-surface-variant text-pretty">
+          Manage Telegram Leads with Power &amp; Confidence
+        </p>
+      </div>
+
+      <!-- Bottom Pillars & Copyright -->
+      <footer class="relative z-10 flex flex-col gap-gutter-xl">
+        <div class="grid grid-cols-3 gap-gutter-md max-w-md">
+          <div class="flex flex-col gap-gutter-xs">
+            <span class="material-symbols-outlined text-headline-md text-dark-on-background" aria-hidden="true">monitoring</span>
+            <span data-design-text-token="label-sm" class="font-label text-label-sm text-dark-on-background">Track Leads in Real-Time</span>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <span class="material-symbols-outlined text-headline-md text-dark-on-background" aria-hidden="true">trending_up</span>
+            <span data-design-text-token="label-sm" class="font-label text-label-sm text-dark-on-background">Grow Your Business</span>
+          </div>
+          <div class="flex flex-col gap-gutter-xs">
+            <span class="material-symbols-outlined text-headline-md text-dark-on-background" aria-hidden="true">verified_user</span>
+            <span data-design-text-token="label-sm" class="font-label text-label-sm text-dark-on-background">Secure &amp; Reliable</span>
+          </div>
+        </div>
+        <p data-design-text-token="body-sm" class="font-body text-body-sm text-dark-on-surface-variant">
+          © 2026 Karma Fire Protection. All rights reserved.
+        </p>
+      </footer>
+    </section>
+
+    <!-- Right Sign-In Form Panel -->
+    <section class="flex items-center justify-center p-gutter-2xl lg:p-section bg-light-surface-container-lowest">
+      <div class="w-full max-w-md flex flex-col gap-gutter-2xl">
+        <div class="flex flex-col gap-gutter-xs text-center">
+          <h2 data-design-text-token="headline-lg" class="font-headline text-headline-lg text-light-on-surface">Welcome Back!</h2>
+          <p data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant">Sign in to your admin panel</p>
+        </div>
+
+        <form class="flex flex-col gap-gutter-lg" onsubmit="event.preventDefault();">
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="username" class="sr-only">Username or Email</label>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined text-title-md text-light-outline absolute left-3 pointer-events-none" aria-hidden="true">person</span>
+              <input id="username" type="text" placeholder="Username or Email" class="w-full pl-10 pr-gutter-lg py-gutter-md bg-light-surface-container-low border border-light-outline-variant rounded-DEFAULT font-body text-body-md text-light-on-surface placeholder:text-light-outline focus:outline-none focus:ring-2 focus:ring-light-primary focus:border-light-primary">
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="password" class="sr-only">Password</label>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined text-title-md text-light-outline absolute left-3 pointer-events-none" aria-hidden="true">lock</span>
+              <input id="password" type="password" placeholder="Password" class="w-full pl-10 pr-10 py-gutter-md bg-light-surface-container-low border border-light-outline-variant rounded-DEFAULT font-body text-body-md text-light-on-surface placeholder:text-light-outline focus:outline-none focus:ring-2 focus:ring-light-primary focus:border-light-primary">
+              <button type="button" aria-label="Toggle password visibility" onclick="const p=document.getElementById(&#39;password&#39;); p.type=p.type===&#39;password&#39;?&#39;text&#39;:&#39;password&#39;;" class="absolute right-3 text-light-outline hover:text-light-on-surface">
+                <span class="material-symbols-outlined text-title-md" aria-hidden="true">visibility</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between gap-gutter-md">
+            <label class="inline-flex items-center gap-gutter-sm cursor-pointer">
+              <input type="checkbox" class="rounded-sm border-light-outline-variant text-light-primary focus:ring-light-primary">
+              <span data-design-text-token="body-sm" class="font-body text-body-sm text-light-on-surface-variant">Remember Me</span>
+            </label>
+            <a href="#forgot-password" class="font-label text-label-sm text-light-tertiary hover:underline">
+              <span data-design-text-token="label-sm">Forgot Password?</span>
+            </a>
+          </div>
+
+          <button data-component-id="button-with-icon" data-component-type="button" data-component-variant="with-icon" type="submit" class="w-full inline-flex items-center justify-center gap-gutter-sm px-gutter-lg py-gutter-md bg-light-primary text-light-on-primary font-label text-label-lg rounded-DEFAULT shadow-sm hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-light-primary focus-visible:ring-offset-2 transition-colors duration-state-change ease-state-change">
+            <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_forward</span>
+            <span data-design-text-token="label-lg">Sign In</span>
+          </button>
+
+          <div class="flex items-center gap-gutter-md">
+            <div class="h-px flex-1 bg-light-outline-variant" aria-hidden="true"></div>
+            <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-outline">OR</span>
+            <div class="h-px flex-1 bg-light-outline-variant" aria-hidden="true"></div>
+          </div>
+
+          <button data-component-id="button-secondary" data-component-type="button" data-component-variant="secondary" type="button" class="w-full inline-flex items-center justify-center gap-gutter-sm px-gutter-lg py-gutter-md bg-light-surface-container-lowest text-light-on-surface border border-light-outline-variant font-label text-label-lg rounded-DEFAULT hover:bg-light-surface-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-light-primary focus-visible:ring-offset-2 transition-colors duration-state-change ease-state-change">
+            <span class="material-symbols-outlined text-title-md text-info" aria-hidden="true">send</span>
+            <span data-design-text-token="label-lg">Continue with Telegram</span>
+          </button>
+        </form>
+
+        <p data-design-text-token="body-sm" class="text-center font-body text-body-sm text-light-on-surface-variant">
+          Need help? <a href="#support" class="font-label text-light-tertiary hover:underline">Contact Support</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+
+</body></html>
