@@ -67,6 +67,8 @@ test('Supabase migration creates secure editable website content and labelled de
   assert.match(sql, /Sample Commercial Fire Protection Project/);
   assert.match(sql, /DEMO REVIEW/);
   assert.doesNotMatch(sql, /truncate\s+table|delete\s+from\s+public\.leads|delete\s+from\s+public\.analytics_events|delete\s+from\s+public\.website_consent_records/i);
+  assert.doesNotMatch(sql, /do update set/i);
+  assert.match(sql, /drop policy if exists .*Website roles manage team/i);
 });
 
 test('README contains GitHub Pages website, admin login and repository URLs', () => {
