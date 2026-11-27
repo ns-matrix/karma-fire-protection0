@@ -36,3 +36,12 @@ test("unknown or employee role cannot acquire admin access from a permission-sha
   assert.equal(hasDashboardPermission("employee", grants, "employees"), true);
   assert.equal(hasDashboardPermission("employee", [], "audit"), false);
 });
+
+test("Admin and Super Admin dashboards stay focused on four primary metrics", () => {
+  const admin = dashboardMetrics("admin");
+  const superAdmin = dashboardMetrics("super_admin");
+  assert.equal(admin.length, 4);
+  assert.deepEqual(admin.map((item) => item.key), ["leads", "customers", "projects", "visits"]);
+  assert.equal(superAdmin.length, 4);
+  assert.deepEqual(superAdmin.map((item) => item.key), ["leads", "projects", "visits", "audit"]);
+});
