@@ -3,10 +3,14 @@ on:
   pull_request:
     paths:
       - "backend/telegram-leads/admin-v2/**"
+      - "js/analytics.js"
+      - "js/analytics-core.mjs"
+      - "supabase/migrations/20261127120000_website_analytics_events.sql"
       - ".github/workflows/admin-dashboard-tests.yml"
   push:
     branches:
       - "feat/role-based-responsive-dashboard"
+      - "feat/website-analytics-cms-audit"
     paths:
       - "backend/telegram-leads/admin-v2/**"
       - ".github/workflows/admin-dashboard-tests.yml"
@@ -23,5 +27,6 @@ jobs:
           node --check backend/telegram-leads/admin-v2/js/dashboard-rules.js
           node --check backend/telegram-leads/admin-v2/js/role-dashboard.js
           node --check backend/telegram-leads/admin-v2/js/admin.js
+          node --check js/analytics.js
       - name: Run role permission tests
-        run: node --experimental-default-type=module --test backend/telegram-leads/admin-v2/tests/dashboard-rules.test.mjs
+        run: node --experimental-default-type=module --test backend/telegram-leads/admin-v2/tests/dashboard-rules.test.mjs backend/telegram-leads/admin-v2/tests/analytics-core.test.mjs
