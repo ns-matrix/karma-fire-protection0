@@ -51,3 +51,14 @@ test("responsive admin drawer is wired to the existing sidebar and keyboard cont
   assert.match(css, /#F4F7FC/);
   assert.match(css, /@media\(max-width:1023px\)/);
 });
+
+test("CMS, website analytics and visitor audit share the responsive admin theme", () => {
+  for (const page of ["cms-editor.html", "website-analytics.html", "visitor-audit.html"]) {
+    const html = read("backend/telegram-leads/admin-v2/" + page);
+    assert.match(html, /assets\/admin-reference\.css/, page + " must load the shared admin theme");
+  }
+  const theme = read("backend/telegram-leads/admin-v2/assets/admin-reference.css");
+  assert.match(theme, /#0F244A/);
+  assert.match(theme, /@media\(max-width:1023px\)/);
+  assert.match(theme, /overflow-x:auto/);
+});
