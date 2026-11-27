@@ -62,7 +62,7 @@ The current Supabase project now contains editable website content:
 - 1 website settings record with the existing Vikhroli West address and map.
 - 6 editable CMS drafts (Home, About, Services, Projects, Contact and Privacy).
 
-Demo rows are marked with `is_demo = true` where supported. They are not published until you review and activate them. Replace sample names, specifications, client details and testimonials with verified information before publishing. The five active service descriptions are general service descriptions, not product certification claims.
+Demo rows are marked with `is_demo = true` where supported. They are not published until you review and activate them. The admin editor lets you keep the demo flag visible; if you intentionally activate a demo record, the public site labels it as demo content. Replace sample names, specifications, client details and testimonials with verified information, then clear the demo flag before presenting the content as genuine. The five active service descriptions are general service descriptions, not product certification claims.
 
 The website settings use the existing location data:
 - **Address:** Police Station, 04, near Surya Nagar, Suryanagar No. 2, Surya Nagar, HMPL Surya Nagar, Vikhroli West, Mumbai, Maharashtra 400083.
