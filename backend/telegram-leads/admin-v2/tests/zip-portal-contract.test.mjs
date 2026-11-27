@@ -67,7 +67,10 @@ test('Supabase migration creates secure editable website content and labelled de
   assert.match(sql, /Sample Commercial Fire Protection Project/);
   assert.match(sql, /DEMO REVIEW/);
   assert.doesNotMatch(sql, /truncate\s+table|delete\s+from\s+public\.leads|delete\s+from\s+public\.analytics_events|delete\s+from\s+public\.website_consent_records/i);
-  assert.doesNotMatch(sql, /do update set/i);
+  const seedSection = sql.slice(sql.indexOf('insert into public.website_site_settings'));
+  assert.doesNotMatch(seedSection, /do update set/i);
+  assert.match(sql, /return v;/);
+  assert.match(sql, /on conflict\\(slug\\) do update set content=excluded.content/i);
   assert.match(sql, /drop policy if exists .*Website roles manage team/i);
 });
 
