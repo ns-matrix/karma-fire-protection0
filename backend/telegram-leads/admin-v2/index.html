@@ -17,45 +17,64 @@
   </form>
 </div>
 <div id="app" class="hidden">
-  <aside class="sidebar">
-    <a class="brand" href="./"><span class="brand-mark">K</span><span>KARMA FIRE<small>OPERATIONS</small></span></a>
-    <div class="nav-caption">WORKSPACE</div>
+  <aside class="sidebar" id="app-sidebar" aria-label="Main navigation">
+    <a class="brand" href="./"><span class="brand-mark">K</span><span>KARMA FIRE<small>OPERATIONS CONSOLE</small></span></a>
+    <div class="nav-caption">OVERVIEW</div>
     <button class="nav active" data-view="dashboard">▦ <span>Dashboard</span></button>
-    <button class="nav" data-view="enquiries">▤ <span>Enquiries</span><b id="nav-new" class="nav-count">0</b></button>
-    <button class="nav" data-view="customers">♙ <span>Customers</span></button>
-    <button class="nav" data-view="sites">⌖ <span>Sites</span></button>
-    <button class="nav" data-view="surveys">⌕ <span>Surveys & Audits</span></button>
-    <button class="nav" data-view="quotations">▧ <span>Quotations & BOQ</span></button>
-    <button class="nav" data-view="projects">◫ <span>Projects</span></button>
-    <button class="nav" data-view="service">◷ <span>Service & AMC</span></button>
-    <button class="nav" data-view="assets">▣ <span>Equipment & Assets</span></button>
-    <button class="nav" data-view="inventory">▥ <span>Inventory</span></button>
-    <button class="nav" data-view="compliance">✓ <span>Compliance</span></button>
-    <button class="nav" data-view="tasks">☷ <span>Tasks & Calendar</span></button>
-    <div class="nav-caption">WORKFLOW DETAILS</div>
-    <button class="nav" data-view="contacts">♧ <span>Customer Contacts</span></button>
-    <button class="nav" data-view="survey_templates">▤ <span>Survey Templates</span></button>
-    <button class="nav" data-view="survey_responses">✓ <span>Survey Responses</span></button>
-    <button class="nav" data-view="quotation_items">▧ <span>BOQ Line Items</span></button>
-    <button class="nav" data-view="quotation_approvals">✓ <span>Quotation Approvals</span></button>
-    <button class="nav" data-view="project_milestones">◫ <span>Project Milestones</span></button>
-    <button class="nav" data-view="project_tasks">☷ <span>Project Tasks</span></button>
-    <button class="nav" data-view="amc_contracts">◷ <span>AMC Contracts</span></button>
-    <button class="nav" data-view="defects">⚠ <span>Defects</span></button>
-    <button class="nav" data-view="suppliers">▣ <span>Suppliers</span></button>
-    <button class="nav" data-view="warehouses">▥ <span>Warehouses</span></button>
-    <button class="nav" data-view="stock_movements">⇄ <span>Stock Ledger</span></button>
-    <button class="nav" data-view="purchase_orders">▤ <span>Purchase Orders</span></button>
-    <button class="nav" data-view="purchase_order_items">▦ <span>Purchase Order Items</span></button>
-    <div class="nav-caption">MANAGEMENT</div>
-    <button class="nav" data-view="reports">▥ <span>Reports</span></button>
-    <a class="nav" href="./website-analytics.html">◷ <span>Website Analytics</span></a>
-    <button class="nav" data-view="website">▧ <span>Website Manager</span></button><a class="nav" href="./cms-editor.html">✎ <span>Website CMS Editor</span></a>
-    <button class="nav" data-view="team">♙ <span>Team & Admins</span></button>
-    <button class="nav" data-view="profile">◉ <span>My Profile</span></button>
-    <div id="super-entry" class="hidden super-entry"><div class="nav-caption">SYSTEM GOVERNANCE</div><a class="nav" href="./visitor-audit.html">◉ <span>Visitor Audit</span></a><button class="nav" data-view="control">◆ <span>System Control</span></button></div>
+    <details class="nav-group" open>
+      <summary>Sales & customers</summary>
+      <button class="nav" data-view="enquiries">▤ <span>Enquiries</span><b id="nav-new" class="nav-count">0</b></button>
+      <button class="nav" data-view="customers">♙ <span>Customers</span></button>
+      <button class="nav" data-view="sites">⌖ <span>Customer sites</span></button>
+      <button class="nav" data-view="contacts">♧ <span>Customer contacts</span></button>
+    </details>
+    <details class="nav-group">
+      <summary>Surveys & compliance</summary>
+      <button class="nav" data-view="surveys">⌕ <span>Surveys & audits</span></button>
+      <button class="nav" data-view="survey_templates">▤ <span>Survey templates</span></button>
+      <button class="nav" data-view="survey_responses">✓ <span>Survey responses</span></button>
+      <button class="nav" data-view="compliance">✓ <span>Compliance documents</span></button>
+    </details>
+    <details class="nav-group">
+      <summary>Projects & service</summary>
+      <button class="nav" data-view="quotations">▧ <span>Quotations & BOQ</span></button>
+      <button class="nav" data-view="quotation_items">▧ <span>BOQ line items</span></button>
+      <button class="nav" data-view="quotation_approvals">✓ <span>Quotation approvals</span></button>
+      <button class="nav" data-view="projects">◫ <span>Projects</span></button>
+      <button class="nav" data-view="project_milestones">◫ <span>Project milestones</span></button>
+      <button class="nav" data-view="project_tasks">☷ <span>Project tasks</span></button>
+      <button class="nav" data-view="service">◷ <span>Service visits</span></button>
+      <button class="nav" data-view="amc_contracts">◷ <span>AMC contracts</span></button>
+      <button class="nav" data-view="defects">⚠ <span>Defects & actions</span></button>
+      <button class="nav" data-view="tasks">☷ <span>Tasks & calendar</span></button>
+    </details>
+    <details class="nav-group">
+      <summary>Assets & inventory</summary>
+      <button class="nav" data-view="assets">▣ <span>Equipment & assets</span></button>
+      <button class="nav" data-view="inventory">▥ <span>Inventory items</span></button>
+      <button class="nav" data-view="suppliers">▣ <span>Suppliers</span></button>
+      <button class="nav" data-view="warehouses">▥ <span>Warehouses</span></button>
+      <button class="nav" data-view="stock_movements">⇄ <span>Stock ledger</span></button>
+      <button class="nav" data-view="purchase_orders">▤ <span>Purchase orders</span></button>
+      <button class="nav" data-view="purchase_order_items">▦ <span>Purchase order items</span></button>
+    </details>
+    <details class="nav-group" open>
+      <summary>Management</summary>
+      <button class="nav" data-view="reports">▥ <span>Reports</span></button>
+      <a class="nav admin-only-nav" href="./website-analytics.html">◷ <span>Website analytics</span></a>
+      <button class="nav" data-view="website">▧ <span>Website manager</span></button>
+      <a class="nav admin-only-nav" href="./cms-editor.html">✎ <span>Website CMS editor</span></a>
+      <button class="nav admin-only-nav" data-view="team">♙ <span>Team & admins</span></button>
+      <button class="nav" data-view="profile">◉ <span>My profile</span></button>
+    </details>
+    <div id="super-entry" class="hidden super-entry">
+      <div class="nav-caption">SUPER ADMIN ONLY</div>
+      <a class="nav" href="./visitor-audit.html">◉ <span>Visitor audit & cookies</span></a>
+      <button class="nav" data-view="control">◆ <span>System governance</span></button>
+    </div>
     <div class="sidebar-foot"><span class="online-dot"></span> Supabase connected <small id="role-label">Staff</small></div>
   </aside>
+  <button id="sidebar-backdrop" class="sidebar-backdrop" type="button" aria-label="Close navigation"></button>
   <main class="main">
     <header class="topbar"><div class="topbar-title"><button id="mobile-nav-toggle" class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button><div><div class="eyebrow">KARMA FIRE PROTECTION / WORKSPACE</div><h1 id="view-title">Dashboard</h1></div></div>
       <div class="top-actions"><span id="user-email" class="muted">Authenticated workspace</span><button id="refresh" class="btn soft">↻ Refresh</button><button id="logout" class="btn dark">Sign out</button></div>
