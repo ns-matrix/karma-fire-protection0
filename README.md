@@ -54,15 +54,15 @@ The public enquiry form inserts directly into `public.leads` with consent and va
 The current Supabase project now contains editable website content:
 
 - 5 active service records using the existing local media.
-- 3 demo product records, unpublished.
-- 3 demo team profiles, unpublished.
-- 2 demo project records, unpublished.
-- 2 demo review records, pending and unpublished.
+- 3 active demo product records, visibly labelled as demo on the public website.
+- 3 active demo team profiles, visibly labelled as demo on the public website.
+- 2 active demo project records, visibly labelled as demo on the public website.
+- 2 active demo review records, visibly labelled as demo; replace them with genuine customer-approved feedback before removing the demo flag.
 - 3 active contact links (WhatsApp, phone and email).
 - 1 website settings record with the existing Vikhroli West address and map.
 - 6 editable CMS drafts (Home, About, Services, Projects, Contact and Privacy).
 
-Demo rows are marked with `is_demo = true` where supported. They are not published until you review and activate them. The admin editor lets you keep the demo flag visible; if you intentionally activate a demo record, the public site labels it as demo content. Replace sample names, specifications, client details and testimonials with verified information, then clear the demo flag before presenting the content as genuine. The five active service descriptions are general service descriptions, not product certification claims.
+Demo rows are marked with `is_demo = true` where supported. Demo records are active to populate the new design and are clearly labelled as demo on the public website. The admin editor lets you edit, deactivate or convert each record. Replace sample names, specifications, client details and testimonials with verified information, then clear the demo flag before presenting the content as genuine. Replace sample names, specifications, client details and testimonials with verified information, then clear the demo flag before presenting the content as genuine. The five active service descriptions are general service descriptions, not product certification claims.
 
 The website settings use the existing location data:
 - **Address:** Police Station, 04, near Surya Nagar, Suryanagar No. 2, Surya Nagar, HMPL Surya Nagar, Vikhroli West, Mumbai, Maharashtra 400083.
