@@ -21,7 +21,9 @@ test("dashboard only renders security activity for Super Admin", () => {
 });
 
 test("dashboard markup has one clean root with no old duplicate panels", () => {
-  const dashboardSection = html.match(/<section id="view-dashboard"[\\s\\S]*?<\\/section>/)?.[0] || "";
+  const start = html.indexOf('<section id="view-dashboard"');
+  const end = html.indexOf("</section>", start);
+  const dashboardSection = html.slice(start, end + "</section>".length);
   assert.match(dashboardSection, /id="role-dashboard-root"/);
   assert.doesNotMatch(dashboardSection, /class="welcome"|kpi-grid|content-grid|module-grid|data-tab/);
 });
