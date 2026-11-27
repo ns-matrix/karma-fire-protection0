@@ -154,12 +154,15 @@ start();
   toggle.setAttribute("aria-controls",sidebar.id);
   const close=()=>{
     sidebar.classList.remove("open");
+    document.body.classList.remove("admin-drawer-open");
     toggle.setAttribute("aria-expanded","false");
     toggle.setAttribute("aria-label","Open navigation");
   };
   const open=()=>{
     sidebar.classList.add("open");
+    document.body.classList.add("admin-drawer-open");
     toggle.setAttribute("aria-expanded","true");
+    sidebar.querySelector(".nav:not(.hidden)")?.focus();
     toggle.setAttribute("aria-label","Close navigation");
   };
   toggle.addEventListener("click",event=>{
