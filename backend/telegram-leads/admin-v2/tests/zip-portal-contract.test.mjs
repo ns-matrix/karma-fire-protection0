@@ -13,6 +13,7 @@ test('public website uses the ZIP reference, local assets and responsive mobile 
   assert.match(html, /id="mobile-social-dock"/);
   assert.match(html, /id="site-map-frame"/);
   assert.match(html, /id="home-products-grid"/);
+  assert.match(html, /id="home-services-grid"/);
   assert.doesNotMatch(html, /lh3\.googleusercontent\.com|PUBLIC_PROJECTS|Vikram Deshmukh|Rajeshwari Nair/);
   assert.doesNotMatch(html, /\+91 22 4018 9200|info@karmafireprotection\.com|Navi Mumbai, Maharashtra, India/);
 });
@@ -26,6 +27,7 @@ test('public website content, enquiry and review forms are Supabase-backed', () 
   assert.match(js, /contact_method/);
   assert.match(js, /moderation_status:'pending'/);
   assert.match(js, /DEMO REVIEW/);
+  assert.match(js, /DEMO CONTENT/);
   assert.match(js, /is_demo/);
   assert.match(js, /KarmaAnalytics/);
   assert.match(js, /tel:','mailto:/);
@@ -68,6 +70,7 @@ test('Supabase migration creates secure editable website content and labelled de
   assert.match(sql, /Sample Fire Hydrant Landing Valve/);
   assert.match(sql, /Sample Operations Lead/);
   assert.match(sql, /Sample Commercial Fire Protection Project/);
+  assert.match(sql, /5,true,true/);
   assert.match(sql, /DEMO REVIEW/);
   assert.doesNotMatch(sql, /truncate\s+table|delete\s+from\s+public\.leads|delete\s+from\s+public\.analytics_events|delete\s+from\s+public\.website_consent_records/i);
   const seedSection = sql.slice(sql.indexOf('insert into public.website_site_settings'));
