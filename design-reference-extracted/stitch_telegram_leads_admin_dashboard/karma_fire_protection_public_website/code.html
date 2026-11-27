@@ -1,0 +1,1284 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karma Fire Protection LLP — Complete Fire Protection Solutions</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'brand-flame': '#E54826',
+        'info': '#1D74D8',
+        'on-info': '#FFFFFF',
+        'info-container': '#E8F2FF',
+        'on-info-container': '#0E4A8F',
+        'success': '#15803D',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'warning-container': '#FEF3C7',
+        'on-warning-container': '#78350F',
+        'purple': '#6D28D9',
+        'on-purple': '#FFFFFF',
+        'purple-container': '#EDE9FE',
+        'on-purple-container': '#4C1D95',
+        'light-primary': '#0F244A',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#E2E8F5',
+        'light-on-primary-container': '#0F244A',
+        'light-secondary': '#475569',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#E2E8F0',
+        'light-on-secondary-container': '#1E293B',
+        'light-tertiary': '#1D74D8',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#E8F2FF',
+        'light-on-tertiary-container': '#0E4A8F',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FEE2E2',
+        'light-on-error-container': '#7F1D1D',
+        'light-background': '#F4F7FC',
+        'light-on-background': '#0F172A',
+        'light-surface': '#F4F7FC',
+        'light-surface-dim': '#E2E8F0',
+        'light-surface-bright': '#FFFFFF',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#F8FAFC',
+        'light-surface-container': '#F1F5F9',
+        'light-surface-container-high': '#E8EEF6',
+        'light-surface-container-highest': '#DCE4F0',
+        'light-on-surface': '#0F172A',
+        'light-surface-variant': '#E2E8F0',
+        'light-on-surface-variant': '#475569',
+        'light-outline': '#64748B',
+        'light-outline-variant': '#DCE4F0',
+        'light-inverse-surface': '#0F244A',
+        'light-inverse-on-surface': '#F8FAFC',
+        'light-inverse-primary': '#B3C6F5',
+        'light-shadow': '#0F244A',
+        'light-scrim': '#0F172A',
+        'dark-primary': '#B3C6F5',
+        'dark-on-primary': '#0F244A',
+        'dark-primary-container': '#1C2F56',
+        'dark-on-primary-container': '#D8E2FF',
+        'dark-secondary': '#CBD5E1',
+        'dark-on-secondary': '#1E293B',
+        'dark-secondary-container': '#334155',
+        'dark-on-secondary-container': '#E2E8F0',
+        'dark-tertiary': '#93C5FD',
+        'dark-on-tertiary': '#0E3A6E',
+        'dark-tertiary-container': '#1E3A8A',
+        'dark-on-tertiary-container': '#DBEAFE',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#0B1120',
+        'dark-on-background': '#F1F5F9',
+        'dark-surface': '#0B1120',
+        'dark-surface-dim': '#0B1120',
+        'dark-surface-bright': '#1E293B',
+        'dark-surface-container-lowest': '#0F172A',
+        'dark-surface-container-low': '#131C31',
+        'dark-surface-container': '#18233B',
+        'dark-surface-container-high': '#1E293B',
+        'dark-surface-container-highest': '#27354F',
+        'dark-on-surface': '#F1F5F9',
+        'dark-surface-variant': '#334155',
+        'dark-on-surface-variant': '#9FACBF',
+        'dark-outline': '#64748B',
+        'dark-outline-variant': '#27354F',
+        'dark-inverse-surface': '#F1F5F9',
+        'dark-inverse-on-surface': '#0F172A',
+        'dark-inverse-primary': '#0F244A',
+        'dark-shadow': '#000000',
+        'dark-scrim': '#000000',
+      },
+      borderRadius: {
+        'sm': '6px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '12px',
+        'gutter-lg': '16px',
+        'gutter-xl': '20px',
+        'gutter-2xl': '24px',
+        'section': '32px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Jost"', 'sans-serif'],
+        'headline': ['"Jost"', 'sans-serif'],
+        'title': ['"Instrument Sans"', 'sans-serif'],
+        'body': ['"Instrument Sans"', 'sans-serif'],
+        'label': ['"Instrument Sans"', 'sans-serif'],
+        'mono': ['"Source Code Pro"', 'monospace'],
+      },
+      fontSize: {
+        'display-md': ['36px', { lineHeight: '44px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '32px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.15px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '200ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Jost:wght@500;600;700&amp;family=Source+Code+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body class="bg-light-surface-container-lowest text-light-on-surface font-body antialiased selection:bg-light-error-container selection:text-light-on-error-container">
+
+  <!-- ===================================================================== -->
+  <!-- STICKY PUBLIC HEADER                                                  -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-dark-background text-dark-on-surface border-b border-dark-outline-variant">
+    <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl h-16 flex items-center justify-between gap-gutter-lg">
+      <!-- Brand Logo -->
+      <a href="#home" onclick="navigateTo(&#39;home&#39;); return false;" class="flex items-center gap-gutter-sm shrink-0">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN0AAABVCAIAAABCRXb4AAAAA3NCSVQICAjb4U/gAAAAwnpUWHRSYXcgcHJvZmlsZSB0eXBlIEFQUDEAABiVfU9bCgIxDPzvKfYIk6TP4xR3lQVR2ft/mNBWtyBOSNOGJjPjbttjO/bL8jqe1/2+ucXAgPPFF64AMhoEIAZZ1bOhVyG96RBSf3OrseQEf/pXMSHojyiRkmYbsKO0PX7QCmvojopf3DCRJ451HXrnfgiDdO7XrolRvXng3s/D91iXIguJVy1JNRURCZokWR1EU/g/Oknj5a+/wLor997smz5zCvcGO6ZWXzyqfIgAACAASURBVHic7X15fBRF+v77Vvf0zCSZZEICIVyBcF+CAqJccgkrIARQVOSQywUCLEdA0BVE3ZVTuQ8RRRdQ0N8XUURFQIWFcEiQkCAJSIAEEnJnkskc3V31+6Mnnc5kkkxIAFfzfD5Kurqqq6r76fet96gerFWrFpQL9HzsXlwD78Dc/i114n7g3j286poFqabr1KCSeHDv9T3tGavp+nx1XKQG1QC8lyLzPr8F2u7ublKV5GWN9r6XKP/uuj3g/5VH4XGcFc6lRl4+OFRSQv6vENEbVDiXCtaXf6Z7UYP/IZTHyzIscQ9nalCD6kWZerxs6tWQ8k+Hu36k98xS88zLPyz1dIhBHN9Rb3ja5J8jy//MSHvQI6os7qnZfVeoysNW21b3nNx5WeYgHzRVjYgdDMauRuMjemN9nZAlS4etBQ94TFXHA2dpdT1W5TrVNxceKje2B0BPHcFeeuOEgFpNdDqGRGb0rNOxOuPOHVm6/4OpfjxAalb7w6y+ufAVj+0BSUpfQprphMcFn/7+xua8QIGIDBJFx/9ZLAes+c4/mjasCu4PNe/Pc3Tr5W7n9Uf0XxoRext9h/r5tRX0tTlBBioDK2RsX37+3oLcFEmifyZSKnjgCv0e4W7nVREv77uwbC7o3wys3VYvEASCHALIlN2SpOXZWcfthX9CRqq4d9R8sLbBXc2rXF7e9/kQgJf9zc0FPQMAYIRBGpX+X37ep/mWzD/HarJ8VEUJPmjDtDxUfmxl8/L+kxJxXEBAd6MPMGRIAcDGYHra7UTJKbE/k5j0WoB4L2n+yKS8K5TBS8/zrP7Z84h+SAJ5LoDwjxmMo01+J+2FsXZ7uE430NeUIUtJfzZSVhLeUPNPR0qojN1TzbM3E669wdDR4NOA40N1fC1OMCKctOb/OyfTQqmAiIAj/PzfCQo9abeedRTekiTnX5Ogf1aTqFx4yctqIyWPGMLrBvj69fIz+SNywHhAHRAeGQf0hL3QQikAOBm75JSGAxno69vP1ygBS5bZt/mWH23WG6LTCUz+3+ZoJd3Qf0aJWD7un5/Il5DWeuOjRmMHo48vMh0wxjCP0jxZEgBr6bgg5Pv7mn62FVoo1SM25TmCdG++JU2WJQ7qAGmtF57w87HIcrzDkeBwxDjt6dJfwBj6S8ITL+/B29lQJ4zwDww36H0ReEDKINbpPGbNv+Z02hklgB31hgW1gh8x6P8dHPqLzdpRb3jcYCSAZ+y2bwoLAECHaCTEF4mRYCDhzIQE8/z/OC//khraO5TiZXWT0o+Qbj5+g/wDBaRIIFeiCQ77AUtuaklKGTmSD9Qmkya8rqkpgCDNZ7RQYp0FP4WXImOiLFtArrBHL2dQw4g/MkrysrrN8Hq8blCAuYUgECJbZXqyoPBXm+2m6JQZ0yH6c1wgxwdxnBm4EJ1w2SkaEQUGAMzBaB5lOZTekJzN9focSSpkzM4YrWhZiQAPGX1CBD0DJjNGASiizBgDRgH0DCkAA5YPkGQrtPxvi9v7iQo5UL2vOWp4Wa2SEgFa6A3PBwb6cBwBzBblT3Kzrjscvv6m0c8/l3YpoVFychCAiTATcH6IvgRNQHyBmBAMBJ2M5QPkAy2UWT5KVkbyGb1F2bmC/AuFVjulZfXLAML0+oG+ZgklmYGIlDJOZFRGEAEkJJTJEhKrJKfa7ZbqnPFfHNW4JkEolpfVTcq2Rp+/BfgLhIiMnbcVfmXJs1HatFmzpW8u7dX1Md6oWzdgMGRn80AIIhIggAQQEQgAIBKGBKgOkCegA54H1COGILzQq/f0wX+7dPPm1atXExISbty4YbVaaUma5ogiAYaAiICoXA+RMQ6AMkoBCGNOSi1yxUuCGtx3uIjIa/6utgt3MPr1M5v8CWGMHMnLO1lY4GC0U6dOK1asqMdzVz/7rM3kKXqTnyMnBwABAYEgQ4bFV3D9WaS1GTAGDIE8/MKokAb1OzdqbBw3PttqvZOenpCYcODAgfPnz+fl5SkEveF0AsiACKzEO8wAEBCBMYBsSXbQGl5WL6qeg1lMRL7aSRmuN/QO8PMhnJOxH3JyTtsKELFNmzbr160zi44fp86s/1gXREBgyBRWMgYAyDy/HwqbXAcyb/TJuXDh8rvrnTxn7vRIeMSwFt27jxo2DHS66FOndu3aFX/pUnpamqNo4xIBl6GExbcNAfC2w1Zj99wbVA+fqtl/6c+RniZ/X8I5Gf05z3LGVsDz/MCBA996801HfPzhle+CJRcYMCYjIABjQD3OhDEGiiZW3z9ExhCYS7yC6MyIjr4dHS0ZDP4tm9dq2cqvUaO350UZQ+qcOH36eNSC9oIAmpdXFZ0IAIzeFJ3VO/EaVC8q5GUl6M8hPm0Ori3oGGBsQcEvhVYG8NRTT61cuSL99Jnot9/BQqsBGSgSkBFQiOfqpYT8UhjJivU4AGMuhQ+ArHhY1G5Pv3DhduxFkRD08a3brt3gN9/YKegeKnucWYxmOmt4+YdG+bysBCkJYhcfU209BwDX7Y5D+RadXh8xZMiyt966cuDgmffW8MAEdd3oujZjgFCGAge1arEepwBAAJimPkMGFBkwJkmOvDxbTg5Qmuh02gWBB1QravQ4ZNjtNUq8kih9w+5tbLQcXlau4yCOa+3rA0CyJfkHS65gMERGRs6aOePU+9vi9+whQF1LvuIJMgAml9GRux5HAECFj57vkEtJM0BkhBTKUpoTG+jUF6FEq2RHjbCsOsoXJ1VFWbysdJctfXz9eY5SjLUW5iJEzZ49Y/q0fa+/kXToOwMA75JcJQSdopfRky8SEQFosR5nyn8uBqIncediJkc4juRbrTcNxvqCQEsuMQFAZCytZnFZPbiH1KweuyeA51r5GBlAtixlmU3L5r0R8dTA/UveTDj8vQDIUBF3CqGKdDgAA8bJhBIPE2Qu/c204lJxGxFFdxcBNbISEDi9wSFKNrv9NsfLTOF+UT0AYJAjiuW45WtQSdwralYPL7v4+guEMMDTNuuk2a9EDHrq4znzMuMu8pSpzNEuJZmLW2Uv81iRZ1NpW0RswWAQJRFKRiNdlEMAhgZzQEZ2FgDckSQbpUaOuPWRI0mOGl5WJ+7Jd+aqgZdmnmtk1CPAbYczWRKbN295aPOWlF9j9IgAHDAApEoch2jmgAwRuGKLvCTc9DgwAMaI0Vi7WbNrP/3EaIl7ofWd127cOOn6DQDIkkQbY8aSlRhAlkTFUkF2o9G4atWqJk2aqCUrVqz46aef3KoFBQUtXbo0PDxcLRFFcefOnZ9//nlZN8dgMCxdurR9+/Z5eXlR8+bdun27rJoK+vbp+4/Zs3U6ncezoihmZmbGx8dfjI1NTk5Oup7kcDjc6ixZ8kbXrl2zsrLeevPNxCuJ5XenRd2QuqvffTcwMPDWrVtTpkwuv7Jer1+xYmXz5s0dDsfkyZOysrKKzlSPBK0GXjYQDByAzNilQiuUMJaRKW7sov+0qz1AYMCAUSjWtcVgjAEW63ECyBDajIjgASyxcQjuAk+9bN3WrQ9euAAAeZRmOqVAntNWkylNd9pKT4HjuHbt2rVt21YtCQoKcqtTt27dTZs29erVS1u4b9++H3/80eNtUfBoly4RERHK1WbMnLlo0aJyKgNAUHBw586d9Xp9OXWGDRsGAFlZWYcOHfpw+/ZfL/zKNG9aixYtHn30UQAIDg4eM+ZFDWPKQ+3atTdu2vTEE08AwO+//15h/Z49eg4fPtzHxwcA3nzzrRkzIjVjqAZqVvU71jxibYFHJPmylC7Zocg2QUZdnAIGQJSRKqFBcJUyqgqxMqHY4Iwi1OnY4eFx49OOHs6/fEkbqlQrIgMZdaEPtbt4MRYAKGO/i0XjKWpAAdOluwk/Go3GJUuWuJEyLi4uMjIyMzOzzNEjDisiJQBMmjQpXCOSq4igoKAXXnjhg+3bG4c19lihS5cuq1at5vmKRQ/HcS+//PeePXt62bXBYIgoIiUAREREtG/X3su2XqKqvNQTDNTpEFiOJFsklxhjGhmJDJBRLIq4qBYLAiMuLV7Cqe4yYhS/OjBExgcENBwwsMfixdaLF39fuRpK5bopvTCEJo8+kmd33Lx5Qym/bLejdiEAkCU5LZXf78vz/D/+8Y8RI0ZoC2NjY0ePHu0s1z/foH79iIgI9ZAQEjljRlk6+u4QFha2ecsWs9ns8Wzfvn3HjxtfxlqpGP379Z80aRIh3pKhaXjTfv36qYeCIDz3/POCIHjZ3BtUVY/rkZgITxHvOJ0iYy6ticVSSmsxAwCCYn6zNkOGOLPyBJT0SAQgekA9oABMIEiAcQB+gL4+PkJ4mNCgUUDLpim7Pk/55BMUpZLXBHBZUcAYPDJqZPKN5GvXkpTyO5KYIzMTX9ziis2DEi8fiDh37txZs2ZxXPGSICcnZ+HChampqeW3fftf/woICNCW9O7du2WLFnHx8V72Lopiamqqwn6O4/z9/QMDA90I1Llz5/HjX1q7dk3p5r6+vlHz50dHR1/67VJZXTzU/qH31qzx9/f3ckgAMOXll2vXrq0eIuKAAQO2vf/+9RvXvb9I+agqL2sJAiHIANLLcgoiAxcXFVDZ4bCnZ3QdPhyRAgVAgkWLUkQKjAAjiIrLklHRWRB3OWZ2FM3JpqghuLYHAGRQq1FY2KNd965bV1Dg+s6bzNhVh60j7wtFHoEEh71SsyOEPPfcczNmzNAKA6vVOmnSpDNnzpTftkvnzoMHD3YrDAsL6//kk0W8rDjqlJKSMn7cOC2rwpuE79y1q0WLFtpqI0aM2L79A3XiWtSuXfvrAwe6dn3U43ojODh49bvv1qlTp8KRqGjZouWYMWPcCps0aRIREbHG07txd6gqL4N4HQGGDLPEMvQjc88VSo8+feS50QKiQIiOgQ6YDlAApgOORzQA5ZEwYE6GkiQ5bHaZihwwiujRnQ7KsoGQZv362JzSF3tLmMaJDltHX1/l71xKM0WxUrPr3bv3okWL1IUUAOTk5CxZsuTYsWPlN9Tr9aNffNHjqXHjxm3fvj0//y6Tkq8lXYuIGHbw4LeNGzdWC81mc+OwxnHxcR6bBAQE/Pvf7yxYMD83N9ft1KxZ/2jfvhJLQ0EQ5syd6/HUy3//+2effZZ2R/kiqUcBUglUdX1p4jkAzKLU5sEpiCXj0srikoAkgqWA5VlYbi7mWTDPQvIsxGIhFgufm0vyLJzFwlnyeUseZ7Xyslykhj2beUokyFCrVuunntq8dbObbk0RRatrOcpSHJVT4p07d962bVu9evW0hTt27CjHK6QivEmTPn36eDzVqFGjWbNmVWokbkhPT//qq6+0JQaDITAwsJwmQ4YMefaZZ90KRz07atKkSd4YRirat2vfo0cPj6fq1KkzY+bMkmV3n4ZQVV76IgcAhbJURmiQFcV4ihOAGAAAVUjKilaHAIiuNAumRHtUi4W5yhE9TpQB8nzn8WNT7bYPP/zI7aSd0hzRqdRKrUz4sXXr1mvWrNGuDmVZ/uKLL5YtWyZ6IXSHjxjRoEED9fDw4cPZ2dnq4fTp08MahXk/mNJISUnRHhJCtMvf0hAE4Y2lS7s93k05RMTHH3t8/YYN5Tuk3ICITw0aVLduXbXk3LlzGRkZ6uHTTz/dvFnzko3ukppV5aWBI4BAyzFyGWrMIK28Q7d/QYmZFw1Jyc1kanyoLLcYcu2efy580OANGzbk5+eX6p2pnThoJe7R2LFjW7ZsqbkM279//+zZs2Uvdl/UCw0dP368emixWBYtXPjDDz+oJYIgjH7xRe/t39Jwk46yLJd2sLtBr9evW79ecejUC623eMmS8qlcGv7+/i+88IJ6KEnS/Kgo7Tq7Tp06gwYNqsq8VFT1EgQBAJzMY2SvSIkz1PgySwa7i4pdxNU44l3u9iIXJ5ZO0gQAgCb9ej8aOW3fV/v37/+KlQrk6Ajx4TkllOnDVWKyQUFBWvdKYmLiG2+8YbdXbDYh4ryoKK1bfvfu3UnXrx84cKCwsFCtM3DgwPr16ns/Hi14nn/66ae1JYWFheW4UVU0btx4/oIFAQEBUfPnd+nSpbL9zp+/ICQkRD3cvXt37MXYzz79VC3R6XQjRo70LVrQVwVV5aWLV54lkSc9XuTaVP5P3bhWSqIWV3VFzN027UDqL78kfv3t4MFD+vXr5+lNRWQEAQCpUIXJ8jxf4Q+8KmjTurXWDM/MzPx8714AOH78eEJCQnG1Nm369O1b2WFwHNfhoQ6bNm1u166dtjwlJSU5JdljE6nkXuSBAweuW7fezaAu3wuroHmz5pMmTVIPs7OzN6xfDwCHjxy+ePGiWt6mTZuRI0Z6MZUKUFVeSpQBgEBKagSmoY5rZ6K2WEPT4jilu45mDKhrN47rMoyVYCRDYACOvLzTa99LOXxk2bJ3QkND3YYnMypSWRHTUhWW4eHh4atWrapwNcZx3NBhw7QMjo6OvnL1KgAUFBSsWrVKLSeEREVFVeiLDg0NXbd+/f79X+3f/9VXX3198OC3O3ftGj58uFu13bt2lSXLjx8/nphYHCXnOG7w4MFaVRAbG3v06NHyh0EImTBxojYi8MMPP9y6fQsARFF8ddEiVVMh4quvveblO1xej1Vsb2MyA+BK2nTK3liNHi8masn4i9I9agmj3jDVDnIdsmLZqWUwAxQLC89s2SpdT96xY4fJZNKORAYooBIAZElSohdauCwgYufOnT///PPyzd7g4OAhQ4ZoxbbVah0yZMioUaNGjRplNpu10ep69epNnTqt/GCMwWDo2LFj9+7du3fv3q1bt06dOoWGhmqbUEoPHTq09/O9ZV0hJycnImLYrVu3PJ69c+dO1Lx5pf1HbghvEq51L4ii6HQ6I4ZFPDfquedGPRceHq51g9SqVWvc2HGam3A34qCq/st8SQ4RoBbHlVTIqm+IuSKPjChaWJGMlCFDxhBlQAJAASlSyljRghMpoy5/OVONH5eALA6qs2LWOy15J7ZuHrlx/axZs5YtW+ZunSAUSFJeJSPjjDE30nTr1u2tt95avHix1rjWYsSIEW4e7+eff/75558vq4sxY8bs+7//K0sFVwiFlAvmz6flZu5lZWUtWbx4xcqVpcXYmvfeuxh30WMrLQYMGKDNotLpdGPHjh07dmxZ9YcOG/bFF1+k3FKdBpXO5KgqL3NFEZnRBMSX5wqKHjxDba4lAnEdMgBkWPuxLh1nzyFc0VcMgAEw4tqsi0gAGSqWkiw5rQnX0vd8LiYmMCw2j0CxgbBoXYvAGGTEXz6x/cOIkSP37dt36dIldXq+HAGANFl2eDbOysTGjRvtdntUVJS28Nlnn01JSVm2bFnp+v7+/osWLaowGK1Fw4YNnxww4MMPt1dqYCqWvvHG9g+3e2ONfX3g685dukydOlVbuGfPng8/+rBCDwPHcTNLhmErRJs2bbp161ZSileOmh55WYn22YqHCCGY0xWUEEiq1mXAipPfGAJvMpmaNb125hS12nnGOAQegQfgGPCIPABBoAwkYDISGhIS9u4qlp97c9O27NOnoSiQqE0BKboyO//p3g4RET16dFd56cNxgURgABapcpGe/fv3r1+/3mq1BgcHv/jii+rSiuO4OXPmWCyW7du3a10zhJDIyEhtZMgb6HS6ESNG7N27x2MIEQBsNtv58+eVszzP9+7dW7tI6Na9+2d7PvOGl7Is/+tfbzdv3lzJt2CMHT9+fM4cr9xe8+bO00bDvQHP85MmT9735b6Svt5KULM0Lysnb/MlqZDKJsKHCsL1EtFn5iIlapM2iiLhiIdXv2u/fsOPgQ9BE6Afgi8jPgT9GNETkAHyGbMhWvUCNmxofrJ/89df1e387ObHJTznWKI7YJIY/+2hAQMGvP/+NqU0XK/XI4rA7jgrl0b0/fffK2vB5cuX16tXb8CAAeopjuMWLlyYn5+/a9cuVYGGhTXSmuGMMYvFUpZPURuP7tSpU58+fb/++iuPNe/cubNk8eKExASl37ff/teLmvBmv379pk2bvnLligqdlwBgs9mi5s37aMeOjh07pqSkvP3WW96Y4Y3DGo8pqa9zcnLKiiwEBwerr83DDz88PGJ4qYWvt9R042WlA5oOyiyi5K/n6uh4Qwk3DWr1eNGgXLpXRmCSxCSJATKGAEW7fBgSYET56j+jSt6G9XL8rd8u5d1O6fKPf1gzUtO+/d7TShoZA8bo7djYgaOeQUTGGAJ00PtSBJGxW5Xca6YKkoyMjEmTJn355ZePPPKIqqN9fHwWL16ckHD5zJmzSkmvXk80a9ZMbZ6amjrhpZcuxMYWFZQY8e7dn/YtchLpdLqlS5ceOvS9R24xxhwOh+r4XPbOO23btu3YsaNyyPP81KlTz5w+feiHQ95MKjkledXKle+tWbNi+fKY8zEV1kfEp59+WvsWJScnv/D881d/v+qx/saNm0aOdDmJCCGLlyz59rtvSwU7vAqduzGp0nAyliVKDMAs8AGcG8uLvEIa9yZTk86Y6vZR7fFi1yRjFADQlYaJyODa19/8duCb5n+fqq9fn7l3AK7VJoJYaDVwvJ+fHwCE6vVhegGBXbYVVmWvmc1mmzZtWkxMiQcZGBi4ffuH3bt3AwCO48aNG6cNNJ89ezYuPl4qA2+9+aZNk3HXqFGjF14Y7c1I0u6krVyxQtvWYDCsWbv2sa6PeTmXw0cOz4iM3LN3jzeVa9Wq9fTQodp5HT9+/PqN62XN64Nt2yyW4nyUoKCgEcNHlLHgrsBIr6qfiDJ22+mQGfNFvqHgcu+VWPlpfT2AWJwzjMUR7+IGxHXIADTf2yAMZYfj7LbtQpDZ3OnhoiuUHg5SmTJKDQYDADzuY1I+z3HKaq3iNJOSkubOnWsrmb4ZGhq6atXqdu3aPvPMM25ZOR99+KFG/rk/g0u/XXLbPDRq1Chv1nCMscNHDr/zzjvawjp16ixfsaJJ4ybeTESSpCNHj5Rvv6vo07tPhw4d1ENZlr/av7+c5WxCYkJ0dLR6qNPpnh46tHzPWlmohv09aU6nTaYGHWnj45dYkOtwOELCww3+/pKloGhVqcpDl4x05Wq4PJglsjqKvJ8uY1sjGpkjKyv992vG+vWBEEZl0Hg0lf9xer5x1642WbJarSG80ErQAcBNp+NORQspWZZ//fVXrRvPLazHGIuPjx82bNiSJUvc2g4aNLhVq1ba53H79u2TmkOP3e3cudNkMqmypLCwsF5ovYyMjIz09FOnTqkiKi0tTVXiatvNmzeFhYW1atVKW969R48bN29QSn/77TdFXSi4kphYOjzrhqtXrpw4cUI7fvWap06dUsvz8/N/PvZzOdexWCz/74svfH191XlRSgP8A8pwq5Wn0DEoSPVp3X22XGsf374BARzgeavV/ETP5e/8+1bM+R/XbbDevqUDpgfUIQhABKACkrD+/R9ftmzz8AjHjRsmID6E+DP04cDE0AfRBMSAIDGwALMB5DNaAMxGIR+pDaDf2rXk5vXL6zaKkuRgTAQQkTkZOBlDk/9jM6c16NZj2aqVn+7a3d8vYIC/v4Tsu7y8YwX5Ffp2BUHQahxJkjzaqt4k4DDGSpoUHjrnOM4twUzpsXS50+ksTSye590cN2qnOp1Oa7NTSitMgHJrAgCKsHebbKl5eUDp8YuiWJF49kC86tk/frnQ2tHHUEcwtPf1+eK775+9dm3v3r3PrV7+WeRsKTtTVbqo0dgcqh+jBI3NToApsSLKSviXwOVjZ65PraoSV2kp+Pj1mB/VdEC/yOnTDxw4qEfsYfLnCGZLUrzdq08KemOcQtEDqzpkWfbI+7LK3aCs5zye8iYNz8smdzFZL8dfEh6M9GpISVIufMFqkwD0iJ18/RIvXRo2bFjszeRJn+5q/uSTnCCAqr6LKEVBE4nUpg+rSUSuNWZxKQDRfmuVFJX61a/f5/XXuObhY8aM+/rrbzgGowNqmTlEBicLC7Ie8EfU7z4o/1dGtX3/Mslhb+twNBR0rYyGmw7jpd9/nzNnbmRk5MTXXo0Ja3Txgw+1i0FWbI+zkvFxhoAMlG8WMSjacq64jiijjFFWVF9pbGrcuMfr/xTNgS9PnXr+/HkAeMzk97CvLwN23SmezC/whhfjxo1r3bq1emi1Wnfv3j169OikpKSjR49OmDBBCbtLknTy5MkjR44g4ksvvaTdyXDs2LFvv/1WPVyyZIliexUUFBz4+usLsRc6PNRh5DPPKP55m8327cGD52LOKQquQf0GkyZPrlu37rVr13bs+CgjI6PTI52eebZEenlMTExOdna//v3Vktzc3OXLlgGAj4/P5ClTWrVqlZ2d/fGOHVeuXHn1tdfc8gT2f/llp86dAwMDN23cmJ2dbTQaR4wc2bNnz7y8vD2ffRYTEwMI7du179at246PdyhictSzo1q3afPF55/HX3LtkgsODp43L+rQ99//+NOPSklo3dCx48ZZ8vK2bN2ilJhMpjlz5hqNRgCw2+0/HDp0+sxpLySo+1qz2nhpo/SstSBUCDQg/i0gIFuSUjMzly5dmpycPD8qqlaTsHPvbaDZGYrGRsUHhIpvBxgyQoEhuqLjRXrfNVgGrh1nSoSdqWnG6NegwWOLF2dw3MRnn71x4wYANBH0A3xMBDFPlr+y5Jb+tIZHDBw4sF+/fpmZmYpytFgsP/744/jx40+ePBkbGztmzBiz2ZyRkWEwGCZPnrx69er3339/6NChnTp1SktTtrNAZmamlpcTJkzgeT4zM9NsNk+fPn3WrFmMsYkTJ0qSlJubW6tWrQkTJvz95ZePHD0yePCQd99912AwFBQUDB8+fMiQIdOnTavfoMFTTz1lMBiCg4Nzc3MLCgokSbJYLJMnT87OzlbcAmlpacuXLWvXrt2WrVubNWuWm5trMpkiIiImvPRS//79a9WqVadOHY7jsrKynE7nhQsXRowY0aBBg/988gkAbNq8+YknJ9jN0QAACwhJREFUnsjNzdXr9WPGjFm5cuXmTZuaNGmyeMkSPz+/devXiaLYu0+fQYMGnT1zRuWlv8l/ypQpmRkZKi+DgoJGjx59+/ZtlZc+Pj7jx483GAzZ2dl+fn6TJ0+eNXPmvi/3eUeiYoVend8LvmG3/9di6Wcy6wl52mz+KjcnTRR37tx569atxa+/3uftpefeXVN49YoaO0cGgEgYIAJFLDbci75tXZSvUZTNwYAiEHS5NkO6dn14wbzTCYn/fP11hZRmjnsmIDBEpxOBnbQWJFdmeZSenj5jxgyFZ5RSbQIsAFy9enXatGmBgYEbN26cMmXKtm3bACAtLW3UqGeVEeaUSsk5d+7c/KioPn37Lly4cObMmVu2bAGAgwcPrl2z5qEOHdauXTv+pZdiY2MXLFhACFm0aFFiQkKXRx+dP3/+v995Z/y4caOefbbrY4+99957O3bs2Ltnj8Vief6FF5xO57p16344dAgAJEnS6/UzZ81q0aLF6tWrj/38c6OwsIceeig1NXXK5Mkcx338ySdms3nRokW/XbokiuKUKVMAgBDy5ltv9erVa8+ePbt27gypW/eVV16ZPXv2b7/9xgD0ev3sOXN8/fxWrlxR6cevwZUrVxYtXBgSEvLemjXTIyO95iWo1KxOXjKA2MLCUJ2uo69vXUE3xBz4cWaG0+k8dOjQr7/++v7WrQO3bT2x8FWFfAodVcHNKRLUpdWLMyyUxHVgagYxYwAUIPDhzo8uXXIu4XJkZGReXh4AmAiZExxSX6eTAZJs9u/zLZVKuBRFMSkpKTnZldrjxku73Z6YmCiK4vXr1x9//HHFejWbzXPmuDYHRkZGul0wPz8/8Uqi0Wi0WCz+/v6KBs/NzU1ITEi6nrRs2bLg4ODmzZu3bNly7dq1O3f+hzEWcz7m4YcfHjp0qNlsTkxMVHYIZWRkKAmUjDGe5wcNGqQkBW/etMlgMPTo0SM+Pn7lihWU0ujo6C8+/1xVmna7XZKk5Js3ExMTg4OD1Xn17NkzJSVlw/r1V69eVWaxZs2aLl26xMXFAYAgCMq+5Kp8p8But1+5eiX2YmxWVlbpL+pUBAYlfr+nOiAxdqKgwMzxTQ2GRoJ+clDdL/Oy0kTnnTt3pk6b9uqiRU8tXVxwOQGLfrKEAWPMtc+CMTXnCErvm1ANeaIzhA54svm06XsPfvPP1/6pLIbq8LoX/M2NdLwEcNlh35qT6aUGVxESEqIkEAHAggUL3M4GBwePHz++adOmXbp0+fnnn5Vnr9PpmjZt6hpeqahGo0aNJk6c1L9//5CQkL179ypuyDZt2kyaNLlfv36+vr5Hjx5VWlFKlS+BMcrK9zUiYp06dRSKK9sVXBHXyiQxKU1U343yh3qF9evXt2/ffty4cYqDovRovLmttWvXHvPimPYPPdSwYcMdO3Z4Pza1k+r/3dJcSfomL3comJvpDQ0F/jmz+evcvN9FR2pq6sJFi2JGjYqaO/fq6bOW9HQBQLkhrlQOACUBkxFFLDL3jCFA6nSG9OrecNBTGz/YtnHjRoWUzQT9S4GBDXUCI+SazbY7J6uw8lFHSqnNZlOWbqXX6fXq1XvllVcCAwOTkpKWL3clud25c2fixAkuI6wUn5o2bbpgwYK8vLwNGzZs3bqlZ89eANC5c+cOHTqYTKYTJ0588vHHOp0uJSVl7Nix53755dSpU4OHDOndu3dcXJzbdkcVoihu2bLl++++A4Ds7GxK6fnz5/v27Tt12rRPd+9u27Ztryee2LhhQzl5vunp6RcvXuzdu/e48ePfXb26cePGEyZMsNlscXFxCkFTU1M3btiwbPny4cOHu7n0vUe9evWmR0YWFBRs3bp186ZNd3GFe/J7urmStC83e2RArRYGQ6ignxgc9HVubozdZrVad+zYsXfv3iaI3X38AjlS5KdCqto6xW8+qvvVKAIwJjJ29D97er9Sb/e69ds++IAxpkPsbPSZEBhs4sBJ2TWHuDEr03JXP8yTkZERFRWl6vFGjRppz8bFxY0YMWLz5s29e/du27bdlStXAaB+/fpHj7osgCNHjsybN0/7II8dO/bSS+PdvMo7d+5cu2bNd99/37Jly7CwsLNnz27dunXBggWf/Oc/oijq9frU1NRXFy0qyzcpCMLrr7/+yiuvKIdP9u+/dcuWNm3aLF68eNGiRYIg5Ofnnz9//uA335Q1TVmW582d++X+/VOnTp04cSLP85TSb7755uA33wwYOFCpk5OT89qrrwYEBHTt2hXA3b04c+ZMdbfnzBkzAKBjx44XLsQCQF5e3qqVKwEgNjZ24oQJqWmpXgY8S4Pz8VG/EXn38Z7ScDJ23enQIamnEwyEtDcYQni+gLEcSXKKYrrTecPhSBelTEnMpnK+JNkpUEoloEhBBlZIWS5jWVS6LYnXRTHB4bhos50uKPjmyuX/7P707NmzyFi4IDxjMj8TYPYj6KDsaEH+jtysuyOln5/f9evXT506pQZ/dTodpfTcuXPx8fEcx50/fz46OvrIkSM8z+v1+piYGJ1Ol5SU9FsRzp8/HxsbqwragICAs2fPxsScU+WooBMcDkd0dHRMzLmTJ07wOh2l9Ndff42NjY2Pj8/Myvr9999//vnnVStXnjvnaqXT6Shj/z1+XHlbjAaDxWKJi4tTO/3pp58SExNPRUfn5OTcvHnzzJkzGzdu/PHoUWUY/v7+CQkJp6KjLRYLIUSv1ycmJp74738zMjIOHz6ckZl5586dmJiYjz76aO2aNQ6HQy8Ioiie+O9/k5OTCwsLjx07Jsvy2TNnXDvEETie0+sNcXFxV4pw/NgxWZYTEhKUw4SEhLNnztjt9vMxMWfOnqlKDKJ64pBlgQPoZPQdGhDgz3McQ5HSGLv1gMWSXfT8CCJhwCPwiBwiYcAhcAAUQAagDGQACZjEmAzFH3ITEJ/xN//N1y+A01FgBVR6PzvztN3urOSasnicHIeIsixr909xHKesw5Q/lIet1iSEaFd1agUFPM+5lRBCCCGUUkopMFCCdapcVOKKbsFPZQyuJkVX0A5bHbAS/XMLObpNyu2QEKK8e5IkKSVu3SlNKKVu98RtAK4SLFHiNve7wL3lpXLRRoIw2BQQrtf5cZwAWCjTU7aCmEJ7miTmUSp7RyYEMHFcPY7rYjAO8vMP5DnKsIDJ52y2z/Lzbvzhfo+n7En9WQNA1Uqfe85LBQbENgZDHz9TG72vDmQO0UnpHUlOFu1XnWKSU7wlOW2eFiMCYh2eb8XrWglCC70xTCf4E6RIHIzG2G0HCixxDkfBH+576eVSr4aX3lzs/vBS7eAho+9If78mnF5PCI/AIeMY8oASyLkyy5CkDAY2JP4SMROxHs+F8roAREaIxIACOpHZGL3mcHyYn/eLrdBLWXvf8ZfkZWlUgVD3lZcKBMTmgr69wdhCL4TzQiDh9Ig6ZDwQAZAA8MCUnDNe+VV7SiVgaTL7XRTjHfZoR+Elx90vJe89KhrYH3bg9wJ3y6kHwEsFBNGXEH8k9XRCcx3fUjA04nV1OM6IqAPgAEWgOTK9KYnxTke805EsirmM5suU/tEfbA0vS+KuaPXAePnnxV/P4ikfd0Wre+JXr4EH/DVJCZ4m7gVTqycvuAYV4C9LSo/w4m7U8LIGDwIVUVPlZc3islpQIxi9Rrm3imj21tSgBvcXZVOzRo/X4IGiDGrW8LIaUcY9rtHt5cPT/anh5T1GDSm9Qam7VMPLe4kaUnoPVuJ21fCyBn8kqLu4HugoalADz/j/gWIQXhmweK8AAAAASUVORK5CYII=" alt="Karma Fire Protection LLP" class="h-9 w-auto object-contain">
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav aria-label="Main navigation" class="hidden lg:flex items-center gap-gutter-xl">
+        <button type="button" data-nav="home" onclick="navigateTo(&#39;home&#39;)" class="nav-link font-label text-label-md text-dark-on-surface hover:text-dark-error transition-colors">Home</button>
+        <button type="button" data-nav="about" onclick="navigateTo(&#39;about&#39;)" class="nav-link font-label text-label-md text-dark-secondary hover:text-dark-error transition-colors">About</button>
+
+        <!-- Services Dropdown -->
+        <div class="relative group">
+          <button type="button" data-nav="services" onclick="navigateTo(&#39;services&#39;)" class="nav-link inline-flex items-center gap-gutter-xs font-label text-label-md text-dark-secondary hover:text-dark-error transition-colors py-gutter-sm">
+            <span>Services</span>
+            <span class="material-symbols-outlined text-label-lg">expand_more</span>
+          </button>
+          <div class="hidden group-hover:block absolute left-0 top-full w-64 bg-dark-surface-container-lowest border border-dark-outline-variant rounded-md shadow-lg py-gutter-sm z-50">
+            <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;hydrant&#39;)" class="w-full text-left px-gutter-lg py-gutter-sm font-label text-label-md text-dark-on-surface hover:bg-dark-surface-container hover:text-dark-error">Fire Hydrant System</button>
+            <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;alarm&#39;)" class="w-full text-left px-gutter-lg py-gutter-sm font-label text-label-md text-dark-on-surface hover:bg-dark-surface-container hover:text-dark-error">Fire Alarm System</button>
+            <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;sprinkler&#39;)" class="w-full text-left px-gutter-lg py-gutter-sm font-label text-label-md text-dark-on-surface hover:bg-dark-surface-container hover:text-dark-error">Fire Sprinkler System</button>
+            <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;suppression&#39;)" class="w-full text-left px-gutter-lg py-gutter-sm font-label text-label-md text-dark-on-surface hover:bg-dark-surface-container hover:text-dark-error">Fire Suppression System</button>
+            <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;maintenance&#39;)" class="w-full text-left px-gutter-lg py-gutter-sm font-label text-label-md text-dark-on-surface hover:bg-dark-surface-container hover:text-dark-error">Maintenance &amp; Inspection</button>
+          </div>
+        </div>
+
+        <button type="button" data-nav="projects" onclick="navigateTo(&#39;projects&#39;)" class="nav-link font-label text-label-md text-dark-secondary hover:text-dark-error transition-colors">Projects</button>
+        <button type="button" data-nav="contact" onclick="navigateTo(&#39;contact&#39;)" class="nav-link font-label text-label-md text-dark-secondary hover:text-dark-error transition-colors">Contact</button>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="hidden md:flex items-center gap-gutter-md shrink-0">
+        <a href="tel:+912240189200" class="inline-flex items-center gap-gutter-xs font-mono text-mono-sm text-dark-secondary hover:text-dark-on-surface">
+          <span class="material-symbols-outlined text-label-lg text-dark-error">call</span>
+          <span>+91 22 4018 9200</span>
+        </a>
+        <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-gutter-sm rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md hover:opacity-95 transition-opacity">
+          <span>Request a Quote</span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button type="button" aria-label="Open menu" onclick="toggleMobileMenu(true)" class="lg:hidden p-gutter-xs rounded-DEFAULT text-dark-on-surface hover:bg-dark-surface-container">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-50 bg-dark-background text-dark-on-surface flex flex-col p-gutter-2xl overflow-y-auto">
+    <div class="flex items-center justify-between pb-gutter-lg border-b border-dark-outline-variant">
+      <img src="data:image/png;base64,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" alt="Karma Fire Protection LLP" class="h-8 w-auto object-contain">
+      <button type="button" aria-label="Close menu" onclick="toggleMobileMenu(false)" class="p-gutter-xs rounded-DEFAULT text-dark-on-surface hover:bg-dark-surface-container">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-gutter-md py-gutter-xl flex-1">
+      <button type="button" onclick="navigateTo(&#39;home&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">Home</button>
+      <button type="button" onclick="navigateTo(&#39;about&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">About</button>
+      <div class="flex flex-col gap-gutter-xs">
+        <button type="button" onclick="navigateTo(&#39;services&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">Services</button>
+        <div class="pl-gutter-lg flex flex-col gap-gutter-xs border-l border-dark-outline-variant">
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;hydrant&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-gutter-xs">Fire Hydrant System</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;alarm&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-gutter-xs">Fire Alarm System</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;sprinkler&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-gutter-xs">Fire Sprinkler System</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;suppression&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-gutter-xs">Fire Suppression System</button>
+          <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;maintenance&#39;); toggleMobileMenu(false);" class="text-left font-body text-body-md text-dark-secondary py-gutter-xs">Maintenance &amp; Inspection</button>
+        </div>
+      </div>
+      <button type="button" onclick="navigateTo(&#39;projects&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">Projects</button>
+      <button type="button" onclick="navigateTo(&#39;contact&#39;); toggleMobileMenu(false);" class="text-left font-headline text-headline-md py-gutter-xs">Contact</button>
+    </nav>
+    <div class="border-t border-dark-outline-variant pt-gutter-lg flex flex-col gap-gutter-md">
+      <a href="tel:+912240189200" class="font-mono text-mono-sm text-dark-secondary">+91 22 4018 9200</a>
+      <a href="mailto:info@karmafireprotection.com" class="font-body text-body-md text-dark-secondary">info@karmafireprotection.com</a>
+      <button type="button" onclick="navigateTo(&#39;contact&#39;); toggleMobileMenu(false);" class="w-full py-gutter-md rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-lg">Request a Quote</button>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE CONTAINER                                                        -->
+  <!-- ===================================================================== -->
+  <main id="page-root" class="min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- =================================================================== -->
+    <!-- PAGE 1: HOME                                                        -->
+    <!-- =================================================================== -->
+    <div id="page-home" class="page-section">
+      <!-- Hero -->
+      <section class="relative bg-dark-background text-dark-on-surface overflow-hidden">
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrDLTehCVOdNfB4WNXRiMAHpuv4OSzUQPziN90VjNlx4wQ8k5tugS37gaY9loTVelLFMgo3aklLs9M5uhHsdeRVyDVCJNVuKzhtOCu6k0xOUhzxGvsBASLJ3autQxpd5czWUq-J6qhcqvqgC0qTzsrTz9VEDbn2wJ22cNCQ_id1ENW7ZtlaLy8rM3J5R2Ej06akYfT87-sdpGO_GZcCZrcfgt4Mfbg-_b8w02b7orsK28IG8BGlxGZpdYU4" alt="Fire protection engineering and emergency readiness" class="absolute inset-0 w-full h-full object-cover opacity-35">
+        <div class="absolute inset-0 bg-dark-background/80"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl py-20 lg:py-28">
+          <div class="max-w-3xl flex flex-col gap-gutter-xl">
+            <div class="inline-flex items-center gap-gutter-sm self-start px-gutter-md py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant">
+              <span class="w-2 h-2 rounded-full bg-dark-error"></span>
+              <span class="font-label text-label-sm text-dark-on-surface">Karma Fire Protection LLP · Fire Safety Engineering</span>
+            </div>
+            <h1 class="font-headline text-display-md text-light-on-primary text-balance">
+              Complete Fire Protection Solutions for Safer Buildings
+            </h1>
+            <p class="font-body text-body-lg text-dark-secondary max-w-2xl text-pretty">
+              Karma Fire Protection LLP designs, installs, tests and maintains fire hydrant, fire alarm, fire sprinkler and fire suppression systems, helping protect buildings, property and people from fire hazards.
+            </p>
+            <div class="flex flex-wrap items-center gap-gutter-md pt-gutter-sm">
+              <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="inline-flex items-center gap-gutter-xs px-gutter-xl py-gutter-md rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-lg hover:opacity-95">
+                <span>Request a Quote</span>
+                <span class="material-symbols-outlined text-title-lg">arrow_forward</span>
+              </button>
+              <button type="button" onclick="navigateTo(&#39;services&#39;)" class="inline-flex items-center gap-gutter-xs px-gutter-xl py-gutter-md rounded-DEFAULT bg-dark-surface-container text-dark-on-surface border border-dark-outline-variant font-label text-label-lg hover:bg-dark-surface-container-high">
+                <span>Explore Services</span>
+              </button>
+              <a href="tel:+912240189200" class="inline-flex items-center gap-gutter-xs px-gutter-lg py-gutter-md rounded-DEFAULT text-dark-on-surface font-label text-label-lg hover:text-dark-error">
+                <span class="material-symbols-outlined text-title-lg">call</span>
+                <span>Call Now</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Company Introduction -->
+      <section class="py-16 lg:py-20 bg-light-surface-container-lowest border-b border-light-outline-variant">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl grid grid-cols-1 lg:grid-cols-12 gap-gutter-2xl items-center">
+          <div class="lg:col-span-6 flex flex-col gap-gutter-lg">
+            <span class="font-label text-label-md text-light-error uppercase tracking-wider">Engineering &amp; Life Safety</span>
+            <h2 class="font-headline text-headline-lg text-light-on-surface text-balance">Protecting Buildings with End-to-End Fire Safety</h2>
+            <p class="font-body text-body-lg text-light-on-surface-variant text-pretty">
+              From initial site evaluation and hydraulic system planning to precision piping installation, testing, and ongoing maintenance, Karma Fire Protection LLP delivers integrated fire safety infrastructure tailored to each facility&#39;s hazard profile.
+            </p>
+            <div class="flex items-center gap-gutter-md pt-gutter-xs">
+              <button type="button" onclick="navigateTo(&#39;about&#39;)" class="inline-flex items-center gap-gutter-xs font-label text-label-lg text-light-primary hover:text-light-error">
+                <span>Learn About Our Company</span>
+                <span class="material-symbols-outlined text-title-lg">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+          <div class="lg:col-span-6">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Fire hydrant riser manifold and pump room engineering" loading="lazy" class="w-full h-80 object-cover rounded-md border border-light-outline-variant shadow-sm">
+          </div>
+        </div>
+      </section>
+
+      <!-- Complete Fire Protection Services (6 Cards) -->
+      <section class="py-16 lg:py-20 bg-light-surface">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl flex flex-col gap-gutter-2xl">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter-md">
+            <div>
+              <span class="font-label text-label-md text-light-error uppercase tracking-wider">Core Capabilities</span>
+              <h2 class="font-headline text-headline-lg text-light-on-surface">Complete Fire Protection Services</h2>
+            </div>
+            <button type="button" onclick="navigateTo(&#39;services&#39;)" class="font-label text-label-md text-light-primary hover:underline self-start md:self-auto">View Technical Specifications →</button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter-xl items-stretch">
+            <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col h-full">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Fire Hydrant System" loading="lazy" class="w-full h-48 object-cover">
+              <div class="p-gutter-xl flex-1 flex flex-col justify-between gap-gutter-md">
+                <div class="flex flex-col gap-gutter-sm">
+                  <h3 class="font-title text-title-lg text-light-on-surface">Fire Hydrant System</h3>
+                  <p class="font-body text-body-md text-light-on-surface-variant text-pretty">Hydrant network planning, piping, landing valves, hose reels, pump room integration, and pressure testing.</p>
+                </div>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;hydrant&#39;)" class="self-start font-label text-label-md text-light-primary hover:text-light-error inline-flex items-center gap-gutter-xs">
+                  <span>Learn More</span><span class="material-symbols-outlined text-label-lg">arrow_forward</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col h-full">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrBBiB_fVAwP-7NRWM70NzVntN6Emucq0ktRGedoL1ohZ9lT61hGPXcEfD-NvF6XieNvRBTmEABLbNwt6zp3L3mhjZY3_onevmEs8u4LqMXomom9qsmCXtIkPOya8DLl7Erwk8Jg6oQlqPOFOVAFDVvk2Qb1pTPmCIzzLEBY-gWkjErTosm9jTjYRij8WAyYOfG4_PBAzmWCXOEydmYtmpKxby5wZbJp8zTVFHK56hM55Z98CErq" alt="Fire Alarm System" loading="lazy" class="w-full h-48 object-cover">
+              <div class="p-gutter-xl flex-1 flex flex-col justify-between gap-gutter-md">
+                <div class="flex flex-col gap-gutter-sm">
+                  <h3 class="font-title text-title-lg text-light-on-surface">Fire Alarm System</h3>
+                  <p class="font-body text-body-md text-light-on-surface-variant text-balance">Addressable detection panels, smoke and heat detectors, manual call points, and notification loops.</p>
+                </div>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;alarm&#39;)" class="self-start font-label text-label-md text-light-primary hover:text-light-error inline-flex items-center gap-gutter-xs">
+                  <span>Learn More</span><span class="material-symbols-outlined text-label-lg">arrow_forward</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col h-full">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrCOwdUeBbOp1G4B7kyrQ-S8rOCuoFT37FwzIjgBTNmXwqKp790LF3-qvotgc-OSrfduZhOFMwNLQJLLzrYvIbE4ndLMBy_Z-Zrsvgxc2OIMklkf2ONOREL1CZ6YvhGv_9AGfRxA2paqMsjHwa8BUwdQYpHGDJ8mhakeV4caYJYR9PDGGEtPwFx2P6u7eNLQXgqO1I4H0s2g23wn06J4hnrUwaM7wolVhewQw6KKo98QI96JctD5TwyL9rE" alt="Fire Sprinkler System" loading="lazy" class="w-full h-48 object-cover">
+              <div class="p-gutter-xl flex-1 flex flex-col justify-between gap-gutter-md">
+                <div class="flex flex-col gap-gutter-sm">
+                  <h3 class="font-title text-title-lg text-light-on-surface">Fire Sprinkler System</h3>
+                  <p class="font-body text-body-md text-light-on-surface-variant text-pretty">Automatic sprinkler piping networks, control valve assemblies, water supply connections, and zone testing.</p>
+                </div>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;sprinkler&#39;)" class="self-start font-label text-label-md text-light-primary hover:text-light-error inline-flex items-center gap-gutter-xs">
+                  <span>Learn More</span><span class="material-symbols-outlined text-label-lg">arrow_forward</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col h-full">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrCrQOaRHJzYpy4pPXzQVThbWdBq1sRFCT0jkaOONbgOgzWiuopWKRF5cRTk_IKtLbIs6rgPH_oZKKabDHG6kgmvAF41ZpjsKEcgT172BmbuhDhnp78WdCDswTg-ID_h1IJrWqdl0_YwLXsXe33wZjlm2wZ7oJbj1r78sARpgwY2mfWerHMHbdvDtCEFn1pJm2Q7Ks6p-vpJejho8E5bVNcXbK_JXJUSTDsCisIv4u2Vsjja2xHnzrwa9gSvtIk" alt="Fire Suppression System" loading="lazy" class="w-full h-48 object-cover">
+              <div class="p-gutter-xl flex-1 flex flex-col justify-between gap-gutter-md">
+                <div class="flex flex-col gap-gutter-sm">
+                  <h3 class="font-title text-title-lg text-light-on-surface">Fire Suppression System</h3>
+                  <p class="font-body text-body-md text-light-on-surface-variant text-pretty">Specialized suppression planning, cylinder manifold installation, panel integration, and commissioning.</p>
+                </div>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;suppression&#39;)" class="self-start font-label text-label-md text-light-primary hover:text-light-error inline-flex items-center gap-gutter-xs">
+                  <span>Learn More</span><span class="material-symbols-outlined text-label-lg">arrow_forward</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant p-gutter-xl shadow-sm flex flex-col justify-between gap-gutter-md h-full">
+              <div class="flex flex-col gap-gutter-sm">
+                <div class="w-11 h-11 rounded-md bg-light-primary-container text-light-primary flex items-center justify-center">
+                  <span class="material-symbols-outlined">engineering</span>
+                </div>
+                <h3 class="font-title text-title-lg text-light-on-surface">Installation &amp; Commissioning</h3>
+                <p class="font-body text-body-md text-light-on-surface-variant text-pretty">End-to-end site execution, hydro-testing, functional verification, and structured system handover.</p>
+              </div>
+              <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;maintenance&#39;)" class="self-start font-label text-label-md text-light-primary hover:text-light-error inline-flex items-center gap-gutter-xs">
+                <span>Learn More</span><span class="material-symbols-outlined text-label-lg">arrow_forward</span>
+              </button>
+            </article>
+
+            <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant p-gutter-xl shadow-sm flex flex-col justify-between gap-gutter-md h-full">
+              <div class="flex flex-col gap-gutter-sm">
+                <div class="w-11 h-11 rounded-md bg-success-container text-on-success-container flex items-center justify-center">
+                  <span class="material-symbols-outlined">verified</span>
+                </div>
+                <h3 class="font-title text-title-lg text-light-on-surface">Maintenance &amp; Inspection</h3>
+                <p class="font-body text-body-md text-light-on-surface-variant text-pretty">Periodic preventive maintenance, AMC visits, pressure &amp; alarm testing, and corrective repairs.</p>
+              </div>
+              <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;maintenance&#39;)" class="self-start font-label text-label-md text-light-primary hover:text-light-error inline-flex items-center gap-gutter-xs">
+                <span>Learn More</span><span class="material-symbols-outlined text-label-lg">arrow_forward</span>
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Choose Karma + Our Approach -->
+      <section class="py-16 lg:py-20 bg-dark-background text-dark-on-surface">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl flex flex-col gap-gutter-2xl">
+          <div class="max-w-2xl flex flex-col gap-gutter-sm">
+            <span class="font-label text-label-md text-dark-error uppercase tracking-wider">Why Choose Karma Fire Protection</span>
+            <h2 class="font-headline text-headline-lg text-light-on-primary">Safety-Focused. Building-Protection Driven.</h2>
+            <p class="font-body text-body-md text-dark-secondary">Structured engineering execution from initial site evaluation to long-term preventive maintenance.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter-lg">
+            <div class="p-gutter-xl rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-gutter-xs">
+              <span class="font-mono text-mono-sm text-dark-error">STAGE 01</span>
+              <h3 class="font-title text-title-md text-dark-on-surface">Site Evaluation</h3>
+              <p class="font-body text-body-sm text-dark-on-surface-variant text-balance">Physical inspection of layout, occupancy, and fire hazard zones.</p>
+            </div>
+            <div class="p-gutter-xl rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-gutter-xs">
+              <span class="font-mono text-mono-sm text-dark-error">STAGE 02</span>
+              <h3 class="font-title text-title-md text-dark-on-surface">Planning &amp; System Design</h3>
+              <p class="font-body text-body-sm text-dark-on-surface-variant">Building-specific engineering layouts and BOQ preparation.</p>
+            </div>
+            <div class="p-gutter-xl rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-gutter-xs">
+              <span class="font-mono text-mono-sm text-dark-error">STAGE 03</span>
+              <h3 class="font-title text-title-md text-dark-on-surface">Equipment Selection</h3>
+              <p class="font-body text-body-sm text-dark-on-surface-variant">Matching pumps, panels, valves, and detectors to site requirements.</p>
+            </div>
+            <div class="p-gutter-xl rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-gutter-xs">
+              <span class="font-mono text-mono-sm text-dark-error">STAGE 04</span>
+              <h3 class="font-title text-title-md text-dark-on-surface">Installation</h3>
+              <p class="font-body text-body-sm text-dark-on-surface-variant">Disciplined piping, cabling, valve assembly, and panel mounting.</p>
+            </div>
+            <div class="p-gutter-xl rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-gutter-xs">
+              <span class="font-mono text-mono-sm text-dark-error">STAGE 05</span>
+              <h3 class="font-title text-title-md text-dark-on-surface">Testing &amp; Commissioning</h3>
+              <p class="font-body text-body-sm text-dark-on-surface-variant">Hydro-pressure verification, loop checks, and functional handover.</p>
+            </div>
+            <div class="p-gutter-xl rounded-md bg-dark-surface-container border border-dark-outline-variant flex flex-col gap-gutter-xs">
+              <span class="font-mono text-mono-sm text-dark-error">STAGE 06</span>
+              <h3 class="font-title text-title-md text-dark-on-surface">Maintenance &amp; Inspection</h3>
+              <p class="font-body text-body-sm text-dark-on-surface-variant">Scheduled AMC service visits, defect resolution, and readiness checks.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Selected Projects (CMS-connected) -->
+      <section class="py-16 lg:py-20 bg-light-surface">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl flex flex-col gap-gutter-xl">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-gutter-md">
+            <div>
+              <span class="font-label text-label-md text-light-error uppercase tracking-wider">Public Portfolio</span>
+              <h2 class="font-headline text-headline-lg text-light-on-surface">Selected Projects</h2>
+            </div>
+            <button type="button" onclick="navigateTo(&#39;projects&#39;)" class="font-label text-label-md text-light-primary hover:underline self-start sm:self-auto">View All Projects →</button>
+          </div>
+          <div id="home-projects-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter-xl"></div>
+        </div>
+      </section>
+
+      <!-- Reviews and Testimonials (Approved CMS Records) -->
+      <section class="py-16 lg:py-20 bg-light-surface-container-lowest border-t border-light-outline-variant">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl flex flex-col gap-gutter-xl">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-gutter-md">
+            <div>
+              <span class="font-label text-label-md text-light-error uppercase tracking-wider">Client Feedback</span>
+              <h2 class="font-headline text-headline-lg text-light-on-surface">Reviews and Testimonials</h2>
+            </div>
+            <button type="button" onclick="openReviewModal()" class="self-start sm:self-auto inline-flex items-center gap-gutter-xs px-gutter-lg py-gutter-sm rounded-DEFAULT border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-md text-light-primary hover:bg-light-surface-container">
+              <span class="material-symbols-outlined text-label-lg">rate_review</span>
+              <span>Leave a Review</span>
+            </button>
+          </div>
+          <div id="home-reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter-xl items-stretch"></div>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="py-16 bg-light-primary text-light-on-primary">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-gutter-xl">
+          <div class="max-w-2xl flex flex-col gap-gutter-sm">
+            <h2 class="font-headline text-headline-lg text-light-on-primary">Protect Your Property. Plan Your Fire Safety System.</h2>
+            <p class="font-body text-body-md text-dark-secondary">Discuss your building&#39;s hydrant, alarm, sprinkler, or AMC requirements with our engineering team.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-gutter-md shrink-0">
+            <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="px-gutter-xl py-gutter-md rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-lg hover:opacity-95">Request a Quote</button>
+            <a href="tel:+912240189200" class="px-gutter-xl py-gutter-md rounded-DEFAULT border border-dark-outline text-light-on-primary font-label text-label-lg hover:bg-dark-surface-container">Call Now</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 2: ABOUT US                                                    -->
+    <!-- =================================================================== -->
+    <div id="page-about" class="page-section hidden">
+      <!-- Section 1: Page Hero -->
+      <section class="bg-dark-background text-dark-on-surface py-16">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl">
+          <span class="font-label text-label-md text-dark-error uppercase tracking-wider">About Us</span>
+          <h1 class="font-headline text-display-md text-light-on-primary mt-2">About Karma Fire Protection LLP</h1>
+          <p class="font-body text-body-lg text-dark-secondary max-w-2xl mt-3">A fire protection engineering and service partner focused on reliable building life-safety systems.</p>
+        </div>
+      </section>
+
+      <section class="py-16 max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl flex flex-col gap-16">
+        <!-- Section 2: Company Introduction -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-2xl items-center">
+          <div class="lg:col-span-7 flex flex-col gap-gutter-md">
+            <span class="font-label text-label-md text-light-error uppercase tracking-wider">Company Introduction</span>
+            <h2 class="font-headline text-headline-lg text-light-on-surface">A Fire Protection Consultant Built Around Building Safety</h2>
+            <p class="font-body text-body-lg text-light-on-surface-variant text-pretty">
+              Karma Fire Protection LLP handles the planning, supply, installation, testing, and ongoing maintenance of fire hydrant, fire alarm, fire sprinkler, and fire suppression systems across commercial, healthcare, industrial, and institutional buildings.
+            </p>
+            <p class="font-body text-body-md text-light-on-surface-variant text-pretty">
+              Our engineering focus centers on building-specific hazard planning, dependable equipment integration, and disciplined installation and maintenance execution.
+            </p>
+          </div>
+          <div class="lg:col-span-5">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Karma Fire Protection LLP engineering installation" loading="lazy" class="w-full h-72 object-cover rounded-md border border-light-outline-variant shadow-sm">
+          </div>
+        </div>
+
+        <!-- Section 3: Four Core Systems -->
+        <div class="flex flex-col gap-gutter-xl">
+          <div>
+            <span class="font-label text-label-md text-light-error uppercase tracking-wider">Core Systems</span>
+            <h2 class="font-headline text-headline-lg text-light-on-surface">Four Core Systems</h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter-lg items-stretch">
+            <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm flex flex-col h-full">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Fire Hydrant Systems" loading="lazy" class="w-full h-40 object-cover">
+              <div class="p-gutter-lg flex-1 flex flex-col justify-between gap-gutter-md">
+                <div>
+                  <h3 class="font-title text-title-md text-light-on-surface">Fire Hydrant Systems</h3>
+                  <p class="font-body text-body-sm text-light-on-surface-variant mt-1">Pressurized riser mains, landing valves, hose reels, and pump house piping for rapid firefighting access.</p>
+                </div>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;hydrant&#39;)" class="self-start font-label text-label-sm text-light-primary hover:text-light-error">View Service →</button>
+              </div>
+            </article>
+            <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm flex flex-col h-full">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrBBiB_fVAwP-7NRWM70NzVntN6Emucq0ktRGedoL1ohZ9lT61hGPXcEfD-NvF6XieNvRBTmEABLbNwt6zp3L3mhjZY3_onevmEs8u4LqMXomom9qsmCXtIkPOya8DLl7Erwk8Jg6oQlqPOFOVAFDVvk2Qb1pTPmCIzzLEBY-gWkjErTosm9jTjYRij8WAyYOfG4_PBAzmWCXOEydmYtmpKxby5wZbJp8zTVFHK56hM55Z98CErq" alt="Fire Alarm Systems" loading="lazy" class="w-full h-40 object-cover">
+              <div class="p-gutter-lg flex-1 flex flex-col justify-between gap-gutter-md">
+                <div>
+                  <h3 class="font-title text-title-md text-light-on-surface">Fire Alarm Systems</h3>
+                  <p class="font-body text-body-sm text-light-on-surface-variant mt-1">Early smoke &amp; heat detection with addressable control panels and occupant notification loops.</p>
+                </div>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;alarm&#39;)" class="self-start font-label text-label-sm text-light-primary hover:text-light-error">View Service →</button>
+              </div>
+            </article>
+            <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm flex flex-col h-full">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrCOwdUeBbOp1G4B7kyrQ-S8rOCuoFT37FwzIjgBTNmXwqKp790LF3-qvotgc-OSrfduZhOFMwNLQJLLzrYvIbE4ndLMBy_Z-Zrsvgxc2OIMklkf2ONOREL1CZ6YvhGv_9AGfRxA2paqMsjHwa8BUwdQYpHGDJ8mhakeV4caYJYR9PDGGEtPwFx2P6u7eNLQXgqO1I4H0s2g23wn06J4hnrUwaM7wolVhewQw6KKo98QI96JctD5TwyL9rE" alt="Fire Sprinkler Systems" loading="lazy" class="w-full h-40 object-cover">
+              <div class="p-gutter-lg flex-1 flex flex-col justify-between gap-gutter-md">
+                <div>
+                  <h3 class="font-title text-title-md text-light-on-surface">Fire Sprinkler Systems</h3>
+                  <p class="font-body text-body-sm text-light-on-surface-variant mt-1">Automatic overhead suppression networks and zone control valves for 24/7 localized fire control.</p>
+                </div>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;sprinkler&#39;)" class="self-start font-label text-label-sm text-light-primary hover:text-light-error">View Service →</button>
+              </div>
+            </article>
+            <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm flex flex-col h-full">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrCrQOaRHJzYpy4pPXzQVThbWdBq1sRFCT0jkaOONbgOgzWiuopWKRF5cRTk_IKtLbIs6rgPH_oZKKabDHG6kgmvAF41ZpjsKEcgT172BmbuhDhnp78WdCDswTg-ID_h1IJrWqdl0_YwLXsXe33wZjlm2wZ7oJbj1r78sARpgwY2mfWerHMHbdvDtCEFn1pJm2Q7Ks6p-vpJejho8E5bVNcXbK_JXJUSTDsCisIv4u2Vsjja2xHnzrwa9gSvtIk" alt="Fire Suppression Systems" loading="lazy" class="w-full h-40 object-cover">
+              <div class="p-gutter-lg flex-1 flex flex-col justify-between gap-gutter-md">
+                <div>
+                  <h3 class="font-title text-title-md text-light-on-surface">Fire Suppression Systems</h3>
+                  <p class="font-body text-body-sm text-light-on-surface-variant mt-1">Targeted enclosure protection for server rooms, switchgear panels, and critical assets.</p>
+                </div>
+                <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;suppression&#39;)" class="self-start font-label text-label-sm text-light-primary hover:text-light-error">View Service →</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Section 4: Maintenance Philosophy -->
+        <article class="p-gutter-2xl rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-lg">
+          <div class="max-w-2xl">
+            <span class="font-label text-label-md text-light-error uppercase tracking-wider">Maintenance Philosophy</span>
+            <h2 class="font-headline text-headline-lg text-light-on-surface mt-1">Installed Systems Are Only Safe When Maintained</h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter-lg">
+            <div><h3 class="font-title text-title-md">Regular Inspections</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Scheduled visual and physical checks across all building zones.</p></div>
+            <div><h3 class="font-title text-title-md">Equipment Condition Checks</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Verifying valves, gauges, extinguishers, and pump readiness.</p></div>
+            <div><h3 class="font-title text-title-md">Functional Testing</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Pressure run tests, alarm loop checks, and detector verification.</p></div>
+            <div><h3 class="font-title text-title-md">Maintenance Planning</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Structured AMC schedules aligned to site operations.</p></div>
+            <div><h3 class="font-title text-title-md">Corrective Action</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Tracking and resolving defects discovered during inspections.</p></div>
+            <div><h3 class="font-title text-title-md">Proper Documentation</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Clear service visit logs and inspection records.</p></div>
+          </div>
+        </article>
+
+        <!-- Section 5: Team -->
+        <div class="flex flex-col gap-gutter-lg">
+          <div>
+            <span class="font-label text-label-md text-light-error uppercase tracking-wider">Meet Our Team</span>
+            <h2 class="font-headline text-headline-lg text-light-on-surface">Engineering &amp; Operations Team</h2>
+          </div>
+          <div id="about-team-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter-xl items-stretch"></div>
+        </div>
+
+        <!-- Section 6: CTA -->
+        <article class="p-gutter-2xl rounded-md bg-light-primary text-light-on-primary flex flex-col md:flex-row md:items-center justify-between gap-gutter-lg">
+          <div>
+            <h2 class="font-headline text-headline-md text-light-on-primary">Discuss Your Building&#39;s Fire Protection Requirements</h2>
+            <p class="font-body text-body-md text-dark-secondary mt-1">Connect with our engineering team for a site evaluation or system consultation.</p>
+          </div>
+          <div class="flex flex-wrap gap-gutter-sm shrink-0">
+            <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="px-gutter-xl py-gutter-sm rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md hover:opacity-95">Request a Quote</button>
+            <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="px-gutter-xl py-gutter-sm rounded-DEFAULT border border-dark-outline text-light-on-primary font-label text-label-md hover:bg-dark-surface-container">Contact Us</button>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 3: SERVICES                                                    -->
+    <!-- =================================================================== -->
+    <div id="page-services" class="page-section hidden">
+      <section class="bg-dark-background text-dark-on-surface py-16">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl">
+          <span class="font-label text-label-md text-dark-error uppercase tracking-wider">Technical Capabilities</span>
+          <h1 class="font-headline text-display-md text-light-on-primary mt-2">Our Services</h1>
+          <p class="font-body text-body-lg text-dark-secondary max-w-2xl mt-3">Detailed engineering, installation, testing, and maintenance services for commercial and industrial facilities.</p>
+          <div class="flex flex-wrap gap-gutter-sm mt-gutter-xl">
+            <button type="button" onclick="scrollToAnchor(&#39;hydrant&#39;)" class="px-gutter-md py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm hover:border-dark-error">Fire Hydrant System</button>
+            <button type="button" onclick="scrollToAnchor(&#39;alarm&#39;)" class="px-gutter-md py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm hover:border-dark-error">Fire Alarm System</button>
+            <button type="button" onclick="scrollToAnchor(&#39;sprinkler&#39;)" class="px-gutter-md py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm hover:border-dark-error">Fire Sprinkler System</button>
+            <button type="button" onclick="scrollToAnchor(&#39;suppression&#39;)" class="px-gutter-md py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm hover:border-dark-error">Fire Suppression System</button>
+            <button type="button" onclick="scrollToAnchor(&#39;maintenance&#39;)" class="px-gutter-md py-gutter-xs rounded-full bg-dark-surface-container border border-dark-outline-variant font-label text-label-sm hover:border-dark-error">Installation, Testing &amp; Maintenance</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-16 max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl flex flex-col gap-16">
+        <!-- #hydrant -->
+        <article id="hydrant" class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-2xl items-center">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw" alt="Fire Hydrant System" loading="lazy" class="lg:col-span-5 w-full h-72 object-cover rounded-md border border-light-outline-variant">
+          <div class="lg:col-span-7 flex flex-col gap-gutter-md">
+            <h2 class="font-headline text-headline-lg text-light-on-surface">Fire Hydrant System</h2>
+            <p class="font-body text-body-md text-light-on-surface-variant">High-pressure water supply networks engineered for rapid firefighting access across multi-storey buildings, warehouses, and industrial plants.</p>
+            <p class="font-body text-body-sm text-light-on-surface"><strong>Key Components:</strong> Main &amp; jockey fire pumps, MS/GI hydrant riser piping, single/double landing valves, hose reels, courtyard hydrants, and pressure gauges.</p>
+            <button type="button" onclick="requestQuoteForService(&#39;Fire Hydrant System&#39;)" class="self-start px-gutter-lg py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md hover:opacity-95">Request Quote for Hydrant System</button>
+          </div>
+        </article>
+
+        <!-- #alarm -->
+        <article id="alarm" class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-2xl items-center">
+          <div class="lg:col-span-7 flex flex-col gap-gutter-md order-2 lg:order-1">
+            <h2 class="font-headline text-headline-lg text-light-on-surface">Fire Alarm System</h2>
+            <p class="font-body text-body-md text-light-on-surface-variant">Early-warning detection and occupant notification systems designed for rapid zone identification and safe evacuation.</p>
+            <p class="font-body text-body-sm text-light-on-surface"><strong>Key Components:</strong> Addressable &amp; conventional FACP panels, optical smoke detectors, heat detectors, manual call points, hooters, and FRLS loop cabling.</p>
+            <button type="button" onclick="requestQuoteForService(&#39;Fire Alarm System&#39;)" class="self-start px-gutter-lg py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md hover:opacity-95">Request Quote for Alarm System</button>
+          </div>
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrBBiB_fVAwP-7NRWM70NzVntN6Emucq0ktRGedoL1ohZ9lT61hGPXcEfD-NvF6XieNvRBTmEABLbNwt6zp3L3mhjZY3_onevmEs8u4LqMXomom9qsmCXtIkPOya8DLl7Erwk8Jg6oQlqPOFOVAFDVvk2Qb1pTPmCIzzLEBY-gWkjErTosm9jTjYRij8WAyYOfG4_PBAzmWCXOEydmYtmpKxby5wZbJp8zTVFHK56hM55Z98CErq" alt="Fire Alarm System" loading="lazy" class="lg:col-span-5 w-full h-72 object-cover rounded-md border border-light-outline-variant order-1 lg:order-2">
+        </article>
+
+        <!-- #sprinkler -->
+        <article id="sprinkler" class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-2xl items-center">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrCOwdUeBbOp1G4B7kyrQ-S8rOCuoFT37FwzIjgBTNmXwqKp790LF3-qvotgc-OSrfduZhOFMwNLQJLLzrYvIbE4ndLMBy_Z-Zrsvgxc2OIMklkf2ONOREL1CZ6YvhGv_9AGfRxA2paqMsjHwa8BUwdQYpHGDJ8mhakeV4caYJYR9PDGGEtPwFx2P6u7eNLQXgqO1I4H0s2g23wn06J4hnrUwaM7wolVhewQw6KKo98QI96JctD5TwyL9rE" alt="Fire Sprinkler System" loading="lazy" class="lg:col-span-5 w-full h-72 object-cover rounded-md border border-light-outline-variant">
+          <div class="lg:col-span-7 flex flex-col gap-gutter-md">
+            <h2 class="font-headline text-headline-lg text-light-on-surface">Fire Sprinkler System</h2>
+            <p class="font-body text-body-md text-light-on-surface-variant">Automated thermal-activated water distribution networks providing 24/7 localized fire control across commercial floors and storage bays.</p>
+            <p class="font-body text-body-sm text-light-on-surface"><strong>Key Components:</strong> Pendent &amp; upright sprinkler heads, wet riser branch piping, installation control valves, flow switches, and zone isolation valves.</p>
+            <button type="button" onclick="requestQuoteForService(&#39;Fire Sprinkler System&#39;)" class="self-start px-gutter-lg py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md hover:opacity-95">Request Quote for Sprinkler System</button>
+          </div>
+        </article>
+
+        <!-- #suppression -->
+        <article id="suppression" class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-2xl items-center">
+          <div class="lg:col-span-7 flex flex-col gap-gutter-md order-2 lg:order-1">
+            <h2 class="font-headline text-headline-lg text-light-on-surface">Fire Suppression System</h2>
+            <p class="font-body text-body-md text-light-on-surface-variant">Engineered suppression solutions for server rooms, electrical switchgear enclosures, and sensitive industrial equipment.</p>
+            <p class="font-body text-body-sm text-light-on-surface"><strong>Key Components:</strong> Cylinder banks, discharge manifolds, release control panels, cross-zone detection, and room integrity verification.</p>
+            <button type="button" onclick="requestQuoteForService(&#39;Fire Suppression System&#39;)" class="self-start px-gutter-lg py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md hover:opacity-95">Request Quote for Suppression System</button>
+          </div>
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrCrQOaRHJzYpy4pPXzQVThbWdBq1sRFCT0jkaOONbgOgzWiuopWKRF5cRTk_IKtLbIs6rgPH_oZKKabDHG6kgmvAF41ZpjsKEcgT172BmbuhDhnp78WdCDswTg-ID_h1IJrWqdl0_YwLXsXe33wZjlm2wZ7oJbj1r78sARpgwY2mfWerHMHbdvDtCEFn1pJm2Q7Ks6p-vpJejho8E5bVNcXbK_JXJUSTDsCisIv4u2Vsjja2xHnzrwa9gSvtIk" alt="Fire Suppression System" loading="lazy" class="lg:col-span-5 w-full h-72 object-cover rounded-md border border-light-outline-variant order-1 lg:order-2">
+        </article>
+
+        <!-- #maintenance -->
+        <article id="maintenance" class="p-gutter-2xl rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-lg">
+          <h2 class="font-headline text-headline-lg text-light-on-surface">Installation, Testing &amp; Maintenance</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter-lg">
+            <div><h3 class="font-title text-title-md">Planning &amp; Design</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Site assessment, building requirements, and system planning.</p></div>
+            <div><h3 class="font-title text-title-md">Excavation &amp; Piping</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Underground ring mains, risers, and bracketed distribution piping.</p></div>
+            <div><h3 class="font-title text-title-md">Valves &amp; Fittings</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Installation and inspection of isolation, non-return, and landing valves.</p></div>
+            <div><h3 class="font-title text-title-md">Testing &amp; Inspection</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Functional pump run tests, hydro-testing, and detector sensitivity checks.</p></div>
+            <div><h3 class="font-title text-title-md">Final Connections</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">System tie-ins, panel programming, and commissioning handover.</p></div>
+            <div><h3 class="font-title text-title-md">Maintenance &amp; Inspection</h3><p class="font-body text-body-sm text-light-on-surface-variant mt-1">Periodic AMC visits, preventive checks, and corrective repairs.</p></div>
+          </div>
+          <div class="pt-gutter-md border-t border-light-outline-variant flex flex-wrap items-center justify-between gap-gutter-md">
+            <span class="font-title text-title-md text-light-on-surface">Not Sure Which System Your Building Needs?</span>
+            <button type="button" onclick="requestQuoteForService(&#39;Maintenance &amp; Inspection&#39;)" class="px-gutter-lg py-gutter-sm rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md">Schedule a Consultation</button>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 4: PROJECTS                                                    -->
+    <!-- =================================================================== -->
+    <div id="page-projects" class="page-section hidden">
+      <section class="bg-dark-background text-dark-on-surface py-16">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl">
+          <span class="font-label text-label-md text-dark-error uppercase tracking-wider">Portfolio</span>
+          <h1 class="font-headline text-display-md text-light-on-primary mt-2">Projects, Clients &amp; Certifications</h1>
+          <p class="font-body text-body-lg text-dark-secondary max-w-2xl mt-3">Approved public project references across commercial, healthcare, logistics, and institutional facilities.</p>
+        </div>
+      </section>
+
+      <section class="py-16 max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl flex flex-col gap-gutter-2xl">
+        <div id="all-projects-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter-xl"></div>
+
+        <div class="flex flex-col gap-gutter-lg">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-gutter-md">
+            <div>
+              <span class="font-label text-label-md text-light-error uppercase tracking-wider">Client Feedback</span>
+              <h2 class="font-headline text-headline-lg text-light-on-surface">Reviews and Testimonials</h2>
+            </div>
+            <button type="button" onclick="openReviewModal()" class="self-start sm:self-auto inline-flex items-center gap-gutter-xs px-gutter-lg py-gutter-sm rounded-DEFAULT border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-md text-light-primary hover:bg-light-surface-container">
+              <span class="material-symbols-outlined text-label-lg">rate_review</span>
+              <span>Leave a Review</span>
+            </button>
+          </div>
+          <div id="projects-reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter-xl items-stretch"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter-xl">
+          <article class="p-gutter-xl rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-md">
+            <h2 class="font-title text-title-lg text-light-on-surface">Who We Work With</h2>
+            <div class="flex flex-wrap gap-gutter-sm">
+              <span class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Warehouses &amp; Logistics</span>
+              <span class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Hospitals &amp; Healthcare</span>
+              <span class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Commercial IT Parks</span>
+              <span class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Educational Institutions</span>
+              <span class="px-gutter-md py-gutter-xs rounded-full bg-light-surface-container-lowest border border-light-outline-variant font-label text-label-sm">Manufacturing Plants</span>
+            </div>
+          </article>
+
+          <article class="p-gutter-xl rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-md">
+            <h2 class="font-title text-title-lg text-light-on-surface">Have a Project in Mind?</h2>
+            <p class="font-body text-body-md text-light-on-surface-variant">Share your building drawings or site location to request a fire safety survey and quotation.</p>
+            <div class="flex gap-gutter-sm">
+              <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="px-gutter-lg py-gutter-sm rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md">Request a Quote</button>
+              <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="px-gutter-lg py-gutter-sm rounded-DEFAULT border border-light-outline-variant bg-light-surface-container-lowest font-label text-label-md">Contact Us</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 5: CONTACT & REQUEST A QUOTE (Preserves #lead-form contract)   -->
+    <!-- =================================================================== -->
+    <div id="page-contact" class="page-section hidden">
+      <section class="bg-dark-background text-dark-on-surface py-16">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl">
+          <span class="font-label text-label-md text-dark-error uppercase tracking-wider">Let&#39;s Plan Your Fire Safety System</span>
+          <h1 class="font-headline text-display-md text-light-on-primary mt-2">Contact Us &amp; Request a Quote</h1>
+          <p class="font-body text-body-lg text-dark-secondary max-w-2xl mt-3">Submit your building and system requirements below. All enquiries are securely routed to our operations team.</p>
+        </div>
+      </section>
+
+      <section class="py-16 max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl grid grid-cols-1 lg:grid-cols-12 gap-gutter-2xl">
+        <!-- Direct Contact Information -->
+        <aside class="lg:col-span-4 flex flex-col gap-gutter-lg">
+          <article class="p-gutter-xl rounded-md bg-light-surface border border-light-outline-variant flex flex-col gap-gutter-lg">
+            <h2 class="font-title text-title-lg text-light-on-surface">Direct Contact</h2>
+            <div class="flex items-start gap-gutter-md">
+              <span class="material-symbols-outlined text-light-error">call</span>
+              <div>
+                <span class="font-label text-label-sm text-light-on-surface-variant block">Phone</span>
+                <a href="tel:+912240189200" class="font-mono text-mono-sm text-light-on-surface hover:text-light-error">+91 22 4018 9200</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-gutter-md">
+              <span class="material-symbols-outlined text-light-error">mail</span>
+              <div>
+                <span class="font-label text-label-sm text-light-on-surface-variant block">Official Email</span>
+                <a href="mailto:info@karmafireprotection.com" class="font-body text-body-md text-light-on-surface hover:text-light-error">info@karmafireprotection.com</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-gutter-md">
+              <span class="material-symbols-outlined text-light-error">location_on</span>
+              <div>
+                <span class="font-label text-label-sm text-light-on-surface-variant block">Registered Office</span>
+                <p class="font-body text-body-md text-light-on-surface">Karma Fire Protection LLP, Navi Mumbai, Maharashtra, India</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Google Maps Location Card -->
+          <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm flex flex-col">
+            <div class="relative h-52 bg-light-surface-container flex flex-col items-center justify-center p-gutter-lg text-center border-b border-light-outline-variant">
+              <div class="w-11 h-11 rounded-full bg-light-error text-light-on-error flex items-center justify-center shadow-sm">
+                <span class="material-symbols-outlined">location_on</span>
+              </div>
+              <p class="font-title text-title-md text-light-on-surface mt-2">Karma Fire Protection LLP</p>
+              <p class="font-body text-body-sm text-light-on-surface-variant">Turbhe / Navi Mumbai, Maharashtra 400703</p>
+              <span class="font-mono text-mono-sm text-light-outline mt-1 tabular-nums">19.0728° N, 73.0172° E</span>
+            </div>
+            <div class="p-gutter-lg flex items-center justify-between gap-gutter-sm bg-light-surface-container-low">
+              <span class="font-label text-label-sm text-light-on-surface-variant">Google Maps Location</span>
+              <a href="https://maps.google.com/?q=Navi+Mumbai,+Maharashtra,+India" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-gutter-xs font-label text-label-sm text-light-primary hover:text-light-error">
+                <span>Open in Google Maps</span>
+                <span class="material-symbols-outlined text-label-md">open_in_new</span>
+              </a>
+            </div>
+          </article>
+        </aside>
+
+        <!-- #lead-form & #review-form -->
+        <div class="lg:col-span-8 flex flex-col gap-gutter-2xl">
+          <form id="lead-form" novalidate onsubmit="handleLeadSubmit(event)" class="p-gutter-2xl rounded-md bg-light-surface-container-lowest border border-light-outline-variant shadow-sm flex flex-col gap-gutter-lg">
+            <h2 class="font-headline text-headline-md text-light-on-surface">Request a Fire Safety Consultation</h2>
+
+            <!-- Honeypot anti-spam field -->
+            <div class="hidden" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter-lg">
+              <div class="flex flex-col gap-gutter-xs">
+                <label for="lead-name" class="font-label text-label-md">Full Name <span class="text-light-error">*</span></label>
+                <input id="lead-name" name="name" type="text" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+                <span id="err-name" class="hidden font-body text-body-sm text-light-error">Please enter your full name.</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <label for="lead-phone" class="font-label text-label-md">Phone Number <span class="text-light-error">*</span></label>
+                <input id="lead-phone" name="phone" type="tel" required placeholder="+91 98..." class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+                <span id="err-phone" class="hidden font-body text-body-sm text-light-error">Please enter a valid 10+ digit phone number.</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <label for="lead-email" class="font-label text-label-md">Email Address <span class="text-light-error">*</span></label>
+                <input id="lead-email" name="email" type="email" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+                <span id="err-email" class="hidden font-body text-body-sm text-light-error">Please enter a valid email address.</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <label for="lead-company" class="font-label text-label-md">Company / Organization</label>
+                <input id="lead-company" name="company" type="text" class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <label for="lead-building" class="font-label text-label-md">Building Type <span class="text-light-error">*</span></label>
+                <select id="lead-building" name="building_type" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+                  <option value>Select building type</option>
+                  <option>Commercial Tower</option>
+                  <option>Warehouse / Logistics</option>
+                  <option>Hospital / Healthcare</option>
+                  <option>Industrial Plant</option>
+                  <option>Educational Institution</option>
+                  <option>Residential Society</option>
+                </select>
+                <span id="err-building" class="hidden font-body text-body-sm text-light-error">Please select a building type.</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <label for="lead-service" class="font-label text-label-md">Requested Service <span class="text-light-error">*</span></label>
+                <select id="lead-service" name="service" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+                  <option value>Select a service</option>
+                  <option>Fire Hydrant System</option>
+                  <option>Fire Alarm System</option>
+                  <option>Fire Sprinkler System</option>
+                  <option>Fire Suppression System</option>
+                  <option>Maintenance &amp; Inspection</option>
+                </select>
+                <span id="err-service" class="hidden font-body text-body-sm text-light-error">Please select a service.</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <label for="lead-location" class="font-label text-label-md">Site Location (City / Area) <span class="text-light-error">*</span></label>
+                <input id="lead-location" name="location" type="text" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+                <span id="err-location" class="hidden font-body text-body-sm text-light-error">Please enter the site location.</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <label for="lead-pref" class="font-label text-label-md">Preferred Contact Method</label>
+                <select id="lead-pref" name="contact_preference" class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+                  <option>Phone Call</option>
+                  <option>Email</option>
+                  <option>WhatsApp</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-gutter-xs">
+              <label for="lead-message" class="font-label text-label-md">Project Details / Message</label>
+              <textarea id="lead-message" name="message" rows="3" class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md"></textarea>
+            </div>
+
+            <div class="flex flex-col gap-gutter-xs">
+              <label class="inline-flex items-start gap-gutter-sm cursor-pointer">
+                <input id="lead-consent" name="consent" type="checkbox" required class="mt-1 rounded-sm border-light-outline text-light-error focus:ring-light-error">
+                <span class="font-body text-body-sm text-light-on-surface-variant">I agree to Karma Fire Protection LLP processing this enquiry in accordance with the <button type="button" onclick="navigateTo(&#39;privacy-policy&#39;)" class="text-light-primary underline">Privacy Policy</button>. <span class="text-light-error">*</span></span>
+              </label>
+              <span id="err-consent" class="hidden font-body text-body-sm text-light-error">Consent is required to submit your enquiry.</span>
+            </div>
+
+            <div id="form-success" class="hidden rounded-DEFAULT bg-success-container text-on-success-container p-gutter-lg font-body text-body-md">
+              Thank you. Your enquiry has been received by our team.
+            </div>
+
+            <button id="lead-submit-btn" type="submit" class="self-start px-gutter-xl py-gutter-md rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-lg hover:opacity-95">
+              Submit Enquiry
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 6: PRIVACY POLICY                                              -->
+    <!-- =================================================================== -->
+    <div id="page-privacy-policy" class="page-section hidden">
+      <section class="bg-dark-background text-dark-on-surface py-16">
+        <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl">
+          <h1 class="font-headline text-display-md text-light-on-primary">Privacy Policy</h1>
+          <p class="font-body text-body-lg text-dark-secondary mt-2">How Karma Fire Protection LLP handles visitor and enquiry information.</p>
+        </div>
+      </section>
+      <section class="py-16 max-w-4xl mx-auto px-gutter-lg lg:px-gutter-2xl flex flex-col gap-gutter-xl">
+        <article><h2 class="font-title text-title-lg">1. Information We Collect</h2><p class="font-body text-body-md text-light-on-surface-variant mt-2">When you submit an enquiry via our Request a Quote form, we collect your name, phone number, email address, company name, building type, requested service, site location, and message.</p></article>
+        <article><h2 class="font-title text-title-lg">2. How We Use Your Information</h2><p class="font-body text-body-md text-light-on-surface-variant mt-2">Enquiry details are used solely to review your fire safety requirements, schedule site evaluations, and prepare quotations.</p></article>
+        <article><h2 class="font-title text-title-lg">3. First-Party Analytics &amp; Cookies</h2><p class="font-body text-body-md text-light-on-surface-variant mt-2">First-party analytics events (page views, referral source, and form interactions) are recorded only when you grant analytics consent via our cookie settings.</p></article>
+        <article><h2 class="font-title text-title-lg">4. Data Retention &amp; Security</h2><p class="font-body text-body-md text-light-on-surface-variant mt-2">Submitted records are stored in protected Supabase PostgreSQL tables governed by Row Level Security policies.</p></article>
+        <article><h2 class="font-title text-title-lg">5. Sharing of Information</h2><p class="font-body text-body-md text-light-on-surface-variant mt-2">We do not sell or rent visitor information to third-party marketers.</p></article>
+        <article><h2 class="font-title text-title-lg">6. Your Rights &amp; Contact</h2><p class="font-body text-body-md text-light-on-surface-variant mt-2">For privacy requests, contact <a href="mailto:info@karmafireprotection.com" class="text-light-primary underline">info@karmafireprotection.com</a>.</p></article>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- CONSISTENT PUBLIC FOOTER                                              -->
+  <!-- ===================================================================== -->
+  <footer class="bg-dark-background text-dark-on-surface border-t border-dark-outline-variant">
+    <div class="max-w-7xl mx-auto px-gutter-lg lg:px-gutter-2xl py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-2xl">
+      <div class="flex flex-col gap-gutter-md">
+        <img src="data:image/png;base64,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" alt="Karma Fire Protection LLP" class="h-9 w-auto object-contain self-start">
+        <p class="font-body text-body-sm text-dark-on-surface-variant">Fire hydrant, alarm, sprinkler, and suppression engineering, installation, testing, and AMC services.</p>
+      </div>
+      <div class="flex flex-col gap-gutter-sm">
+        <h3 class="font-label text-label-md text-dark-on-surface uppercase tracking-wider">Quick Links</h3>
+        <button type="button" onclick="navigateTo(&#39;home&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">Home</button>
+        <button type="button" onclick="navigateTo(&#39;about&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">About Us</button>
+        <button type="button" onclick="navigateTo(&#39;projects&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">Projects</button>
+        <button type="button" onclick="navigateTo(&#39;contact&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">Contact &amp; Quote</button>
+        <button type="button" onclick="navigateTo(&#39;privacy-policy&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">Privacy Policy</button>
+      </div>
+      <div class="flex flex-col gap-gutter-sm">
+        <h3 class="font-label text-label-md text-dark-on-surface uppercase tracking-wider">Services</h3>
+        <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;hydrant&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">Fire Hydrant System</button>
+        <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;alarm&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">Fire Alarm System</button>
+        <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;sprinkler&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">Fire Sprinkler System</button>
+        <button type="button" onclick="navigateTo(&#39;services&#39;, &#39;suppression&#39;)" class="text-left font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">Fire Suppression System</button>
+      </div>
+      <div class="flex flex-col gap-gutter-sm">
+        <h3 class="font-label text-label-md text-dark-on-surface uppercase tracking-wider">Contact</h3>
+        <a href="tel:+912240189200" class="font-mono text-mono-sm text-dark-on-surface-variant hover:text-dark-on-surface">+91 22 4018 9200</a>
+        <a href="mailto:info@karmafireprotection.com" class="font-body text-body-sm text-dark-on-surface-variant hover:text-dark-on-surface">info@karmafireprotection.com</a>
+        <p class="font-body text-body-sm text-dark-on-surface-variant">Navi Mumbai, Maharashtra, India</p>
+      </div>
+    </div>
+    <div class="border-t border-dark-outline-variant py-gutter-md px-gutter-lg lg:px-gutter-2xl max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-gutter-sm font-body text-body-sm text-dark-on-surface-variant">
+      <span>© 2026 Karma Fire Protection LLP. All rights reserved.</span>
+      <button type="button" onclick="openCookiePopup()" class="hover:text-dark-on-surface underline">Cookie Settings</button>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- COOKIE CONSENT POPUP MODAL (Home Page Only, Section 8)                -->
+  <!-- ===================================================================== -->
+  <div id="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title" class="hidden fixed inset-0 z-50 flex items-center justify-center p-gutter-lg bg-light-scrim/60">
+    <div class="w-full max-w-md bg-dark-surface-container-lowest text-dark-on-surface border border-dark-outline-variant rounded-md p-gutter-2xl shadow-lg flex flex-col gap-gutter-lg">
+      <div class="flex items-start justify-between gap-gutter-sm">
+        <div class="flex items-center gap-gutter-sm">
+          <span class="material-symbols-outlined text-dark-error">cookie</span>
+          <h3 id="cookie-modal-title" class="font-title text-title-md text-dark-on-surface">Cookie &amp; Analytics Consent</h3>
+        </div>
+        <button type="button" aria-label="Dismiss cookie popup" onclick="setCookieConsent(&#39;essential&#39;)" class="text-dark-on-surface-variant hover:text-dark-on-surface">
+          <span class="material-symbols-outlined text-label-lg">close</span>
+        </button>
+      </div>
+      <p class="font-body text-body-sm text-dark-on-surface-variant">We use essential storage for form protection and optional first-party analytics to improve service pages. You can update your preference anytime in Cookie Settings.</p>
+      <div class="flex items-center justify-end gap-gutter-sm">
+        <button type="button" onclick="setCookieConsent(&#39;essential&#39;)" class="px-gutter-lg py-gutter-sm rounded-DEFAULT border border-dark-outline-variant font-label text-label-md hover:bg-dark-surface-container">Decline</button>
+        <button type="button" onclick="setCookieConsent(&#39;all&#39;)" class="px-gutter-lg py-gutter-sm rounded-DEFAULT bg-light-error text-light-on-error font-label text-label-md hover:opacity-95">Accept</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- LEAVE A REVIEW POPUP MODAL (Opened from Home & Projects)              -->
+  <!-- ===================================================================== -->
+  <div id="review-modal" role="dialog" aria-modal="true" aria-labelledby="review-modal-title" class="hidden fixed inset-0 z-50 flex items-center justify-center p-gutter-lg bg-light-scrim/60">
+    <form id="review-form" novalidate onsubmit="handleReviewSubmit(event)" class="w-full max-w-lg bg-light-surface-container-lowest text-light-on-surface border border-light-outline-variant rounded-md p-gutter-2xl shadow-lg flex flex-col gap-gutter-lg">
+      <div class="flex items-start justify-between gap-gutter-sm">
+        <div>
+          <span class="font-label text-label-sm text-light-error uppercase tracking-wider">Client Feedback</span>
+          <h3 id="review-modal-title" class="font-headline text-headline-md text-light-on-surface mt-1">Share Your Review</h3>
+        </div>
+        <button type="button" aria-label="Close review modal" onclick="closeReviewModal()" class="p-gutter-xs rounded-DEFAULT text-light-on-surface-variant hover:bg-light-surface-container">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <p class="font-body text-body-sm text-light-on-surface-variant">Submitted reviews are moderated by our admin team before appearing in public testimonials.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter-md">
+        <div class="flex flex-col gap-gutter-xs">
+          <label for="rev-name" class="font-label text-label-md">Your Name <span class="text-light-error">*</span></label>
+          <input id="rev-name" type="text" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+        </div>
+        <div class="flex flex-col gap-gutter-xs">
+          <label for="rev-company" class="font-label text-label-md">Company / Building</label>
+          <input id="rev-company" type="text" class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-gutter-xs">
+        <span class="font-label text-label-md">Rating</span>
+        <div id="rev-stars" class="flex items-center gap-gutter-xs">
+          <button type="button" onclick="setReviewRating(1)" class="rev-star text-warning" aria-label="1 star"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+          <button type="button" onclick="setReviewRating(2)" class="rev-star text-warning" aria-label="2 stars"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+          <button type="button" onclick="setReviewRating(3)" class="rev-star text-warning" aria-label="3 stars"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+          <button type="button" onclick="setReviewRating(4)" class="rev-star text-warning" aria-label="4 stars"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+          <button type="button" onclick="setReviewRating(5)" class="rev-star text-warning" aria-label="5 stars"><span class="material-symbols-outlined text-headline-md" style="font-variation-settings: &#39;FILL&#39; 1;">star</span></button>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-gutter-xs">
+        <label for="rev-text" class="font-label text-label-md">Your Feedback <span class="text-light-error">*</span></label>
+        <textarea id="rev-text" rows="3" required placeholder="Share your experience with our engineering, installation, or AMC team..." class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md"></textarea>
+      </div>
+
+      <div id="rev-success" class="hidden rounded-DEFAULT bg-success-container text-on-success-container p-gutter-md font-body text-body-sm">
+        Thank you! Your review has been submitted for admin approval.
+      </div>
+
+      <div class="flex items-center justify-end gap-gutter-sm">
+        <button type="button" onclick="closeReviewModal()" class="px-gutter-lg py-gutter-sm rounded-DEFAULT border border-light-outline-variant font-label text-label-md hover:bg-light-surface-container">Cancel</button>
+        <button type="submit" class="px-gutter-xl py-gutter-sm rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md hover:opacity-95">Submit Review</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- FIXED RIGHT-SIDE FLOATING SOCIAL MEDIA SHORTCUTS (All Pages)          -->
+  <!-- ===================================================================== -->
+  <aside aria-label="Social Media Shortcuts" class="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-gutter-sm bg-dark-surface-container-lowest/95 p-gutter-xs rounded-full border border-dark-outline-variant shadow-lg">
+    <a href="https://wa.me/912240189200" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp" class="w-10 h-10 rounded-full bg-success text-on-success flex items-center justify-center hover:opacity-90 transition-opacity">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.82 14.02c-.24.68-1.42 1.3-1.95 1.38-.5.07-1.13.1-1.82-.11-.42-.14-.96-.32-1.65-.62-2.9-1.25-4.79-4.18-4.94-4.37-.14-.19-1.18-1.57-1.18-2.99 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.77-.36h.55c.18 0 .42-.07.66.5.24.58.83 2.02.9 2.17.07.14.12.31.02.5-.1.19-.14.31-.29.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.39-.24.65-.14.27.1 1.69.8 1.98.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"></path></svg>
+    </a>
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook" class="w-10 h-10 rounded-full bg-info text-on-info flex items-center justify-center hover:opacity-90 transition-opacity">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 9H16V6h-2.5C11.57 6 10 7.57 10 9.5V11H8v3h2v7h3v-7h2.25l.75-3H13v-1.5c0-.28.22-.5.5-.5z"></path></svg>
+    </a>
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram" class="w-10 h-10 rounded-full bg-light-error text-light-on-error flex items-center justify-center hover:opacity-90 transition-opacity">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path></svg>
+    </a>
+    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn" class="w-10 h-10 rounded-full bg-light-primary text-light-on-primary flex items-center justify-center hover:opacity-90 transition-opacity">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 8.5H3.56V19.5H6.94V8.5ZM5.25 3.5C4.14 3.5 3.25 4.39 3.25 5.5C3.25 6.6 4.14 7.5 5.25 7.5C6.35 7.5 7.25 6.6 7.25 5.5C7.25 4.39 6.35 3.5 5.25 3.5ZM20.44 13.02C20.44 9.88 18.76 8.22 16.16 8.22C14.37 8.22 13.48 9.21 13.02 9.93V8.5H9.65C9.7 9.48 9.65 19.5 9.65 19.5H13.02V13.36C13.02 13.02 13.05 12.69 13.15 12.45C13.42 11.78 14.03 11.09 15.07 11.09C16.41 11.09 17.06 12.11 17.06 13.6V19.5H20.44V13.02Z"></path></svg>
+    </a>
+    <a href="tel:+912240189200" title="Call Now" aria-label="Call Now" class="w-10 h-10 rounded-full bg-dark-surface-container text-dark-on-surface border border-dark-outline-variant flex items-center justify-center hover:bg-dark-surface-container-high transition-colors">
+      <span class="material-symbols-outlined text-title-md">call</span>
+    </a>
+  </aside>
+
+  <!-- ===================================================================== -->
+  <!-- CLIENT ROUTER, DYNAMIC LOADERS & FORM VALIDATION                      -->
+  <!-- ===================================================================== -->
+  <script data-stitch-original-script="6f8c508e5327b353===../../images/service_hydrant.jpg|||d926485eb1740530===../../images/service_suppression.jpg|||4aff5b3b10f07aa7===../../images/service_alarm.jpg|||33f13263e40206c1===../../images/team_vikram.jpg|||0710e1d174a22a6c===../../images/team_rohan.jpg|||75221e582f0fff2b===../../images/team_amitabh.jpg">
+    let cookieDecided = false;
+    try { cookieDecided = Boolean(localStorage.getItem('karma_cookie_consent')); } catch (_) {}
+
+    const PUBLIC_PROJECTS = [
+      { title: 'Bhiwandi Hydrant Ring Main', client: 'Apex Logistics Hub', location: 'Bhiwandi, MH', category: 'Fire Hydrant System', img: 'https://lh3.googleusercontent.com/aida/ALJJyrDFszxgJ1PmcLjTnVhlMTIIxvFUdxOixZ4qVkKwxOKV4s5UkjpbV7zAnorDFpgY5VwmYCt_CJK76PqOazmH-9K56RoBYBWe1vIngxZnO0uEoenaBoEQXDg0oJ13frP82R9VUCwTP8FlHTAXsRmL3U2dyWlnKemA3__zIUpJNM8dKH5dmc80b2oPo5jesHV2cB09FL1qZZ5yBKDMylEJT40ZklZ1K5acjrbpaQimBQc75R5gdJKw_4aqVw', desc: 'Complete external hydrant ring main, pump house manifold, and riser network.' },
+      { title: 'Crescent ICU Gas Suppression', client: 'Crescent Multispeciality', location: 'Pune, MH', category: 'Fire Suppression System', img: 'https://lh3.googleusercontent.com/aida/ALJJyrCrQOaRHJzYpy4pPXzQVThbWdBq1sRFCT0jkaOONbgOgzWiuopWKRF5cRTk_IKtLbIs6rgPH_oZKKabDHG6kgmvAF41ZpjsKEcgT172BmbuhDhnp78WdCDswTg-ID_h1IJrWqdl0_YwLXsXe33wZjlm2wZ7oJbj1r78sARpgwY2mfWerHMHbdvDtCEFn1pJm2Q7Ks6p-vpJejho8E5bVNcXbK_JXJUSTDsCisIv4u2Vsjja2xHnzrwa9gSvtIk', desc: 'Clean-agent enclosure protection and cross-zone detection for critical hospital wings.' },
+      { title: 'Zenith Tower Alarm Retrofit', client: 'Zenith IT Park', location: 'Navi Mumbai, MH', category: 'Fire Alarm System', img: 'https://lh3.googleusercontent.com/aida/ALJJyrBBiB_fVAwP-7NRWM70NzVntN6Emucq0ktRGedoL1ohZ9lT61hGPXcEfD-NvF6XieNvRBTmEABLbNwt6zp3L3mhjZY3_onevmEs8u4LqMXomom9qsmCXtIkPOya8DLl7Erwk8Jg6oQlqPOFOVAFDVvk2Qb1pTPmCIzzLEBY-gWkjErTosm9jTjYRij8WAyYOfG4_PBAzmWCXOEydmYtmpKxby5wZbJp8zTVFHK56hM55Z98CErq', desc: 'Multi-floor addressable detection loop upgrade and PA integration.' }
+    ];
+
+    const PUBLIC_TEAM = [
+      { name: 'Vikram Deshmukh', role: 'Operations Lead', dept: 'Project Execution', img: 'https://lh3.googleusercontent.com/aida/ALJJyrBp01NwGv-bIASB2qqymThvRV6ukD1IdlsTfAMoxn0ZptY4zGe1kvqHLWCJg1XWRuLAxiuiBdJWgrbFqDab25jeiExMkljuYSDssD8hcfgNJeIlyH8fUMpCvQ0fXTVZHm5CJMcfw4AzfGwQHd45vfclqwzr4aawclGvu5OWTsGgRshNxAWV5ir_Hm0OqGtSo6kO-uzr3MRCQEGnHMK8Olz0cdMyED9GHdYaG2DdmWiFGlfaBo0', bio: 'Coordinates site engineering, client handovers, and multi-site fire safety deployments.' },
+      { name: 'Rohan Kulkarni', role: 'Lead Survey Engineer', dept: 'Surveys & Audits', img: 'https://lh3.googleusercontent.com/aida/ALJJyrDNJgECl8xMWQjPsKlfivLDDwq7ArHcySZfrMaDAsev-shq4RqtF02pIetX6z-kfSvofMspYxoTwpYlpDtcTdnshEneYkwGuCtVWmVURzA9l5_O00P9_Img4H9b7xmrpmkOVqQkGDaZOm70JS5PznH6lZ0S_09-5CEiousiH9V0uXMzKhl19hxtlTch_STIZpBhq1vAOvOIiAF5oWOfm3PuWWW8-UyTPcQY7-IiePg8NuQ3Dw', bio: 'Conducts building hazard assessments, hydraulic pressure checks, and audit reporting.' },
+      { name: 'Amitabh Verma', role: 'Senior Service Technician', dept: 'AMC & Maintenance', img: 'https://lh3.googleusercontent.com/aida/ALJJyrAB6L2LDp4V2EYlqxC791vaHgVeYJm5__aVh-PFuM8963bw6emCGRQ0hLNultr_6aw4aV5yDUTV9L6vzZkIItGrF5jd-avkEmMk65Ax7FtDCOQ868ePBtCmuIyk42JJW_9zHJCRFNS-zEopL24QJwEwJE2ha91H3TqW1USf_nxQsljMHw7f8r9OOBYvFF8Ife9XpOVJH2_6PffALTPo7QoVzEs-qTIw3_z90BZ2ohknyARTynBy', bio: 'Manages preventive maintenance schedules, pump testing, and breakdown resolution.' }
+    ];
+
+    const PUBLIC_REVIEWS = [
+      { reviewer: 'Rajeshwari Nair', company: 'Apex Logistics Hub', rating: 5, approved: true, text: 'The hydrant ring main installation and pump room commissioning at our Bhiwandi warehouse were executed cleanly and documented thoroughly.' },
+      { reviewer: 'Siddharth Mehta', company: 'Crescent Multispeciality', rating: 5, approved: true, text: 'Reliable hospital safety audits and prompt AMC inspection visits across our main wing and critical care enclosures.' },
+      { reviewer: 'Ananya Chatterjee', company: 'Zenith IT Park', rating: 5, approved: true, text: 'Clear communication during our multi-floor fire alarm loop upgrade with minimal disruption to building tenants.' }
+    ];
+
+    function renderDynamicData() {
+      const projectCard = p => `
+        <article class="bg-light-surface-container-lowest rounded-md border border-light-outline-variant overflow-hidden shadow-sm flex flex-col">
+          <img src="${p.img}" alt="${p.title}" loading="lazy" class="w-full h-44 object-cover" />
+          <div class="p-gutter-xl flex flex-col gap-gutter-xs">
+            <span class="font-label text-label-sm text-light-error">${p.category}</span>
+            <h3 class="font-title text-title-md text-light-on-surface">${p.title}</h3>
+            <p class="font-body text-body-sm text-light-on-surface-variant">${p.client} · ${p.location}</p>
+            <p class="font-body text-body-sm text-light-on-surface-variant mt-1">${p.desc}</p>
+          </div>
+        </article>
+      `;
+      document.getElementById('home-projects-grid').innerHTML = PUBLIC_PROJECTS.map(projectCard).join('');
+      document.getElementById('all-projects-grid').innerHTML = PUBLIC_PROJECTS.map(projectCard).join('');
+
+      document.getElementById('about-team-grid').innerHTML = PUBLIC_TEAM.map(t => `
+        <article class="rounded-md bg-light-surface-container-lowest border border-light-outline-variant overflow-hidden shadow-sm flex flex-col h-full">
+          <img src="${t.img}" alt="${t.name} — ${t.role}" loading="lazy" class="w-full h-64 object-cover object-top" />
+          <div class="p-gutter-xl flex flex-col gap-gutter-xs">
+            <span class="font-label text-label-sm text-light-error">${t.dept}</span>
+            <h3 class="font-title text-title-md text-light-on-surface">${t.name}</h3>
+            <p class="font-label text-label-sm text-light-on-surface-variant">${t.role}</p>
+            <p class="font-body text-body-sm text-light-on-surface-variant mt-1">${t.bio}</p>
+          </div>
+        </article>
+      `).join('');
+
+      const approvedReviews = PUBLIC_REVIEWS.filter(r => r.approved);
+      const reviewCard = r => `
+        <article class="p-gutter-xl rounded-md bg-light-surface-container-lowest border border-light-outline-variant shadow-sm flex flex-col justify-between gap-gutter-md h-full">
+          <div class="flex flex-col gap-gutter-sm">
+            <div class="flex items-center gap-gutter-xs text-warning" aria-label="${r.rating} out of 5 stars">
+              ${Array.from({ length: r.rating }).map(() => '<span class="material-symbols-outlined text-title-md" style="font-variation-settings: \'FILL\' 1;">star</span>').join('')}
+            </div>
+            <p class="font-body text-body-md text-light-on-surface text-pretty">"${r.text}"</p>
+          </div>
+          <div class="pt-gutter-sm border-t border-light-outline-variant">
+            <p class="font-title text-title-md text-light-on-surface">${r.reviewer}</p>
+            <p class="font-body text-body-sm text-light-on-surface-variant">${r.company}</p>
+          </div>
+        </article>
+      `;
+      document.getElementById('home-reviews-grid').innerHTML = approvedReviews.map(reviewCard).join('');
+      document.getElementById('projects-reviews-grid').innerHTML = approvedReviews.map(reviewCard).join('');
+    }
+
+    function navigateTo(pageId, anchorId = null) {
+      document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById('page-' + pageId);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-link').forEach(btn => {
+        const isCurrent = btn.getAttribute('data-nav') === pageId;
+        btn.classList.toggle('text-dark-error', isCurrent);
+        btn.classList.toggle('text-dark-on-surface', isCurrent);
+        btn.classList.toggle('text-dark-secondary', !isCurrent);
+      });
+
+      const cookieModal = document.getElementById('cookie-banner');
+      if (pageId === 'home' && !cookieDecided) {
+        setTimeout(() => {
+          if (!cookieDecided && !document.getElementById('page-home').classList.contains('hidden')) {
+            cookieModal.classList.remove('hidden');
+          }
+        }, 350);
+      } else {
+        cookieModal.classList.add('hidden');
+      }
+
+      if (anchorId) {
+        setTimeout(() => scrollToAnchor(anchorId), 60);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function scrollToAnchor(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function requestQuoteForService(serviceName) {
+      navigateTo('contact');
+      const sel = document.getElementById('lead-service');
+      if (sel) sel.value = serviceName;
+    }
+
+    function toggleMobileMenu(open) {
+      document.getElementById('mobile-menu').classList.toggle('hidden', !open);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        toggleMobileMenu(false);
+        closeReviewModal();
+      }
+    });
+
+    function openReviewModal() {
+      document.getElementById('rev-success').classList.add('hidden');
+      document.getElementById('review-modal').classList.remove('hidden');
+    }
+
+    function closeReviewModal() {
+      document.getElementById('review-modal').classList.add('hidden');
+    }
+
+    function openCookiePopup() {
+      document.getElementById('cookie-banner').classList.remove('hidden');
+    }
+
+    function setCookieConsent(level) {
+      cookieDecided = true;
+      try { localStorage.setItem('karma_cookie_consent', level); } catch (_) {}
+      document.getElementById('cookie-banner').classList.add('hidden');
+    }
+
+    function handleLeadSubmit(e) {
+      e.preventDefault();
+      if (document.getElementById('website').value.trim() !== '') return;
+
+      const checks = [
+        { id: 'lead-name', err: 'err-name', valid: v => v.trim().length >= 2 },
+        { id: 'lead-phone', err: 'err-phone', valid: v => v.replace(/\D/g, '').length >= 10 },
+        { id: 'lead-email', err: 'err-email', valid: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+        { id: 'lead-building', err: 'err-building', valid: v => v.trim() !== '' },
+        { id: 'lead-service', err: 'err-service', valid: v => v.trim() !== '' },
+        { id: 'lead-location', err: 'err-location', valid: v => v.trim().length >= 2 }
+      ];
+
+      let firstInvalid = null;
+      checks.forEach(c => {
+        const input = document.getElementById(c.id);
+        const ok = c.valid(input.value);
+        document.getElementById(c.err).classList.toggle('hidden', ok);
+        if (!ok && !firstInvalid) firstInvalid = input;
+      });
+
+      const consent = document.getElementById('lead-consent');
+      const consentOk = consent.checked;
+      document.getElementById('err-consent').classList.toggle('hidden', consentOk);
+      if (!consentOk && !firstInvalid) firstInvalid = consent;
+
+      if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+      }
+
+      document.getElementById('form-success').classList.remove('hidden');
+      document.getElementById('lead-form').reset();
+    }
+
+    let selectedReviewRating = 5;
+    function setReviewRating(val) {
+      selectedReviewRating = val;
+      document.querySelectorAll('.rev-star').forEach((btn, idx) => {
+        btn.classList.toggle('text-warning', idx < val);
+        btn.classList.toggle('text-light-outline-variant', idx >= val);
+      });
+    }
+
+    function handleReviewSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('rev-name');
+      const text = document.getElementById('rev-text');
+      if (name.value.trim().length < 2) { name.focus(); return; }
+      if (text.value.trim().length < 5) { text.focus(); return; }
+      document.getElementById('rev-success').classList.remove('hidden');
+      document.getElementById('review-form').reset();
+      setReviewRating(5);
+    }
+
+    renderDynamicData();
+    navigateTo('home');
+  </script>
+
+
+</body></html>
