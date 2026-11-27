@@ -75,7 +75,7 @@ test('README contains GitHub Pages website, admin login and repository URLs', ()
   assert.match(readme, /https:\/\/ns-matrix\.github\.io\/karma-fire-protection0\/backend\/telegram-leads\/admin-v2\/index\.html/);
   assert.match(readme, /https:\/\/github\.com\/ns-matrix\/karma-fire-protection0/);
   assert.match(readme, /Vikhroli West/);
-  assert.match(readme, /demo records/);
+  assert.match(readme, /demo product records/);
 });
 
 test('old public and admin entry points route into the new ZIP applications', () => {
