@@ -14,29 +14,30 @@ Both application URLs use the GitHub Pages host. The admin panel has one shared 
 ## Architecture
 - HTML/CSS/vanilla JavaScript: public website and admin UI.
 - Supabase Auth: admin sign-in.
-- Supabase Postgres: enquiries and page-view events.
+- Supabase Postgres: enquiries, CRM operations, website content, CMS versions, visitor analytics and audit records.
 - Row Level Security (RLS): public visitors can only INSERT enquiries; only allow-listed admin users can read/update/delete CRM data.
 - Browser uses only the Supabase publishable/anon key. Never expose a service-role key.
 
 ## One-time Supabase setup
 1. Create a Supabase project.
-2. Open SQL Editor and run all of `supabase/schema.sql`.
-3. In Authentication → Users, create the admin user with a strong password.
-4. Copy that user's UUID and email. Run:
+2. Link the repository to the intended project and inspect migration history with `supabase migration list` before applying SQL.
+3. **Migration history must be reconciled before a fresh database push.** The connected live project currently has 22 applied migration records, while this repository contains 21 migration files with different version timestamps/names. Do not blindly run `supabase db push` or re-run `supabase/schema.sql` against the existing project; that could create migration drift or reapply schema changes. Reconcile the baseline, preview with `supabase db push --dry-run`, then apply only after the plan is verified.
+4. In Authentication → Users, create the admin user with a strong password.
+5. Copy that user's UUID and email. Run:
    ```sql
    insert into public.admin_users(user_id,email,role,display_name)
    values ('YOUR-AUTH-USER-UUID','OWNER-EMAIL','super_admin',null);
    ```
-5. Open Project Settings → API. Copy Project URL and the publishable key (or legacy anon key).
-6. Edit `js/supabase-config.js`:
+6. Open Project Settings → API. Copy Project URL and the publishable key (or legacy anon key).
+7. Edit `js/supabase-config.js`:
    ```js
    window.KARMA_SUPABASE = {
      url: "https://YOUR_PROJECT_REF.supabase.co",
      anonKey: "YOUR_PUBLISHABLE_OR_ANON_KEY"
    };
    ```
-7. Commit the config file. The publishable/anon key is designed for browser use; RLS is the security boundary. **Never use service_role/secret keys in this repository.**
-8. In Supabase Authentication → URL Configuration, set Site URL to the GitHub Pages URL and add it to Redirect URLs:
+8. Commit the config file. The publishable/anon key is designed for browser use; RLS is the security boundary. **Never use service_role/secret keys in this repository.**
+9. In Supabase Authentication → URL Configuration, set Site URL to the GitHub Pages URL and add it to Redirect URLs:
    `https://ns-matrix.github.io/karma-fire-protection0/**`
 
 ## CRM capabilities
@@ -47,6 +48,13 @@ Both application URLs use the GitHub Pages host. The admin panel has one shared 
 - Delete enquiry with confirmation.
 - CSV export of the current filtered result set.
 - Reports grouped by lead status and requested service.
+
+## Website ↔ Admin data flow
+
+- **Enquiries:** the public contact form inserts validated rows into `public.leads`; the admin Enquiries screen reads, updates, assigns and exports those records.
+- **Website Manager:** admins manage active team members, products, services, social links, portfolio projects and testimonials in Supabase. The public website loads only active rows from those same tables.
+- **Page CMS:** the CMS editor stores drafts, publishes versioned content and restores versions to draft. The public CMS loader reads `website_cms_published` and renders the published sections without replacing existing page markup or form handlers.
+- **Analytics and audit:** the consent-aware public collector writes event metadata; Website Analytics and Visitor Audit read the corresponding Supabase event, consent and audit data through role-gated queries/RPCs.
 
 ## Deployment
 GitHub Pages publishes the static files from the configured branch/folder. No build command, npm install, Node server, or environment secrets are required. After changing the Supabase config, allow Pages to finish publishing and hard-refresh the site.
