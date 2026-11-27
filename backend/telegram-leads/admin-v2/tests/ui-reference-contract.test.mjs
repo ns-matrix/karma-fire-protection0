@@ -62,3 +62,31 @@ test("CMS, website analytics and visitor audit share the responsive admin theme"
   assert.match(theme, /@media\(max-width:1023px\)/);
   assert.match(theme, /overflow-x:auto/);
 });
+
+
+test("admin team and public team content requests match the live Supabase schema", () => {
+  const admin = read("backend/telegram-leads/admin-v2/js/admin.js");
+  const publicContent = read("js/site-content.js");
+  assert.match(admin, /from\("employee_profiles"\)\.select\("id,employee_code,full_name,job_title,work_email,employment_status,skills,departments\(name\)"\)/);
+  assert.doesNotMatch(admin, /employee_profiles[^\n]*biography/);
+  assert.doesNotMatch(admin, /team_members:\[\["team_name"/);
+  assert.match(publicContent, /team_members','id,name,role_title,bio,image_url,sort_order,is_active'/);
+  assert.doesNotMatch(publicContent, /team_name/);
+});
+
+test("README exposes GitHub Pages website and the single admin login entry point", () => {
+  const readme = read("README.md");
+  assert.match(readme, /https:\/\/ns-matrix\.github\.io\/karma-fire-protection0\//);
+  assert.match(readme, /https:\/\/ns-matrix\.github\.io\/karma-fire-protection0\/backend\/telegram-leads\/admin-v2\/index\.html/);
+  assert.match(readme, /https:\/\/github\.com\/ns-matrix\/karma-fire-protection0/);
+  assert.doesNotMatch(readme, /karmafireprotection\.com/);
+});
+
+
+test("login uses Supabase password authentication and the database role resolver", () => {
+  const js = read("backend/telegram-leads/admin-v2/js/admin.js");
+  assert.match(js, /auth\.signInWithPassword/);
+  assert.match(js, /auth\.getUser\(\)/);
+  assert.match(js, /rpc\("resolve_current_role"\)/);
+  assert.match(js, /This account has no active admin or employee role/);
+});
