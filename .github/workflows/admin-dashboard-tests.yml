@@ -2,6 +2,10 @@ name: Admin dashboard checks
 on:
   pull_request:
     paths:
+      - "*.html"
+      - "css/**"
+      - "js/forms.js"
+      - "js/validation.js"
       - "backend/telegram-leads/admin-v2/**"
       - "js/analytics.js"
       - "js/analytics-core.mjs"
@@ -11,7 +15,12 @@ on:
     branches:
       - "feat/role-based-responsive-dashboard"
       - "feat/website-analytics-cms-audit"
+      - "feat/karma-complete-website-admin-ui"
     paths:
+      - "*.html"
+      - "css/**"
+      - "js/forms.js"
+      - "js/validation.js"
       - "backend/telegram-leads/admin-v2/**"
       - "js/analytics.js"
       - "js/analytics-core.mjs"
@@ -34,4 +43,4 @@ jobs:
           node --check js/website-cms-public.js
           node --check js/website-audit-recommendations.mjs
       - name: Run analytics and role tests
-        run: node --experimental-default-type=module --test backend/telegram-leads/admin-v2/tests/dashboard-rules.test.mjs backend/telegram-leads/admin-v2/tests/analytics-core.test.mjs backend/telegram-leads/admin-v2/tests/website-audit-recommendations.test.mjs backend/telegram-leads/admin-v2/tests/cms-editor-syntax.test.mjs
+        run: node --experimental-default-type=module --test backend/telegram-leads/admin-v2/tests/dashboard-rules.test.mjs backend/telegram-leads/admin-v2/tests/analytics-core.test.mjs backend/telegram-leads/admin-v2/tests/website-audit-recommendations.test.mjs backend/telegram-leads/admin-v2/tests/cms-editor-syntax.test.mjs backend/telegram-leads/admin-v2/tests/ui-reference-contract.test.mjs

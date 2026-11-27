@@ -144,3 +144,45 @@ $("employee-invite-form").onsubmit=async e=>{e.preventDefault();const button=e.c
 function showView(name){const module=MODULES[name];document.querySelectorAll(".nav[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===name));document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));let target="view-"+name;if(module){target="view-module";loadModule(name)}else if(name==="team"){loadTeam()}else if(name==="control"){if(role!=="super_admin"){showView("dashboard");return}loadControl()}$(target)?.classList.add("active");$("view-title").textContent=module?module.title:({dashboard:"Dashboard",enquiries:"Enquiries",website:"Website Manager",reports:"Reports",profile:"My Profile",team:"Team & Admins",control:"System Control"}[name]||"Dashboard")}
 document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>showView(b.dataset.view));document.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>showView(b.dataset.goto));
 start();
+
+/* Responsive admin drawer: preserve existing role-aware navigation and view handlers. */
+(function bindResponsiveAdminNavigation(){
+  const toggle=document.getElementById("mobile-nav-toggle");
+  const sidebar=document.querySelector(".sidebar");
+  if(!toggle||!sidebar)return;
+  if(!sidebar.id)sidebar.id="admin-sidebar";
+  toggle.setAttribute("aria-controls",sidebar.id);
+  const close=()=>{
+    sidebar.classList.remove("open");
+    document.body.classList.remove("admin-drawer-open");
+    toggle.setAttribute("aria-expanded","false");
+    toggle.setAttribute("aria-label","Open navigation");
+  };
+  const open=()=>{
+    sidebar.classList.add("open");
+    document.body.classList.add("admin-drawer-open");
+    toggle.setAttribute("aria-expanded","true");
+    sidebar.querySelector(".nav:not(.hidden)")?.focus();
+    toggle.setAttribute("aria-label","Close navigation");
+  };
+  toggle.addEventListener("click",event=>{
+    event.preventDefault();
+    event.stopPropagation();
+    sidebar.classList.contains("open")?close():open();
+  });
+  sidebar.addEventListener("click",event=>{
+    if(event.target.closest(".nav"))close();
+  });
+  document.addEventListener("click",event=>{
+    if(sidebar.classList.contains("open")&&!sidebar.contains(event.target)&&!toggle.contains(event.target))close();
+  });
+  document.addEventListener("keydown",event=>{
+    if(event.key==="Escape"&&sidebar.classList.contains("open")){
+      close();
+      toggle.focus();
+    }
+  });
+  window.addEventListener("resize",()=>{
+    if(window.matchMedia("(min-width: 761px)").matches)close();
+  },{passive:true});
+})();

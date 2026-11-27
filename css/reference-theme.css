@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Jost:wght@500;600;700;800&display=swap");
 /* Karma Fire Protection — supplied Stitch visual language, adapted to the existing multi-page site.
    This stylesheet changes presentation only. Existing page markup, form names, IDs and scripts remain intact. */
 :root{
@@ -119,3 +120,18 @@ body.home .site-header:not(.scrolled){background:rgba(11,17,32,.76)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+/* Component-specific alignment for the existing multi-page markup. */
+.contact-card .icon{background:#FEECE7;color:#E54826}
+.contact-card-featured{background:linear-gradient(180deg,#fff 0%,#F8FAFC 100%);border-left:4px solid #E54826}
+.contact-card-featured h3{color:#0F172A}
+.service-detail:nth-child(even){background:#F4F7FC}
+.service-detail .detail-img{border-radius:12px;border:1px solid #DCE4F0;box-shadow:0 8px 24px rgba(15,36,74,.08)}
+.spec-list li{background:#fff;border-color:#DCE4F0;border-radius:8px}
+.spec-list li strong{color:#0F172A}
+.gallery-grid figure{border-radius:12px;border:1px solid #DCE4F0;box-shadow:0 1px 3px rgba(15,36,74,.05)}
+.gallery-grid figure:hover{box-shadow:0 10px 24px rgba(15,36,74,.1)}
+.managed-card .managed-body{background:#fff}
+.review-card .review-stars{color:#E54826}
+.cta-band{background:#0F244A;color:#F8FAFC}
+.cta-band .btn-white{background:#fff;color:#0F244A;border-color:#fff}
