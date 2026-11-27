@@ -205,22 +205,3 @@ window.addEventListener("karma:authorized", (event) => {
   });
 });
 
-function closeMobileNav() {
-  const sidebar = document.querySelector(".sidebar");
-  sidebar?.classList.remove("open");
-  document.getElementById("sidebar-backdrop")?.classList.remove("visible");
-  document.getElementById("mobile-nav-toggle")?.setAttribute("aria-expanded", "false");
-}
-document.getElementById("mobile-nav-toggle")?.addEventListener("click", () => {
-  const sidebar = document.querySelector(".sidebar");
-  const open = sidebar?.classList.toggle("open") || false;
-  document.getElementById("sidebar-backdrop")?.classList.toggle("visible", open);
-  document.getElementById("mobile-nav-toggle")?.setAttribute("aria-expanded", String(open));
-});
-document.getElementById("sidebar-backdrop")?.addEventListener("click", closeMobileNav);
-document.querySelector(".sidebar")?.addEventListener("click", (event) => {
-  if (event.target.closest("[data-view]")) closeMobileNav();
-});
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeMobileNav();
-});
