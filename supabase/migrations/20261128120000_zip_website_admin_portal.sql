@@ -150,25 +150,25 @@ insert into public.services(id,name,slug,short_description,description,image_url
 on conflict(id) do nothing;
 
 insert into public.products(id,name,slug,category,description,specifications,image_url,price_label,sort_order,is_active,is_demo) values
-('a1000000-0000-4000-8000-000000000001','Sample Fire Hydrant Landing Valve','sample-hydrant-landing-valve','Hydrant Equipment','DEMO CATALOGUE ITEM — replace with verified manufacturer, model and specifications before publishing.','{"status":"sample","notes":"Confirm approved make, size, pressure rating and certification before publication."}'::jsonb,'assets/images/service-hydrant.webp',null,1,false,true),
-('a1000000-0000-4000-8000-000000000002','Sample Addressable Fire Alarm Panel','sample-addressable-fire-alarm-panel','Fire Alarm Equipment','DEMO CATALOGUE ITEM — replace with verified manufacturer, model and specifications before publishing.','{"status":"sample","notes":"Confirm loop capacity, compatibility and applicable certification before publication."}'::jsonb,'assets/images/service-alarm.webp',null,2,false,true),
-('a1000000-0000-4000-8000-000000000003','Sample Automatic Sprinkler Head','sample-automatic-sprinkler-head','Sprinkler Equipment','DEMO CATALOGUE ITEM — replace with verified manufacturer, model and specifications before publishing.','{"status":"sample","notes":"Confirm K-factor, temperature rating, response type and certification before publication."}'::jsonb,'assets/images/service-sprinkler.webp',null,3,false,true)
+('a1000000-0000-4000-8000-000000000001','Sample Fire Hydrant Landing Valve','sample-hydrant-landing-valve','Hydrant Equipment','DEMO CATALOGUE ITEM — replace with verified manufacturer, model and specifications before publishing.','{"status":"sample","notes":"Confirm approved make, size, pressure rating and certification before publication."}'::jsonb,'assets/images/service-hydrant.webp',null,1,true,true),
+('a1000000-0000-4000-8000-000000000002','Sample Addressable Fire Alarm Panel','sample-addressable-fire-alarm-panel','Fire Alarm Equipment','DEMO CATALOGUE ITEM — replace with verified manufacturer, model and specifications before publishing.','{"status":"sample","notes":"Confirm loop capacity, compatibility and applicable certification before publication."}'::jsonb,'assets/images/service-alarm.webp',null,2,true,true),
+('a1000000-0000-4000-8000-000000000003','Sample Automatic Sprinkler Head','sample-automatic-sprinkler-head','Sprinkler Equipment','DEMO CATALOGUE ITEM — replace with verified manufacturer, model and specifications before publishing.','{"status":"sample","notes":"Confirm K-factor, temperature rating, response type and certification before publication."}'::jsonb,'assets/images/service-sprinkler.webp',null,3,true,true)
 on conflict(id) do nothing;
 
 insert into public.team_members(id,name,role_title,bio,image_url,sort_order,is_active,is_demo) values
-('a2000000-0000-4000-8000-000000000001','Sample Operations Lead','Operations Lead','DEMO PROFILE — replace with verified team details before publishing.','assets/images/about-1.webp',1,false,true),
-('a2000000-0000-4000-8000-000000000002','Sample Survey Engineer','Survey Engineer','DEMO PROFILE — replace with verified team details before publishing.','assets/images/about-2.webp',2,false,true),
-('a2000000-0000-4000-8000-000000000003','Sample Service Technician','Service Technician','DEMO PROFILE — replace with verified team details before publishing.','assets/images/about-1.webp',3,false,true)
+('a2000000-0000-4000-8000-000000000001','Sample Operations Lead','Operations Lead','DEMO PROFILE — replace with verified team details before publishing.','assets/images/about-1.webp',1,true,true),
+('a2000000-0000-4000-8000-000000000002','Sample Survey Engineer','Survey Engineer','DEMO PROFILE — replace with verified team details before publishing.','assets/images/about-2.webp',2,true,true),
+('a2000000-0000-4000-8000-000000000003','Sample Service Technician','Service Technician','DEMO PROFILE — replace with verified team details before publishing.','assets/images/about-1.webp',3,true,true)
 on conflict(id) do nothing;
 
 insert into public.public_portfolio_projects(id,title,client_name,location,category,description,image_url,project_url,completion_date,sort_order,is_active,is_demo) values
-('a3000000-0000-4000-8000-000000000001','Sample Commercial Fire Protection Project','Demo Client','Mumbai, Maharashtra','Fire Hydrant','DEMO PROJECT — replace with approved project details and client permission before publishing.','assets/images/hero-1.webp',null,null,1,false,true),
-('a3000000-0000-4000-8000-000000000002','Sample Fire Alarm Upgrade','Demo Facility','Mumbai, Maharashtra','Fire Alarm','DEMO PROJECT — replace with verified project details and approved photographs before publishing.','assets/images/service-alarm.webp',null,null,2,false,true)
+('a3000000-0000-4000-8000-000000000001','Sample Commercial Fire Protection Project','Demo Client','Mumbai, Maharashtra','Fire Hydrant','DEMO PROJECT — replace with approved project details and client permission before publishing.','assets/images/hero-1.webp',null,null,1,true,true),
+('a3000000-0000-4000-8000-000000000002','Sample Fire Alarm Upgrade','Demo Facility','Mumbai, Maharashtra','Fire Alarm','DEMO PROJECT — replace with verified project details and approved photographs before publishing.','assets/images/service-alarm.webp',null,null,2,true,true)
 on conflict(id) do nothing;
 
 insert into public.public_testimonials(id,reviewer_name,company_name,review_text,rating,sort_order,is_active,is_demo,moderation_status,admin_reply) values
-('a4000000-0000-4000-8000-000000000001','Sample Client','Demo Facility','DEMO REVIEW — replace with a genuine customer-approved testimonial before publishing.',5,1,false,true,'pending',null),
-('a4000000-0000-4000-8000-000000000002','Sample Facility Manager','Demo Organisation','DEMO REVIEW — replace with a genuine customer-approved testimonial before publishing.',5,2,false,true,'pending',null)
+('a4000000-0000-4000-8000-000000000001','Sample Client','Demo Facility','DEMO REVIEW — replace with a genuine customer-approved testimonial before publishing.',5,1,true,true,'approved',null),
+('a4000000-0000-4000-8000-000000000002','Sample Facility Manager','Demo Organisation','DEMO REVIEW — replace with a genuine customer-approved testimonial before publishing.',5,2,true,true,'approved',null)
 on conflict(id) do nothing;
 
 insert into public.social_links(id,platform,label,url,icon_url,sort_order,is_active) values
