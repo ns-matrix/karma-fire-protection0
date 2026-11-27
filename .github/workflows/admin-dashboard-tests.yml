@@ -31,5 +31,7 @@ jobs:
           node --check backend/telegram-leads/admin-v2/js/role-dashboard.js
           node --check backend/telegram-leads/admin-v2/js/admin.js
           node --check js/analytics.js
+          node --check js/website-cms-public.js
+          node --check js/website-audit-recommendations.mjs
       - name: Run analytics and role tests
-        run: node --experimental-default-type=module --test backend/telegram-leads/admin-v2/tests/dashboard-rules.test.mjs backend/telegram-leads/admin-v2/tests/analytics-core.test.mjs backend/telegram-leads/admin-v2/tests/website-audit-recommendations.test.mjs
+        run: node --experimental-default-type=module --test backend/telegram-leads/admin-v2/tests/dashboard-rules.test.mjs backend/telegram-leads/admin-v2/tests/analytics-core.test.mjs backend/telegram-leads/admin-v2/tests/website-audit-recommendations.test.mjs backend/telegram-leads/admin-v2/tests/cms-editor-syntax.test.mjs
