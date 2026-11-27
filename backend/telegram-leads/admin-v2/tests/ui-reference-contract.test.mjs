@@ -102,3 +102,11 @@ test("admin login page loads the shared Supabase config and active admin module"
   assert.match(html, /src="\.\.\/\.\.\/\.\.\/js\/supabase-config\.js"/);
   assert.match(html, /type="module" src="js\/admin\.js"/);
 });
+
+
+test("README documents the actual public RLS model and migration safety check", () => {
+  const readme = read("README.md");
+  assert.match(readme, /public visitors can read active published website content/);
+  assert.match(readme, /supabase migration list/);
+  assert.match(readme, /Do not blindly run/);
+});
