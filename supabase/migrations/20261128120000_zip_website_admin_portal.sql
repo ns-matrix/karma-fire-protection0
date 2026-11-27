@@ -82,7 +82,7 @@ begin
  or jsonb_array_length(coalesce(p_content->'sections','[]'::jsonb))>30 then raise exception 'Invalid CMS content'; end if;
  insert into public.website_cms_drafts(slug,content,updated_by,updated_at)
  values(p_slug,p_content,auth.uid(),now())
- on conflict(slug) do nothing;
+ on conflict(slug) do update set content=excluded.content,updated_by=excluded.updated_by,updated_at=now();
 end $function$;
 
 create or replace function public.cms_publish_page(p_slug text)
@@ -96,7 +96,21 @@ begin
  select coalesce(max(version_no),0)+1 into v from public.website_cms_versions where slug=p_slug;
  insert into public.website_cms_versions(slug,version_no,content,published_by) values(p_slug,v,c,auth.uid());
  insert into public.website_cms_published(slug,version_no,content,published_at)
- values(p_slug,v,c,now()) on conflict(slug) do nothing;
+ values(p_slug,v,c,now()) on conflict(slug) do update set version_no=excluded.version_no,content=excluded.content,published_at=now();
+ return v;
+end $function$;
+
+create or replace function public.cms_restore_version(p_slug text,p_version integer)
+returns void language plpgsql security definer set search_path='public','private'
+as $function$
+declare c jsonb;
+begin
+ if not private.can_manage_website_content() then raise exception 'Access denied'; end if;
+ select content into c from public.website_cms_versions where slug=p_slug and version_no=p_version;
+ if c is null then raise exception 'Version not found'; end if;
+ insert into public.website_cms_drafts(slug,content,updated_by,updated_at)
+ values(p_slug,c,auth.uid(),now())
+ on conflict(slug) do update set content=excluded.content,updated_by=excluded.updated_by,updated_at=now();
 end $function$;
 
 revoke all on function public.cms_save_draft(text,jsonb) from public,anon;
