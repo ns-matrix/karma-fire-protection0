@@ -30,23 +30,30 @@ export function hasDashboardPermission(role, permissions = [], module, action = 
 }
 
 export function dashboardMetrics(role, permissions = []) {
-  if (dashboardRole(role) !== "team_member") {
+  const mode = dashboardRole(role);
+  if (mode === "admin") {
     return [
       { key: "leads", label: "Total enquiries", table: "leads", module: "leads" },
       { key: "customers", label: "Customers", table: "customers", module: "customers" },
       { key: "projects", label: "Projects", table: "projects", module: "projects" },
+      { key: "visits", label: "Service visits", table: "service_visits", module: "service" }
+    ];
+  }
+  if (mode === "super_admin") {
+    return [
+      { key: "leads", label: "Total enquiries", table: "leads", module: "leads" },
+      { key: "projects", label: "Projects", table: "projects", module: "projects" },
       { key: "visits", label: "Service visits", table: "service_visits", module: "service" },
-      { key: "employees", label: "Team members", table: "employee_profiles", module: "employees", filter: ["employment_status", "active"] },
-      ...(role === "super_admin" ? [{ key: "audit", label: "Audit events", table: "audit_events", module: "audit" }] : [])
+      { key: "audit", label: "Audit events", table: "audit_events", module: "audit" }
     ];
   }
 
   const available = [
-    { key: "tasks", label: "Visible tasks", table: "tasks", module: "tasks" },
-    { key: "visits", label: "Visible visits", table: "service_visits", module: "service" },
-    { key: "surveys", label: "Visible surveys", table: "site_surveys", module: "surveys" },
-    { key: "projects", label: "Visible projects", table: "projects", module: "projects" },
-    { key: "leads", label: "Visible enquiries", table: "leads", module: "leads" }
+    { key: "tasks", label: "Assigned tasks", table: "tasks", module: "tasks" },
+    { key: "visits", label: "Service visits", table: "service_visits", module: "service" },
+    { key: "projects", label: "Projects", table: "projects", module: "projects" },
+    { key: "leads", label: "Enquiries", table: "leads", module: "leads" },
+    { key: "surveys", label: "Surveys", table: "site_surveys", module: "surveys" }
   ];
-  return available.filter((metric) => hasDashboardPermission(role, permissions, metric.module));
+  return available.filter((metric) => hasDashboardPermission(role, permissions, metric.module)).slice(0, 4);
 }
