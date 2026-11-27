@@ -1,20 +1,346 @@
-/* Consent-gated, first-party event tracking. No form contents or keystrokes are collected. */
-(function(w,d){'use strict';
-const CK='karma_analytics_consent',VK='karma_visitor_uuid',SK='karma_session_uuid',LK='karma_session_last_active',AK='karma_attribution',TO=1800000;
-let visitor=null,session=null,attribution=null,clientPromise=null,active=!d.hidden,lastActive=Date.now(),activeMs=0,exitSent=false,scrollLast=0,formStarted=new WeakSet();
-const consent=()=>{try{return localStorage.getItem(CK)||'undecided'}catch{return'undecided'}};
-function uuid(){return w.crypto&&crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:r&3|8).toString(16)})}
-function device(){const ua=navigator.userAgent||'';return /tablet|ipad|playbook|silk|(android(?!.*mobi))/i.test(ua)?'tablet':/mobile|iphone|ipod|android|blackberry|iemobile/i.test(ua)?'mobile':innerWidth<=768?'mobile':'desktop'}
-function identity(){if(visitor&&session)return;try{visitor=localStorage.getItem(VK)||uuid();localStorage.setItem(VK,visitor);const old=sessionStorage.getItem(SK),last=Number(sessionStorage.getItem(LK)||0);session=old&&Date.now()-last<TO?old:uuid();sessionStorage.setItem(SK,session);sessionStorage.setItem(LK,String(Date.now()))}catch{visitor=visitor||uuid();session=session||uuid()}}
-function source(){if(attribution)return attribution;try{const a=sessionStorage.getItem(AK);if(a)return attribution=JSON.parse(a)}catch{}const p=new URLSearchParams(location.search);attribution={source:p.get('utm_source')||(document.referrer?'Referral':'Direct'),medium:p.get('utm_medium')||null,campaign:p.get('utm_campaign')||null};try{sessionStorage.setItem(AK,JSON.stringify(attribution))}catch{}return attribution}
-const core=()=>import('./analytics-core.mjs');
-function client(){if(!clientPromise)clientPromise=import('https://esm.sh/@supabase/supabase-js@2').then(({createClient})=>{const c=w.KARMA_SUPABASE||{};return c.url&&c.anonKey?createClient(c.url,c.anonKey,{auth:{persistSession:false,autoRefreshToken:false}}):null}).catch(()=>null);return clientPromise}
-async function track(name,el={},value=null){if(consent()!=='granted')return;identity();const h=await core(),db=await client();if(!db)return;const row=h.buildEvent({eventName:name,pagePath:location.pathname,pageTitle:document.title,elementId:el.id,elementLabel:el.label,value,deviceCategory:device(),visitorUuid:visitor,sessionUuid:session,consentState:consent()});const{error}=await db.from('analytics_events').insert(row);if(error)console.warn('[Karma analytics]',error.message)}
-function tick(){if(active){const now=Date.now();activeMs+=Math.max(0,now-lastActive);lastActive=now}}
-function exit(){if(exitSent||consent()!=='granted')return;exitSent=true;tick();core().then(h=>track('page_exit',{label:'page'},h.clampDurationSeconds(activeMs)))}
-function pageView(){if(consent()!=='granted')return;identity();exitSent=false;const a=source();track('page_view',{label:'page'});let ref=null;try{if(document.referrer){const u=new URL(document.referrer);ref=u.origin+u.pathname}}catch{}client().then(db=>db&&db.from('visitor_events').insert({visitor_uuid:visitor,session_uuid:session,page_path:location.pathname,page_title:document.title,referrer:ref,source:a.source,medium:a.medium,campaign:a.campaign,device_category:device(),consent_state:'granted'}))}
-function setConsent(v){try{if(v==='granted'||v==='necessary')localStorage.setItem(CK,v);else localStorage.removeItem(CK);if(v!=='granted'){localStorage.removeItem(VK);sessionStorage.removeItem(SK);sessionStorage.removeItem(AK);visitor=session=null;attribution=null}}catch{}d.getElementById('karma-consent-banner')?.remove();if(v==='granted')pageView()}
-function banner(force=false){if((consent()!=='undecided'&&!force)||d.getElementById('karma-consent-banner'))return;const b=d.createElement('div');b.id='karma-consent-banner';b.setAttribute('role','dialog');b.setAttribute('aria-label','Cookie and analytics consent');b.innerHTML='<div class="consent-container"><div class="consent-text"><strong>Privacy &amp; Analytics Notice:</strong> Optional first-party analytics help us understand website performance. Form field contents are not captured. <a href="/privacy-policy.html" class="consent-link">Read our Privacy Policy</a>.</div><div class="consent-buttons"><button class="accept" id="btn-consent-accept">Accept Analytics</button><button class="decline" id="btn-consent-decline">Essential Only</button></div></div>';b.style.cssText='position:fixed;bottom:18px;left:18px;right:18px;max-width:900px;margin:auto;background:#171717;color:#f3f4f6;padding:16px 22px;border-radius:10px;border:1px solid #333;box-shadow:0 12px 40px #0005;z-index:999999;font:13px/1.5 system-ui,sans-serif';b.querySelector('.consent-container').style.cssText='display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap';b.querySelector('.consent-text').style.cssText='flex:1;min-width:260px';b.querySelector('.consent-buttons').style.cssText='display:flex;gap:10px';b.querySelectorAll('button').forEach(x=>x.style.cssText='padding:9px 16px;border:0;border-radius:6px;font-weight:700;cursor:pointer');b.querySelector('.accept').style.cssText+=';background:#d9232d;color:white';b.querySelector('.decline').style.cssText+=';background:#333;color:white';b.querySelector('.consent-link').style.color='#d9232d';d.body.appendChild(b);b.querySelector('#btn-consent-accept').onclick=()=>setConsent('granted');b.querySelector('#btn-consent-decline').onclick=()=>setConsent('necessary')}
-function setup(h){d.addEventListener('visibilitychange',()=>{tick();active=!d.hidden;lastActive=Date.now();if(d.hidden)exit();else exitSent=false});w.addEventListener('pagehide',exit);w.addEventListener('focus',()=>{active=true;lastActive=Date.now()});w.addEventListener('blur',()=>{tick();active=false});d.addEventListener('scroll',()=>{tick();const p=h.scrollPercent(scrollY,innerHeight,d.documentElement.scrollHeight);h.crossedThresholds(scrollLast,p).forEach(n=>track('scroll_depth',{id:'depth-'+n,label:n+'%'},n));scrollLast=p},{passive:true});d.addEventListener('click',e=>{const t=e.target.closest('a,button,[role="button"]');if(!t)return;const label=h.safeLabel(t.dataset.trackName||t.getAttribute('aria-label')||t.textContent);track('click',{id:t.id||t.dataset.trackId,label});const href=t.getAttribute('href')||'';if(/^tel:|^mailto:|wa.me|whatsapp/i.test(href))track('contact_action',{id:t.id,label:href.split(':')[0]})});d.addEventListener('focusin',e=>{const f=e.target.closest('form');if(!f||formStarted.has(f))return;formStarted.add(f);track('form_start',{id:f.id,label:f.getAttribute('name')||f.id||'contact form'})});d.addEventListener('submit',e=>{const f=e.target;if(f&&f.matches('form'))track('form_submit',{id:f.id,label:f.getAttribute('name')||f.id||'form'})},true);w.addEventListener('error',()=>track('js_error',{label:'client error'}));w.KarmaAnalytics={getConsent:consent,setConsent,track,getAttribution:source};banner();const btn=d.createElement('button');btn.id='karma-cookie-settings';btn.type='button';btn.textContent='Cookie settings';btn.style.cssText='position:fixed;bottom:12px;left:12px;z-index:99998;background:#202020;color:#fff;border:1px solid #555;border-radius:20px;padding:8px 12px;font:12px system-ui,sans-serif;cursor:pointer';btn.onclick=()=>banner(true);d.body.appendChild(btn);if(consent()==='granted')pageView()}
-core().then(setup).catch(e=>console.warn('[Karma analytics] not initialized',e))
-})(window,document);
+/* ============================================
+   KARMA FIRE PROTECTION — FIRST-PARTY ANALYTICS & ATTRIBUTION
+   Lightweight, privacy-first, non-invasive visitor tracking
+   ============================================ */
+'use strict';
+
+(function (window, document) {
+  const STORAGE_PREFIX = 'karma_';
+  const VISITOR_KEY = STORAGE_PREFIX + 'visitor_uuid';
+  const SESSION_KEY = STORAGE_PREFIX + 'session_uuid';
+  const SESSION_TIME_KEY = STORAGE_PREFIX + 'session_last_active';
+  const LANDING_KEY = STORAGE_PREFIX + 'landing_page';
+  const ATTR_KEY = STORAGE_PREFIX + 'attribution';
+  const CONSENT_KEY = STORAGE_PREFIX + 'analytics_consent';
+
+  const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes inactivity
+
+  // Generate safe RFC4122 v4 UUID
+  function generateUuid() {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
+
+  // Device detection
+  function detectDeviceCategory() {
+    const ua = navigator.userAgent || '';
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      return 'tablet';
+    }
+    if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/i.test(ua)) {
+      return 'mobile';
+    }
+    if (window.innerWidth <= 768) {
+      return 'mobile';
+    }
+    return 'desktop';
+  }
+
+  // Consent Management
+  function getConsentState() {
+    return localStorage.getItem(CONSENT_KEY) || 'undecided';
+  }
+
+  function setConsentState(state) {
+    if (state === 'granted' || state === 'necessary') {
+      localStorage.setItem(CONSENT_KEY, state);
+    } else {
+      localStorage.removeItem(CONSENT_KEY);
+    }
+    const banner = document.getElementById('karma-consent-banner');
+    if (banner) banner.remove();
+  }
+
+  // Visitor Identification
+  function getOrCreateVisitorUuid() {
+    let visitorId = null;
+    try {
+      visitorId = localStorage.getItem(VISITOR_KEY);
+    } catch (_) {}
+
+    if (!visitorId) {
+      visitorId = generateUuid();
+      try {
+        localStorage.setItem(VISITOR_KEY, visitorId);
+      } catch (_) {}
+    }
+    return visitorId;
+  }
+
+  // Session Management
+  function getOrCreateSessionUuid() {
+    const now = Date.now();
+    let sessionId = null;
+    let lastActive = 0;
+
+    try {
+      sessionId = sessionStorage.getItem(SESSION_KEY);
+      lastActive = parseInt(sessionStorage.getItem(SESSION_TIME_KEY), 10) || 0;
+    } catch (_) {}
+
+    if (!sessionId || now - lastActive > SESSION_TIMEOUT_MS) {
+      sessionId = generateUuid();
+      try {
+        sessionStorage.setItem(SESSION_KEY, sessionId);
+        sessionStorage.setItem(LANDING_KEY, window.location.pathname + window.location.search);
+      } catch (_) {}
+    }
+
+    try {
+      sessionStorage.setItem(SESSION_TIME_KEY, String(now));
+    } catch (_) {}
+
+    return sessionId;
+  }
+
+  // Traffic Source & UTM Attribution Engine
+  function determineAttribution() {
+    try {
+      const stored = sessionStorage.getItem(ATTR_KEY);
+      if (stored) return JSON.parse(stored);
+    } catch (_) {}
+
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get('utm_source');
+    const utmMedium = params.get('utm_medium');
+    const utmCampaign = params.get('utm_campaign');
+    const utmContent = params.get('utm_content');
+    const utmTerm = params.get('utm_term');
+
+    let source = 'Direct';
+    let medium = null;
+    let campaign = utmCampaign || null;
+
+    if (utmSource) {
+      source = utmSource;
+      medium = utmMedium || 'campaign';
+    } else if (document.referrer) {
+      try {
+        const refUrl = new URL(document.referrer);
+        const host = refUrl.hostname.toLowerCase();
+
+        if (host === window.location.hostname) {
+          source = 'Direct';
+        } else if (/google\.(com|[a-z]{2})/i.test(host)) {
+          source = 'Google Organic';
+          medium = 'organic';
+        } else if (/bing\.com/i.test(host)) {
+          source = 'Bing Organic';
+          medium = 'organic';
+        } else if (/yahoo\.(com|[a-z]{2})/i.test(host)) {
+          source = 'Yahoo Organic';
+          medium = 'organic';
+        } else if (/duckduckgo\.com/i.test(host)) {
+          source = 'DuckDuckGo';
+          medium = 'organic';
+        } else if (/facebook\.com|fb\.me/i.test(host)) {
+          source = 'Facebook';
+          medium = 'social';
+        } else if (/instagram\.com/i.test(host)) {
+          source = 'Instagram';
+          medium = 'social';
+        } else if (/linkedin\.com/i.test(host)) {
+          source = 'LinkedIn';
+          medium = 'social';
+        } else if (/t\.co|twitter\.com|x\.com/i.test(host)) {
+          source = 'Twitter / X';
+          medium = 'social';
+        } else if (/youtube\.com/i.test(host)) {
+          source = 'YouTube';
+          medium = 'social';
+        } else {
+          source = 'Referral: ' + host;
+          medium = 'referral';
+        }
+      } catch (_) {
+        source = 'Referral';
+      }
+    }
+
+    const attribution = {
+      source,
+      medium,
+      campaign,
+      content: utmContent,
+      term: utmTerm
+    };
+
+    try {
+      sessionStorage.setItem(ATTR_KEY, JSON.stringify(attribution));
+    } catch (_) {}
+
+    return attribution;
+  }
+
+  // Send Tracking Hit
+  function trackPageView() {
+    try {
+      const visitorUuid = getOrCreateVisitorUuid();
+      const sessionUuid = getOrCreateSessionUuid();
+      const attribution = determineAttribution();
+      const landingPage = sessionStorage.getItem(LANDING_KEY) || window.location.pathname;
+      const consentState = getConsentState();
+
+      const payload = {
+        visitorUuid,
+        sessionUuid,
+        pagePath: window.location.pathname,
+        pageTitle: document.title,
+        landingPage,
+        referrer: document.referrer || null,
+        source: attribution.source,
+        medium: attribution.medium,
+        campaign: attribution.campaign,
+        deviceCategory: detectDeviceCategory(),
+        consentState
+      };
+
+      // Collect only after explicit analytics consent; never send identifying form data.
+      if (consentState !== 'granted') return;
+      const eventKey = 'karma_event_' + window.location.pathname;
+      try { if (sessionStorage.getItem(eventKey) === sessionUuid) return; } catch (_) {}
+      import('https://esm.sh/@supabase/supabase-js@2').then(function (sdk) {
+        const cfg = window.KARMA_SUPABASE || {};
+        if (!cfg.url || !cfg.anonKey) return;
+        const client = sdk.createClient(cfg.url, cfg.anonKey);
+        return client.from('visitor_events').insert({
+          visitor_uuid: payload.visitorUuid,
+          session_uuid: payload.sessionUuid,
+          page_path: payload.pagePath,
+          page_title: payload.pageTitle,
+          referrer: payload.referrer,
+          source: payload.source,
+          medium: payload.medium,
+          campaign: payload.campaign,
+          device_category: payload.deviceCategory,
+          consent_state: payload.consentState
+        }).then(function (result) {
+          if (!result.error) { try { sessionStorage.setItem(eventKey, sessionUuid); } catch (_) {} }
+        });
+      }).catch(function () {});
+
+    } catch (err) {
+      // Analytics failures must never affect page functionality
+    }
+  }
+
+  // Consent Banner UI
+  function initConsentBanner() {
+    if (getConsentState() !== 'undecided') return;
+
+    const banner = document.createElement('div');
+    banner.id = 'karma-consent-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-label', 'Cookie and analytics consent');
+    banner.innerHTML = `
+      <div class="consent-container">
+        <div class="consent-text">
+          <strong>Privacy &amp; Analytics Notice:</strong> We use minimal, privacy-friendly first-party cookies to measure website performance and remember your preferences. No personal information is sold or shared.
+          <a href="/privacy-policy.html" class="consent-link">Read our Privacy Policy</a>.
+        </div>
+        <div class="consent-buttons">
+          <button type="button" class="btn-consent accept" id="btn-consent-accept">Accept All</button>
+          <button type="button" class="btn-consent decline" id="btn-consent-decline">Essential Only</button>
+        </div>
+      </div>
+      <style>
+        #karma-consent-banner {
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          right: 20px;
+          max-width: 860px;
+          margin: 0 auto;
+          background: #171717;
+          color: #f3f4f6;
+          padding: 16px 24px;
+          border-radius: 8px;
+          border: 1px solid #333;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+          z-index: 99999;
+          font-family: inherit;
+          font-size: 13.5px;
+          line-height: 1.5;
+        }
+        .consent-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+          flex-wrap: wrap;
+        }
+        .consent-text { flex: 1; min-width: 260px; }
+        .consent-link { color: #d9232d; text-decoration: underline; margin-left: 4px; }
+        .consent-buttons { display: flex; gap: 10px; align-items: center; }
+        .btn-consent {
+          padding: 8px 18px;
+          border-radius: 4px;
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          border: none;
+          font-family: inherit;
+          transition: opacity 0.2s;
+        }
+        .btn-consent.accept { background: #d9232d; color: #fff; }
+        .btn-consent.accept:hover { opacity: 0.9; }
+        .btn-consent.decline { background: #2a2a2a; color: #d1d5db; border: 1px solid #444; }
+        .btn-consent.decline:hover { background: #383838; }
+        @media (max-width: 600px) {
+          #karma-consent-banner { bottom: 10px; left: 10px; right: 10px; padding: 14px 16px; }
+          .consent-buttons { width: 100%; justify-content: flex-end; }
+        }
+      </style>
+    `;
+
+    document.body.appendChild(banner);
+
+    document.getElementById('btn-consent-accept').addEventListener('click', function () {
+      setConsentState('granted');
+      trackPageView();
+    });
+
+    document.getElementById('btn-consent-decline').addEventListener('click', function () {
+      setConsentState('necessary');
+    });
+  }
+
+  // Public API
+  window.KarmaAnalytics = {
+    getVisitorUuid: getOrCreateVisitorUuid,
+    getSessionUuid: getOrCreateSessionUuid,
+    getAttribution: function () {
+      const attr = determineAttribution();
+      return {
+        visitorUuid: getOrCreateVisitorUuid(),
+        sessionUuid: getOrCreateSessionUuid(),
+        landingPage: sessionStorage.getItem(LANDING_KEY) || window.location.pathname,
+        source: attr.source,
+        medium: attr.medium,
+        campaign: attr.campaign,
+        content: attr.content,
+        term: attr.term
+      };
+    },
+    getConsent: getConsentState,
+    setConsent: setConsentState,
+    trackPageView: trackPageView
+  };
+
+  // Auto-track on load
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    trackPageView();
+    initConsentBanner();
+  } else {
+    document.addEventListener('DOMContentLoaded', function () {
+      trackPageView();
+      initConsentBanner();
+    });
+  }
+})(window, document);
