@@ -6,7 +6,6 @@ const configured = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(config.url || ""
   config.anonKey && !/YOUR_|PLACEHOLDER/i.test(config.anonKey);
 const db = configured ? createClient(config.url, config.anonKey) : null;
 const root = document.getElementById("role-dashboard-root");
-const legacy = [...document.querySelectorAll("#view-dashboard > :not(#role-dashboard-root)")];
 let current = null;
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
@@ -175,7 +174,6 @@ function render(role, metrics, values, tasks, visits, enquiries, audit) {
 async function loadDashboard() {
   if (!current || !root) return;
   root.classList.remove("hidden");
-  legacy.forEach((element) => element.classList.add("hidden"));
   if (!db) {
     root.innerHTML = '<div class="rd-empty">Dashboard connection is unavailable. Check the Supabase configuration and refresh.</div>';
     return;
