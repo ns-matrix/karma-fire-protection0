@@ -176,3 +176,16 @@ tbody tr:hover{background:#F8FAFC}
   .main{margin-left:240px;padding:24px 28px 48px}
   .topbar{position:sticky;top:0;z-index:12;min-height:56px;padding:10px 0 14px;background:#F4F7FC}
 }
+
+
+body.admin-drawer-open{overflow:hidden}
+@media(max-width:760px){
+  .dialog{padding:10px;align-items:end}
+  .dialog-card{width:100%;max-height:calc(100dvh - 20px);border-radius:14px 14px 10px 10px;padding:18px}
+  .dialog-head h2{font-size:18px}
+  .detail-grid{grid-template-columns:1fr;gap:8px}
+  .content-editor,.content-list{padding:12px}
+  .content-editor input,.content-editor textarea,.dialog-card input,.dialog-card select,.dialog-card textarea{font-size:16px}
+  .tabs{overflow-x:auto;white-space:nowrap;padding-bottom:4px}
+  .tab{flex:0 0 auto}
+}
