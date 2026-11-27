@@ -1080,6 +1080,7 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
     function renderDynamicData() {}
 
     function navigateTo(pageId, anchorId = null) {
+      if (pageId && location.hash !== '#' + pageId) history.pushState({ pageId }, '', '#' + pageId);
       document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
       const target = document.getElementById('page-' + pageId);
       if (target) target.classList.remove('hidden');
