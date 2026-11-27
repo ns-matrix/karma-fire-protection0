@@ -115,7 +115,7 @@ tbody tr:hover{background:#F8FAFC}
   content:"KARMA FIRE PROTECTION LLP\A Stay Prepared. Stay Protected.\A\A Reliable fire-safety operations, from first enquiry to ongoing maintenance.";
   white-space:pre-line;display:flex;align-items:center;min-height:70vh;padding:clamp(24px,5vw,76px);
   color:#F8FAFC;font:700 clamp(28px,4vw,54px)/1.15 "Jost",sans-serif;letter-spacing:-.035em;
-  background:linear-gradient(115deg,rgba(11,17,32,.92),rgba(15,36,74,.70)),url("../../../assets/images/hero-1.webp") center/cover;
+  background:linear-gradient(115deg,rgba(11,17,32,.92),rgba(15,36,74,.70)),url("../../../../assets/images/hero-1.webp") center/cover;
   border:1px solid rgba(220,228,240,.15);border-radius:16px
 }
 .login-card{
