@@ -23,7 +23,7 @@ create table if not exists public.website_site_settings(
  email text not null default 'karmafireprotectionllp@gmail.com',
  address text not null default 'Police Station, 04, near Surya Nagar, Suryanagar No. 2, Surya Nagar, HMPL Surya Nagar, Vikhroli West, Mumbai, Maharashtra 400083',
  map_embed_url text,map_directions_url text,latitude numeric(10,7),longitude numeric(10,7),
- opening_hours jsonb not null default '{"days":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"19:00"}'::jsonb,
+ opening_hours jsonb not null default '{"days":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"note":"Available Mon - Sat for enquiries"}'::jsonb,
  social_dock_enabled boolean not null default true,updated_at timestamptz not null default now(),
  updated_by uuid references auth.users(id) on delete set null
 );
