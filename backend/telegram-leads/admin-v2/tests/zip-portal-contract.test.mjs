@@ -76,7 +76,7 @@ test('Supabase migration creates secure editable website content and labelled de
   const seedSection = sql.slice(sql.indexOf('insert into public.website_site_settings'));
   assert.doesNotMatch(seedSection, /do update set/i);
   assert.match(sql, /return v;/);
-  assert.match(sql, /on conflict\\(slug\\) do update set content=excluded.content/i);
+  assert.match(sql, /on conflict\(slug\) do update set content=excluded.content/i);
   assert.match(sql, /drop policy if exists .*Website roles manage team/i);
 });
 
