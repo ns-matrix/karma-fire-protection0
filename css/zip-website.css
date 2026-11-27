@@ -13,6 +13,7 @@ button,a{touch-action:manipulation}
 #lead-submit-btn:disabled{opacity:.6;cursor:wait}
 #form-success,#rev-success{white-space:normal}
 @media(max-width:767px){
+  [aria-label="Social Media Shortcuts"]{display:none!important}
   body{padding-bottom:76px}
   #mobile-social-dock:not(.hidden){display:flex}
   #page-contact .grid{gap:18px}
