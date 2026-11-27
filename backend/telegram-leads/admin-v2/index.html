@@ -7,14 +7,40 @@
 <link rel="stylesheet" href="assets/admin.css">
 </head>
 <body>
-<div id="login" class="login-wrap">
-  <form id="login-form" class="login-card">
-    <div class="eyebrow">KARMA FIRE PROTECTION LLP</div><h1>Operations Console</h1>
-    <p class="muted">Secure staff sign-in</p><p class="muted">For security, sign-in and administrative changes may be logged with request IP address, device/browser type and action timestamp. Session cookies and passwords are never read or stored in the audit log.</p>
-    <label>Email<input id="email" type="email" autocomplete="username" required></label>
-    <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
-    <button class="btn primary" type="submit">Sign in</button><p id="login-error" class="error" role="alert"></p>
-  </form>
+<div id="login" class="login-wrap login-reference">
+  <section class="login-hero" aria-label="Karma Fire Protection">
+    <img class="login-hero-image" src="https://lh3.googleusercontent.com/aida/ALJJyrAlVQUAoyR6WenKfC2R2PxJSaY4nicH5IyULuJu_-svHbqsLAvzhg7E8ikgYxA6WQdkzlyxCJ6mRm8K_u53IzGfo9mhbPWYRgPZ3l6fxAsWhXVJjqxjV4ehKCHZs_8PhpyALMC1R6Ec1EeDIU7FvrD-U23kUnds_weQp-0HLjRksDEV7cbAtdfPaBTkzzvWf1o_EYZTSUd2yb5-F7MVGm7bx78z1E7vneH1k6op4rbPBq28EShCHRtqXfE" alt="Firefighter in protective gear facing glowing embers">
+    <div class="login-hero-shade" aria-hidden="true"></div>
+    <div class="login-hero-content">
+      <header class="login-brand">
+        <span class="login-brand-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 4 5.5v6c0 5.3 3.4 10.1 8 11.5 4.6-1.4 8-6.2 8-11.5v-6L12 2Z" fill="#10264c" stroke="white" stroke-width="1.4"/><path d="M12.3 7.2s2.9 2.4 2.9 5.4c0 1.9-1.4 3.4-3.2 3.4s-3.2-1.5-3.2-3.4c0-1.4.8-2.6 1.6-3.4 0 1.2.8 1.8.8 1.8s-.2-1.9 1.1-3.8Z" fill="#E54826"/></svg></span>
+        <span><strong>Karma</strong><small>Fire Protection</small></span>
+      </header>
+      <div class="login-hero-message">
+        <h2>Stay Prepared.<br><span>Stay Protected.</span></h2>
+        <p>Manage Telegram Leads with Power &amp; Confidence</p>
+      </div>
+      <div class="login-hero-pillars">
+        <div><span class="material-symbols-outlined" aria-hidden="true">monitoring</span><p>Track Leads<br>in Real-Time</p></div>
+        <div><span class="material-symbols-outlined" aria-hidden="true">trending_up</span><p>Grow Your<br>Business</p></div>
+        <div><span class="material-symbols-outlined" aria-hidden="true">verified_user</span><p>Secure &amp;<br>Reliable</p></div>
+      </div>
+      <p class="login-hero-copyright">© 2026 Karma Fire Protection. All rights reserved.</p>
+    </div>
+  </section>
+  <section class="login-form-panel">
+    <form id="login-form" class="login-card">
+      <div class="login-form-heading"><h1>Welcome Back!</h1><p>Sign in to your admin panel</p></div>
+      <p class="login-security-note">For security, sign-in and administrative changes may be logged with request IP address, device/browser type and action timestamp. Session cookies and passwords are never read or stored in the audit log.</p>
+      <label for="email">Email</label>
+      <div class="login-input-wrap"><span class="material-symbols-outlined" aria-hidden="true">person</span><input id="email" type="email" autocomplete="username" placeholder="Email address" required></div>
+      <label for="password">Password</label>
+      <div class="login-input-wrap"><span class="material-symbols-outlined" aria-hidden="true">lock</span><input id="password" type="password" autocomplete="current-password" placeholder="Password" required></div>
+      <button class="btn primary login-submit" type="submit"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>Sign In</button>
+      <p id="login-error" class="error" role="alert"></p>
+      <p class="login-help">Need help accessing your account? Contact your administrator.</p>
+    </form>
+  </section>
 </div>
 <div id="app" class="hidden">
   <aside class="sidebar" id="app-sidebar" aria-label="Main navigation">
