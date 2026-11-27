@@ -8,6 +8,10 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../../..");
 const read = (path) => readFileSync(resolve(root, path), "utf8");
 
 test("all public pages load the shared reference theme without replacing page modules", () => {
+  const theme = read("css/reference-theme.css");
+  assert.match(theme, /--fire-red:\s*#E54826/);
+  assert.match(theme, /#0F244A/);
+  assert.match(theme, /@media\(max-width:768px\)/);
   for (const page of ["index.html", "about.html", "services.html", "projects.html", "contact.html", "privacy-policy.html"]) {
     const html = read(page);
     assert.match(html, /css\/reference-theme\.css/, page + " must load the theme");
