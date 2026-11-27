@@ -17,6 +17,10 @@ on:
       - "feat/website-analytics-cms-audit"
       - "feat/karma-complete-website-admin-ui"
     paths:
+      - "*.html"
+      - "css/**"
+      - "js/forms.js"
+      - "js/validation.js"
       - "backend/telegram-leads/admin-v2/**"
       - "js/analytics.js"
       - "js/analytics-core.mjs"
