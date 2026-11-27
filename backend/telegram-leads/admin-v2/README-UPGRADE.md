@@ -4,7 +4,9 @@
 
 Use one shared portal:
 
-`backend/telegram-leads/admin-v2/index.html`
+`https://ns-matrix.github.io/karma-fire-protection0/backend/telegram-leads/admin-v2/index.html`
+
+The public website is `https://ns-matrix.github.io/karma-fire-protection0/` and the source repository is `https://github.com/ns-matrix/karma-fire-protection0`.
 
 The legacy `super-admin.html` URL redirects to the same portal. After Supabase Authentication, the application calls the role resolver and builds the dashboard/navigation for that role. It does not use separate login forms or separate dashboards.
 
@@ -29,7 +31,7 @@ The additive migrations provision:
 - Suppliers, warehouses, inventory items, purchase orders, purchase-order items and stock movements.
 - Compliance documents, tasks, task comments, record attachments and audit events.
 
-All 41 public tables currently have RLS enabled. The migration also creates an inventory balance view, an append-only stock ledger, quotation line-total calculations and guards that prevent changes to issued quotation snapshots.
+At the latest live schema check (2026-11-28), all 50 public tables have RLS enabled. The migration also creates an inventory balance view, an append-only stock ledger, quotation line-total calculations and guards that prevent changes to issued quotation snapshots.
 
 ## Secure server functions
 
