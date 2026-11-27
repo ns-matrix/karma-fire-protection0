@@ -1165,7 +1165,8 @@ if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
     function handleReviewSubmit(e) { e.preventDefault(); window.KarmaPublic?.submitReview(e); }
 
     renderDynamicData();
-    navigateTo('home');
+    const initialRoute = location.hash.replace(/^#/, '');
+    navigateTo(['home','about','services','projects','contact','privacy-policy'].includes(initialRoute) ? initialRoute : 'home');
   </script>
 
 
