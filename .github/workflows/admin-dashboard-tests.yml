@@ -6,6 +6,9 @@ on:
       - "js/analytics.js"
       - "js/analytics-core.mjs"
       - "supabase/migrations/20261127120000_website_analytics_events.sql"
+      - "js/analytics.js"
+      - "js/analytics-core.mjs"
+      - "supabase/migrations/20261127120000_website_analytics_events.sql"
       - ".github/workflows/admin-dashboard-tests.yml"
   push:
     branches:
