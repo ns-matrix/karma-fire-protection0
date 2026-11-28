@@ -1,121 +1,304 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Karma Fire Protection | Operations Console</title>
-<link rel="stylesheet" href="assets/admin.css">
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karma Fire Protection — Website Admin Portal (Desktop)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'brand-flame': '#E54826',
+        'info': '#1D74D8',
+        'on-info': '#FFFFFF',
+        'info-container': '#E8F2FF',
+        'on-info-container': '#0E4A8F',
+        'success': '#15803D',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'warning-container': '#FEF3C7',
+        'on-warning-container': '#78350F',
+        'purple': '#6D28D9',
+        'on-purple': '#FFFFFF',
+        'purple-container': '#EDE9FE',
+        'on-purple-container': '#4C1D95',
+        'light-primary': '#0F244A',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#E2E8F5',
+        'light-on-primary-container': '#0F244A',
+        'light-secondary': '#475569',
+        'light-on-secondary': '#FFFFFF',
+        'light-secondary-container': '#E2E8F0',
+        'light-on-secondary-container': '#1E293B',
+        'light-tertiary': '#1D74D8',
+        'light-on-tertiary': '#FFFFFF',
+        'light-tertiary-container': '#E8F2FF',
+        'light-on-tertiary-container': '#0E4A8F',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FEE2E2',
+        'light-on-error-container': '#7F1D1D',
+        'light-background': '#F4F7FC',
+        'light-on-background': '#0F172A',
+        'light-surface': '#F4F7FC',
+        'light-surface-dim': '#E2E8F0',
+        'light-surface-bright': '#FFFFFF',
+        'light-surface-container-lowest': '#FFFFFF',
+        'light-surface-container-low': '#F8FAFC',
+        'light-surface-container': '#F1F5F9',
+        'light-surface-container-high': '#E8EEF6',
+        'light-surface-container-highest': '#DCE4F0',
+        'light-on-surface': '#0F172A',
+        'light-surface-variant': '#E2E8F0',
+        'light-on-surface-variant': '#475569',
+        'light-outline': '#64748B',
+        'light-outline-variant': '#DCE4F0',
+        'light-inverse-surface': '#0F244A',
+        'light-inverse-on-surface': '#F8FAFC',
+        'light-inverse-primary': '#B3C6F5',
+        'light-shadow': '#0F244A',
+        'light-scrim': '#0F172A',
+        'dark-primary': '#B3C6F5',
+        'dark-on-primary': '#0F244A',
+        'dark-primary-container': '#1C2F56',
+        'dark-on-primary-container': '#D8E2FF',
+        'dark-secondary': '#CBD5E1',
+        'dark-on-secondary': '#1E293B',
+        'dark-secondary-container': '#334155',
+        'dark-on-secondary-container': '#E2E8F0',
+        'dark-tertiary': '#93C5FD',
+        'dark-on-tertiary': '#0E3A6E',
+        'dark-tertiary-container': '#1E3A8A',
+        'dark-on-tertiary-container': '#DBEAFE',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-background': '#0B1120',
+        'dark-on-background': '#F1F5F9',
+        'dark-surface': '#0B1120',
+        'dark-surface-dim': '#0B1120',
+        'dark-surface-bright': '#1E293B',
+        'dark-surface-container-lowest': '#0F172A',
+        'dark-surface-container-low': '#131C31',
+        'dark-surface-container': '#18233B',
+        'dark-surface-container-high': '#1E293B',
+        'dark-surface-container-highest': '#27354F',
+        'dark-on-surface': '#F1F5F9',
+        'dark-surface-variant': '#334155',
+        'dark-on-surface-variant': '#9FACBF',
+        'dark-outline': '#64748B',
+        'dark-outline-variant': '#27354F',
+        'dark-inverse-surface': '#F1F5F9',
+        'dark-inverse-on-surface': '#0F172A',
+        'dark-inverse-primary': '#0F244A',
+        'dark-shadow': '#000000',
+        'dark-scrim': '#000000',
+      },
+      borderRadius: {
+        'sm': '6px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '12px',
+        'gutter-lg': '16px',
+        'gutter-xl': '20px',
+        'gutter-2xl': '24px',
+        'section': '32px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Jost"', 'sans-serif'],
+        'headline': ['"Jost"', 'sans-serif'],
+        'title': ['"Instrument Sans"', 'sans-serif'],
+        'body': ['"Instrument Sans"', 'sans-serif'],
+        'label': ['"Instrument Sans"', 'sans-serif'],
+        'mono': ['"Source Code Pro"', 'monospace'],
+      },
+      fontSize: {
+        'display-md': ['36px', { lineHeight: '44px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '32px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.15px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '600' }],
+        'label-md': ['13px', { lineHeight: '18px', letterSpacing: '0px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '200ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Jost:wght@500;600;700&amp;family=Source+Code+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+  </style>
+  <link rel="stylesheet" href="assets/zip-portal.css">
 </head>
-<body>
-<div id="login" class="login-wrap">
-  <form id="login-form" class="login-card">
-    <div class="eyebrow">KARMA FIRE PROTECTION LLP</div><h1>Operations Console</h1>
-    <p class="muted">Secure staff sign-in</p><p class="muted">For security, sign-in and administrative changes may be logged with request IP address, device/browser type and action timestamp. Session cookies and passwords are never read or stored in the audit log.</p>
-    <label>Email<input id="email" type="email" autocomplete="username" required></label>
-    <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
-    <button class="btn primary" type="submit">Sign in</button><p id="login-error" class="error" role="alert"></p>
-  </form>
-</div>
-<div id="app" class="hidden">
-  <aside class="sidebar">
-    <a class="brand" href="./"><span class="brand-mark">K</span><span>KARMA FIRE<small>OPERATIONS</small></span></a>
-    <div class="nav-caption">WORKSPACE</div>
-    <button class="nav active" data-view="dashboard">▦ <span>Dashboard</span></button>
-    <button class="nav" data-view="enquiries">▤ <span>Enquiries</span><b id="nav-new" class="nav-count">0</b></button>
-    <button class="nav" data-view="customers">♙ <span>Customers</span></button>
-    <button class="nav" data-view="sites">⌖ <span>Sites</span></button>
-    <button class="nav" data-view="surveys">⌕ <span>Surveys & Audits</span></button>
-    <button class="nav" data-view="quotations">▧ <span>Quotations & BOQ</span></button>
-    <button class="nav" data-view="projects">◫ <span>Projects</span></button>
-    <button class="nav" data-view="service">◷ <span>Service & AMC</span></button>
-    <button class="nav" data-view="assets">▣ <span>Equipment & Assets</span></button>
-    <button class="nav" data-view="inventory">▥ <span>Inventory</span></button>
-    <button class="nav" data-view="compliance">✓ <span>Compliance</span></button>
-    <button class="nav" data-view="tasks">☷ <span>Tasks & Calendar</span></button>
-    <div class="nav-caption">WORKFLOW DETAILS</div>
-    <button class="nav" data-view="contacts">♧ <span>Customer Contacts</span></button>
-    <button class="nav" data-view="survey_templates">▤ <span>Survey Templates</span></button>
-    <button class="nav" data-view="survey_responses">✓ <span>Survey Responses</span></button>
-    <button class="nav" data-view="quotation_items">▧ <span>BOQ Line Items</span></button>
-    <button class="nav" data-view="quotation_approvals">✓ <span>Quotation Approvals</span></button>
-    <button class="nav" data-view="project_milestones">◫ <span>Project Milestones</span></button>
-    <button class="nav" data-view="project_tasks">☷ <span>Project Tasks</span></button>
-    <button class="nav" data-view="amc_contracts">◷ <span>AMC Contracts</span></button>
-    <button class="nav" data-view="defects">⚠ <span>Defects</span></button>
-    <button class="nav" data-view="suppliers">▣ <span>Suppliers</span></button>
-    <button class="nav" data-view="warehouses">▥ <span>Warehouses</span></button>
-    <button class="nav" data-view="stock_movements">⇄ <span>Stock Ledger</span></button>
-    <button class="nav" data-view="purchase_orders">▤ <span>Purchase Orders</span></button>
-    <button class="nav" data-view="purchase_order_items">▦ <span>Purchase Order Items</span></button>
-    <div class="nav-caption">MANAGEMENT</div>
-    <button class="nav" data-view="reports">▥ <span>Reports</span></button>
-    <a class="nav" href="./website-analytics.html">◷ <span>Website Analytics</span></a>
-    <button class="nav" data-view="website">▧ <span>Website Manager</span></button><a class="nav" href="./cms-editor.html">✎ <span>Website CMS Editor</span></a>
-    <button class="nav" data-view="team">♙ <span>Team & Admins</span></button>
-    <button class="nav" data-view="profile">◉ <span>My Profile</span></button>
-    <div id="super-entry" class="hidden super-entry"><div class="nav-caption">SYSTEM GOVERNANCE</div><a class="nav" href="./visitor-audit.html">◉ <span>Visitor Audit</span></a><button class="nav" data-view="control">◆ <span>System Control</span></button></div>
-    <div class="sidebar-foot"><span class="online-dot"></span> Supabase connected <small id="role-label">Staff</small></div>
-  </aside>
-  <main class="main">
-    <header class="topbar"><div class="topbar-title"><button id="mobile-nav-toggle" class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button><div><div class="eyebrow">KARMA FIRE PROTECTION / WORKSPACE</div><h1 id="view-title">Dashboard</h1></div></div>
-      <div class="top-actions"><span id="user-email" class="muted">Authenticated workspace</span><button id="refresh" class="btn soft">↻ Refresh</button><button id="logout" class="btn dark">Sign out</button></div>
-    </header>
-    <div id="notice" class="notice hidden"></div>
-    <section id="view-dashboard" class="view active">
-      <div id="role-dashboard-root" class="role-dashboard-root" aria-live="polite"></div>
-      <div class="welcome"><div><div class="eyebrow">OPERATIONS OVERVIEW</div><h2>Good work starts with clear visibility.</h2><p>Track incoming enquiries and keep the next action moving.</p></div><div class="welcome-date" id="today"></div></div>
-      <div class="kpi-grid">
-        <article class="kpi"><span>Total enquiries</span><strong id="kpi-total">—</strong><small>All recorded requests</small></article>
-        <article class="kpi"><span>New enquiries</span><strong id="kpi-new">—</strong><small>Awaiting first response</small></article>
-        <article class="kpi"><span>Qualified</span><strong id="kpi-qualified">—</strong><small>Sales-qualified requests</small></article>
-        <article class="kpi"><span>Converted</span><strong id="kpi-converted">—</strong><small>Won enquiries</small></article>
+<body class="bg-light-background text-light-on-surface font-body antialiased">
+
+  <!-- ===================================================================== -->
+  <!-- 1. SPLIT-SCREEN LOGIN VIEW                                            -->
+  <!-- ===================================================================== -->
+  <div id="login-view" class="hidden min-h-[1024px] grid grid-cols-1 lg:grid-cols-12 bg-light-surface-container-lowest" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <section class="relative lg:col-span-6 min-h-96 lg:min-h-[1024px] flex flex-col justify-between p-gutter-2xl lg:p-section bg-dark-background text-dark-on-surface overflow-hidden" data-stitch-vh="lg:min-h-[1024px]===lg:min-h-screen">
+      <img src="../../../assets/images/hero-1.webp" alt="Karma Fire Protection Operations" class="absolute inset-0 w-full h-full object-cover opacity-35">
+      <div class="absolute inset-0 bg-light-primary/80"></div>
+      <div class="relative z-10 flex items-center justify-between">
+        <div class="bg-dark-background/90 px-gutter-lg py-gutter-sm rounded-DEFAULT border border-dark-outline-variant">
+          <img src="../../../assets/logos/logo-light.webp" alt="Karma Fire Protection LLP" class="h-8 w-auto object-contain">
+        </div>
+        <span class="px-gutter-md py-gutter-xs rounded-full bg-dark-surface-container text-dark-on-surface font-label text-label-sm border border-dark-outline-variant">Website CMS &amp; Audit</span>
       </div>
-      <div class="content-grid">
-        <article class="card"><div class="card-head"><div><h3>Recent enquiries</h3><p>Latest customer requests</p></div><button class="text-btn" data-goto="enquiries">View all →</button></div><div id="recent-list" class="list-state">Loading…</div></article>
-        <article class="card"><div class="card-head"><div><h3>Enquiry pipeline</h3><p>Current status distribution</p></div></div><div id="pipeline" class="bars"></div></article>
+      <div class="relative z-10 flex flex-col gap-gutter-lg my-auto py-section max-w-lg">
+        <h1 class="font-headline text-display-md text-light-on-primary text-balance">Public Website Control Center</h1>
+        <p class="font-body text-body-lg text-dark-secondary text-pretty">Monitor submitted enquiries, moderate and reply to client reviews, audit cookie consent &amp; visitor events, and manage services, team profiles, and social links.</p>
       </div>
-      <article class="card mt"><div class="card-head"><div><h3>Operations modules</h3><p>Module activation follows the approved database rollout phases.</p></div><span class="pill warning">Phased rollout</span></div><div id="module-cards" class="module-grid"></div></article>
+      <div class="relative z-10 flex items-center justify-between text-dark-on-surface-variant font-body text-body-sm">
+        <span>Karma Fire Protection LLP</span>
+        <span class="font-mono text-mono-sm">Desktop &amp; Mobile Synced</span>
+      </div>
     </section>
-    <section id="view-enquiries" class="view">
-      <article class="card"><div class="card-head"><div><h2>Enquiry management</h2><p>Search, filter, assign and update the existing lead pipeline.</p></div><button id="export-csv" class="btn soft">Export filtered CSV</button></div>
-        <div class="filters"><input id="lead-search" placeholder="Search name, phone, company, email…"><select id="lead-status"><option value="">All statuses</option><option>New</option><option>Contacted</option><option>Qualified</option><option>Proposal Sent</option><option>Converted</option><option>Lost</option></select><input id="date-from" type="date"><input id="date-to" type="date"></div>
-        <div class="table-scroll"><table><thead><tr><th>Reference</th><th>Received</th><th>Customer</th><th>Service</th><th>Location</th><th>Status</th><th>Action</th></tr></thead><tbody id="lead-rows"><tr><td colspan="7">Loading enquiries…</td></tr></tbody></table></div><div id="lead-count" class="table-foot"></div>
-      </article>
+
+    <section class="lg:col-span-6 flex items-center justify-center p-gutter-2xl bg-light-surface">
+      <form id="portal-login-form" class="w-full max-w-md bg-light-surface-container-lowest rounded-md border border-light-outline-variant p-gutter-2xl shadow-sm flex flex-col gap-gutter-lg">
+        <div>
+          <h2 class="font-headline text-headline-lg text-light-on-surface">Admin Sign In</h2>
+          <p class="font-body text-body-md text-light-on-surface-variant">Access the Karma Fire Protection Website Admin Panel.</p>
+        </div>
+        <div class="flex flex-col gap-gutter-xs">
+          <label for="login-email" class="font-label text-label-md">Email</label>
+          <input id="login-email" type="email" placeholder="you@company.com" autocomplete="username" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+        </div>
+        <div class="flex flex-col gap-gutter-xs">
+          <label for="login-pass" class="font-label text-label-md">Password</label>
+          <input id="login-pass" type="password" placeholder="Enter your password" autocomplete="current-password" required class="rounded-DEFAULT border-light-outline-variant bg-light-surface-container-low font-body text-body-md">
+        </div>
+        <p id="login-error" class="font-body text-body-sm text-light-error" role="alert"></p><button id="portal-login-submit" type="submit" class="w-full py-gutter-md rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-lg hover:opacity-95">Sign In to Portal</button>
+      </form>
     </section>
-    <section id="view-website" class="view">
-      <article class="card"><div class="card-head"><div><h2>Website manager</h2><p>Manage public team profiles, grouped by department, plus products, services and company content.</p></div></div>
-        <div class="tabs"><button class="tab active" data-content="team_members">Team</button><button class="tab" data-content="products">Products</button><button class="tab" data-content="services">Services</button><button class="tab" data-content="public_portfolio_projects">Projects</button><button class="tab" data-content="public_testimonials">Reviews</button><button class="tab" data-content="social_links">Social links</button></div>
-        <p class="muted">Team profiles are published to the website by team name. Only the Team tab fields are public; internal employee biographies remain private.</p><div class="content-manage"><div id="content-list" class="content-list">Select a content category.</div><form id="content-form" class="content-editor"><h3 id="content-form-title">Add content</h3><div id="content-fields"></div><label>Image file<input id="content-file" type="file" accept="image/png,image/jpeg,image/webp,image/avif"></label><div class="button-row"><button class="btn primary" type="submit">Save content</button><button class="btn soft" type="button" id="content-cancel">Clear</button></div><p id="content-message" role="status"></p></form></div>
-      </article>
-    </section>
-    <section id="view-reports" class="view"><article class="card"><h2>Operational reports</h2><p>Live reports are currently based on the existing enquiry records. More reports will appear as the operations tables are provisioned.</p><div class="report-grid"><div><h3>By service</h3><div id="service-report" class="bars"></div></div><div><h3>By status</h3><div id="status-report" class="bars"></div></div></div></article></section>
-    <section id="view-profile" class="view"><article class="card narrow"><h2>My profile</h2><p id="profile-email"></p><p id="profile-role" class="pill"></p><p class="muted">Your access is determined by database-backed authorization. Contact the Super Admin to request access changes.</p></article></section>
-    <section id="view-module" class="view">
- <article class="card"><div class="card-head"><div><h2 id="module-title">Module</h2><p id="module-description">Operational records protected by database permissions.</p></div><button id="module-add" class="btn primary">＋ New record</button></div>
- <div id="module-tabs" class="tabs"></div><div class="filters"><input id="module-search" placeholder="Search records…"><button id="module-refresh" class="btn soft">↻ Refresh</button></div>
- <div class="table-scroll"><table><thead id="module-head"></thead><tbody id="module-rows"><tr><td>Choose a module.</td></tr></tbody></table></div><div id="module-count" class="table-foot"></div></article>
-</section>
-<section id="view-team" class="view"><article class="card"><div class="card-head"><div><h2>Team & administrators</h2><p>Manage standard admin accounts and employee profiles. Super Admin identities are excluded from this directory.</p></div><button id="employee-add" class="btn soft">＋ Add employee</button></div>
-<form id="invite-form" class="invite-grid"><label>Admin email<input id="invite-email" type="email" required></label><label>Display name<input id="invite-name" maxlength="100"></label><button class="btn primary" type="submit">Invite standard admin</button></form><p id="invite-message" role="status"></p>
-<div class="divider"></div>
-<form id="employee-invite-form" class="invite-grid">
-<label>Employee email<input id="employee-email" type="email" required></label>
-<label>Full name<input id="employee-full-name" maxlength="120" required></label>
-<label>Job title<input id="employee-job-title" maxlength="100"></label>
-<label>Department<select id="employee-department" required></select></label>
-<label>Role<select id="employee-role" required></select></label>
-<button class="btn soft" type="submit">Invite employee</button>
-</form><p id="employee-invite-message" role="status"></p>
-<div class="content-grid"><article class="card"><h3>Standard administrators</h3><div id="admin-directory" class="content-list"></div></article><article class="card"><h3>Employees</h3><div id="employee-directory" class="content-list"></div></article></div></article></section>
-<section id="view-control" class="view">
- <article class="card"><div class="card-head"><div><h2>System control</h2><p>Restricted governance and platform oversight.</p></div></div>
- <div class="kpi-grid"><article class="kpi"><span>Standard admins</span><strong id="control-admin-count">—</strong><small>Super Admin identities excluded</small></article><article class="kpi"><span>Employees</span><strong id="control-employee-count">—</strong><small>Active staff profiles</small></article><article class="kpi"><span>Audit events</span><strong id="control-audit-count">—</strong><small>Privileged security history</small></article><article class="kpi"><span>Operational modules</span><strong>9</strong><small>Database provisioned</small></article></div>
-  <article class="card mt"><h3>Security audit trail</h3><p class="muted">Visible only to Super Admin. Privileged actor identity is not rendered in the member directory.</p><div class="table-scroll"><table><thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Module</th><th>IP address</th><th>Device</th><th>User agent</th></tr></thead><tbody id="audit-rows"></tbody></table></div></article>
- </article>
-</section>
-<div id="module-dialog" class="dialog hidden"><form id="module-form" class="dialog-card"><div class="dialog-head"><div><span class="eyebrow">OPERATIONAL RECORD</span><h2 id="module-form-title">New record</h2></div><button type="button" id="module-close" class="icon-btn">×</button></div><div id="module-fields" class="detail-grid"></div><div class="button-row"><button class="btn primary" type="submit">Save record</button><button class="btn soft" type="button" id="module-cancel">Cancel</button></div><p id="module-message" role="status"></p></form></div>
-  </main>
-</div>
-<div id="lead-dialog" class="dialog hidden"><form id="lead-edit" class="dialog-card"><div class="dialog-head"><div><span class="eyebrow">ENQUIRY RECORD</span><h2 id="dialog-name">Enquiry details</h2></div><button type="button" id="dialog-close" class="icon-btn">×</button></div><div id="dialog-details" class="detail-grid"></div><label>Status<select id="edit-status"><option>New</option><option>Contacted</option><option>Qualified</option><option>Proposal Sent</option><option>Converted</option><option>Lost</option></select></label><label>Assigned to<input id="edit-assigned" maxlength="160"></label><label>Internal notes<textarea id="edit-notes" rows="4"></textarea></label><div class="button-row"><button class="btn primary" type="submit">Save changes</button><button class="btn soft" type="button" id="dialog-cancel">Cancel</button></div><p id="edit-message" role="status"></p></form></div>
-<script src="../../../js/supabase-config.js"></script><script type="module" src="js/admin.js"></script><script type="module" src="js/role-dashboard.js"></script>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 2. DESKTOP ADMIN SHELL                                                -->
+  <!-- ===================================================================== -->
+  <div id="app-shell" class="hidden min-h-screen flex bg-light-background" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <aside class="w-64 shrink-0 min-h-[1024px] bg-light-surface-container-lowest border-r border-light-outline-variant flex flex-col sticky top-0 max-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen|||max-h-[1024px]===max-h-screen">
+      <div class="bg-dark-background px-gutter-lg py-gutter-md border-b border-dark-outline-variant shrink-0">
+        <img src="../../../assets/logos/logo-light.webp" alt="Karma Fire Protection LLP" class="h-8 w-auto object-contain">
+      </div>
+
+      <nav id="sidebar-nav" aria-label="Admin Navigation" class="flex-1 overflow-y-auto px-gutter-md py-gutter-lg flex flex-col gap-gutter-xs">
+        <!-- Rendered by JS -->
+      </nav>
+
+      <div class="p-gutter-md border-t border-light-outline-variant bg-light-surface-container-low flex items-center justify-between gap-gutter-sm shrink-0">
+        <div class="flex items-center gap-gutter-sm min-w-0">
+          <div class="w-9 h-9 rounded-full bg-light-primary text-light-on-primary flex items-center justify-center font-label text-label-md shrink-0">AD</div>
+          <div class="min-w-0">
+            <p class="font-label text-label-md text-light-on-surface truncate">Website Admin</p>
+            <p class="font-body text-body-sm text-light-on-surface-variant truncate">Website Admin</p>
+          </div>
+        </div>
+        <button type="button" onclick="toggleAuth(false)" title="Sign Out" class="p-gutter-xs rounded-DEFAULT text-light-on-surface-variant hover:text-light-error hover:bg-light-error-container">
+          <span class="material-symbols-outlined">logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="flex-1 min-w-0 flex flex-col min-h-screen" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div id="mobile-portal-header" class="hidden sticky top-0 z-40 bg-dark-background text-dark-on-surface px-gutter-lg py-gutter-md items-center justify-between"><button type="button" onclick="toggleDrawer(true)" aria-label="Open navigation" class="p-2"><span class="material-symbols-outlined">menu</span></button><span class="font-label text-label-md">KARMA FIRE PROTECTION</span><button type="button" onclick="toggleAuth(false)" class="p-2" aria-label="Sign out"><span class="material-symbols-outlined">logout</span></button></div>
+      <header id="portal-topbar" class="sticky top-0 z-20 bg-light-surface-container-lowest border-b border-light-outline-variant px-gutter-2xl py-gutter-md flex items-center justify-between gap-gutter-md">
+        <div class="flex items-center gap-gutter-sm">
+          <span class="w-2 h-2 rounded-full bg-success"></span>
+          <span class="font-label text-label-md text-light-on-surface">Public Website Live · Supabase Synced</span>
+        </div>
+        <div class="flex items-center gap-gutter-sm">
+          <button type="button" onclick="renderView()" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-xs rounded-DEFAULT border border-light-outline-variant font-label text-label-sm hover:bg-light-surface-container">
+            <span class="material-symbols-outlined text-label-lg">refresh</span>
+            <span>Refresh</span>
+          </button>
+          <button type="button" onclick="toggleAuth(false)" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-xs rounded-DEFAULT border border-light-outline-variant font-label text-label-sm text-light-error hover:bg-light-error-container">
+            <span class="material-symbols-outlined text-label-lg">logout</span>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="portal-main" class="flex-1 p-gutter-2xl pb-24 flex flex-col gap-gutter-xl">
+        <div>
+          <h1 id="page-title" class="font-headline text-headline-lg text-light-on-surface">Website Overview</h1>
+          <p id="page-subtitle" class="font-body text-body-md text-light-on-surface-variant">Monitor public enquiries, reviews, visitor cookies, and CMS content.</p>
+        </div>
+
+        <div id="view-container" class="flex flex-col gap-gutter-xl"></div>
+      </main>
+    </div>
+  </div>
+
+  <div id="mobile-drawer" class="hidden fixed inset-0 z-50 bg-light-scrim/60">
+    <aside class="w-72 h-full bg-light-surface-container-lowest border-r border-light-outline-variant p-gutter-lg flex flex-col gap-gutter-md">
+      <div class="flex items-center justify-between"><b class="font-title text-title-md">Website Admin</b><button type="button" onclick="toggleDrawer(false)" class="p-2" aria-label="Close navigation">×</button></div>
+      <nav id="drawer-nav" class="flex flex-col gap-gutter-xs"></nav>
+    </aside>
+    <button class="absolute inset-0 -z-10" onclick="toggleDrawer(false)" aria-label="Close menu"></button>
+  </div>
+  <nav id="mobile-bottom-nav" aria-label="Mobile admin navigation" class="hidden fixed bottom-0 inset-x-0 z-40 bg-light-surface-container-lowest border-t border-light-outline-variant px-2 py-2 grid grid-cols-5 gap-1"></nav>
+
+  <!-- CMS Editor & Website Preview Modal -->
+  <div id="cms-modal" class="hidden fixed inset-0 z-50 bg-light-scrim/60 flex items-center justify-center p-gutter-xl"></div>
+
+  <!-- Toast -->
+  <div id="toast" class="hidden fixed bottom-6 right-6 z-50 px-gutter-lg py-gutter-md rounded-DEFAULT bg-light-primary text-light-on-primary font-label text-label-md shadow-lg items-center gap-gutter-sm">
+    <span class="material-symbols-outlined text-label-lg">check_circle</span>
+    <span id="toast-msg">Saved</span>
+  </div>
+
+  <script src="../../../js/supabase-config.js"></script><script type="module" src="js/zip-admin.js"></script>
+
+
 </body></html>

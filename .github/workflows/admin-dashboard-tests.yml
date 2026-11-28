@@ -1,30 +1,28 @@
-name: Admin dashboard checks
+name: Website portal checks
 on:
   pull_request:
     paths:
       - "*.html"
       - "css/**"
-      - "js/forms.js"
-      - "js/validation.js"
+      - "js/**"
+      - "assets/**"
       - "backend/telegram-leads/admin-v2/**"
-      - "js/analytics.js"
-      - "js/analytics-core.mjs"
+      - "backend/telegram-leads/admin/index.html"
       - "supabase/migrations/**"
+      - "README.md"
       - ".github/workflows/admin-dashboard-tests.yml"
   push:
     branches:
-      - "feat/role-based-responsive-dashboard"
-      - "feat/website-analytics-cms-audit"
-      - "feat/karma-complete-website-admin-ui"
+      - "feat/karma-zip-full-rebuild"
     paths:
       - "*.html"
       - "css/**"
-      - "js/forms.js"
-      - "js/validation.js"
+      - "js/**"
+      - "assets/**"
       - "backend/telegram-leads/admin-v2/**"
-      - "js/analytics.js"
-      - "js/analytics-core.mjs"
+      - "backend/telegram-leads/admin/index.html"
       - "supabase/migrations/**"
+      - "README.md"
       - ".github/workflows/admin-dashboard-tests.yml"
 jobs:
   checks:
@@ -34,13 +32,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Syntax checks
+      - name: JavaScript syntax checks
         run: |
-          node --check backend/telegram-leads/admin-v2/js/dashboard-rules.js
-          node --check backend/telegram-leads/admin-v2/js/role-dashboard.js
-          node --check backend/telegram-leads/admin-v2/js/admin.js
           node --check js/analytics.js
-          node --check js/website-cms-public.js
-          node --check js/website-audit-recommendations.mjs
-      - name: Run analytics and role tests
-        run: node --experimental-default-type=module --test backend/telegram-leads/admin-v2/tests/dashboard-rules.test.mjs backend/telegram-leads/admin-v2/tests/analytics-core.test.mjs backend/telegram-leads/admin-v2/tests/website-audit-recommendations.test.mjs backend/telegram-leads/admin-v2/tests/cms-editor-syntax.test.mjs backend/telegram-leads/admin-v2/tests/ui-reference-contract.test.mjs
+          node --input-type=module --check < js/zip-public-app.js
+          node --input-type=module --check < backend/telegram-leads/admin-v2/js/zip-admin.js
+      - name: Website and admin integration contracts
+        run: node --test backend/telegram-leads/admin-v2/tests/zip-portal-contract.test.mjs

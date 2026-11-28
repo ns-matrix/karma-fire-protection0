@@ -1,0 +1,23 @@
+/* Local refinements for the ZIP public website design. */
+:root{scroll-behavior:smooth}
+html,body{margin:0;min-height:100%;font-family:"Instrument Sans",system-ui,sans-serif}
+img{max-width:100%}
+button,a{touch-action:manipulation}
+#site-map-frame{display:block;width:100%;height:230px;border:0}
+#mobile-social-dock{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:70;display:none;gap:8px;background:#fff;border:1px solid #dbe2ec;border-radius:16px;box-shadow:0 12px 35px rgba(15,36,74,.16);padding:5px}
+#mobile-social-dock.hidden{display:none!important}
+#mobile-social-dock a{text-decoration:none;border-radius:10px}
+#mobile-social-dock a:hover{background:#f1f5fb}
+#page-contact a[href^="tel:"],#page-contact a[href^="mailto:"]{overflow-wrap:anywhere}
+#home-products-grid,#home-projects-grid,#all-projects-grid,#about-team-grid,#home-reviews-grid,#projects-reviews-grid{min-width:0}
+#lead-submit-btn:disabled{opacity:.6;cursor:wait}
+#form-success,#rev-success{white-space:normal}
+@media(max-width:767px){
+  [aria-label="Social Media Shortcuts"]{display:none!important}
+  body{padding-bottom:76px}
+  #mobile-social-dock:not(.hidden){display:flex}
+  #page-contact .grid{gap:18px}
+  #page-contact iframe{height:210px}
+  #lead-form{padding:18px}
+  #lead-form input,#lead-form select,#lead-form textarea{font-size:16px;min-height:44px}
+}

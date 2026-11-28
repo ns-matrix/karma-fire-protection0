@@ -1,96 +1,101 @@
-# Karma Fire Protection LLP — GitHub Pages + Supabase CRM
+# Karma Fire Protection LLP — ZIP Reference Website & Admin Portal
 
-A static website and browser-based CRM. **The website and admin UI are hosted by GitHub Pages. There is no Node.js runtime or Express API in the deployment path.** Supabase provides shared PostgreSQL storage and secure email/password authentication.
+The active website and admin portal have been rebuilt from the supplied ZIP design references. The public and admin layouts use the desktop design as the responsive base and the supplied mobile layouts as the mobile navigation and compact-layout reference. Existing media files under `assets/` are reused locally.
 
-## Application URLs (GitHub Pages)
+## Application URLs
 
 - **Public website:** https://ns-matrix.github.io/karma-fire-protection0/
 - **Admin panel login:** https://ns-matrix.github.io/karma-fire-protection0/backend/telegram-leads/admin-v2/index.html
 - **GitHub repository:** https://github.com/ns-matrix/karma-fire-protection0
-- **Admin panel source:** https://github.com/ns-matrix/karma-fire-protection0/tree/main/backend/telegram-leads/admin-v2
+- **Admin source:** https://github.com/ns-matrix/karma-fire-protection0/tree/main/backend/telegram-leads/admin-v2
 
-Both application URLs use the GitHub Pages host. The admin panel has one shared sign-in screen; the authenticated role determines which dashboard and modules are shown.
+The links above use GitHub Pages and GitHub. The admin panel uses Supabase email/password authentication; there are no demo login credentials in the source.
 
-## Architecture
-- HTML/CSS/vanilla JavaScript: public website and admin UI.
-- Supabase Auth: admin sign-in.
-- Supabase Postgres: enquiries, CRM operations, website content, CMS versions, visitor analytics and audit records.
-- Row Level Security (RLS): public visitors can read active published website content and insert validated enquiries/consented analytics events; they cannot read CRM leads, CMS drafts, visitor identities or audit records. Admin and employee operations are restricted by database role and row scope.
-- Browser uses only the Supabase publishable/anon key. Never expose a service-role key.
+## Current application structure
 
-## One-time Supabase setup
-1. Use the existing Supabase project for the current deployment, or create a separate development project.
-2. Authenticate and link the repository, then inspect migration history before applying SQL:
-   ```bash
-   supabase login
-   supabase link --project-ref YOUR_PROJECT_REF
-   supabase migration list
-   ```
-3. **Migration history must be reconciled before a fresh database push.** The connected live project currently has 22 applied migration records, while this repository contains 21 migration files with different version timestamps/names. Do not blindly run `supabase db push` or re-run `supabase/schema.sql` against the existing project; that could create migration drift or reapply schema changes. Reconcile the baseline, preview with `supabase db push --dry-run`, then apply only after the plan is verified.
-4. In Authentication → Users, create the admin user with a strong password.
-5. Copy that user's UUID and email. Run:
-   ```sql
-   insert into public.admin_users(user_id,email,role,display_name)
-   values ('YOUR-AUTH-USER-UUID','OWNER-EMAIL','super_admin',null);
-   ```
-6. Open Project Settings → API. Copy Project URL and the publishable key (or legacy anon key).
-7. Edit `js/supabase-config.js`:
-   ```js
-   window.KARMA_SUPABASE = {
-     url: "https://YOUR_PROJECT_REF.supabase.co",
-     anonKey: "YOUR_PUBLISHABLE_OR_ANON_KEY"
-   };
-   ```
-8. Commit the config file. The publishable/anon key is designed for browser use; RLS is the security boundary. **Never use service_role/secret keys in this repository.**
-9. In Supabase Authentication → URL Configuration, set Site URL to the GitHub Pages URL and add it to Redirect URLs:
-   `https://ns-matrix.github.io/karma-fire-protection0/**`
+- `index.html` — public multi-page website shell (Home, About, Services, Projects, Contact and Privacy).
+- `css/zip-website.css` — mobile and local layout refinements.
+- `js/zip-public-app.js` — public Supabase content loader, enquiry submission, review submission, site settings, map and published CMS loader.
+- `backend/telegram-leads/admin-v2/index.html` — ZIP Website Admin Portal.
+- `backend/telegram-leads/admin-v2/assets/zip-portal.css` — responsive admin styling and mobile navigation.
+- `backend/telegram-leads/admin-v2/js/zip-admin.js` — Supabase authentication, role-aware navigation, website content CRUD, request management, CMS versioning, analytics and settings.
+- `assets/images/` and `assets/logos/` — existing local media assets reused by the new layouts.
+- `design-reference-extracted/` — extracted source layouts and design-system reference from the supplied ZIP.
 
-## CRM capabilities
-- Admin email/password authentication and database allow-list check.
-- Dashboard totals: all, new, current month, converted.
-- Enquiry search, status and date filters.
-- Enquiry details, status changes, assignment and internal notes.
-- Delete enquiry with confirmation.
-- CSV export of the current filtered result set.
-- Reports grouped by lead status and requested service.
+Legacy public URLs (`about.html`, `services.html`, `projects.html`, `contact.html`, `privacy-policy.html`) now route into the public app. Legacy admin sub-pages route into the new unified admin portal.
 
-## Website ↔ Admin data flow
+## Admin roles
 
-- **Enquiries:** the public contact form inserts validated rows into `public.leads`; the admin Enquiries screen reads, updates, assigns and exports those records.
-- **Website Manager:** admins manage active team members, products, services, social links, portfolio projects and testimonials in Supabase. The public website loads only active rows from those same tables.
-- **Page CMS:** the CMS editor stores drafts, publishes versioned content and restores versions to draft. The public CMS loader reads `website_cms_published` and renders the published sections without replacing existing page markup or form handlers.
-- **Analytics and audit:** the consent-aware public collector writes event metadata; Website Analytics and Visitor Audit read the corresponding Supabase event, consent and audit data through role-gated queries/RPCs.
+- **Super Admin / Admin:** requests, reviews, services, products, projects, team, CMS, analytics and website settings.
+- **Website Editor:** website content, reviews, CMS and website settings. CRM requests and visitor analytics remain unavailable to this role.
+- Database RLS enforces the same split. Hiding a tab in the browser is not the security boundary.
 
-## Deployment
-GitHub Pages publishes the static files from the configured branch/folder. No build command, npm install, Node server, or environment secrets are required. After changing the Supabase config, allow Pages to finish publishing and hard-refresh the site.
+Sign in with an existing authorised Supabase Auth account. The role is resolved from the database; an ordinary Auth account without an allowed admin role cannot enter the portal.
 
-## Important limits and operational notes
-- Supabase setup is separate from GitHub Pages. Until the project URL/key and SQL schema are configured, enquiry submission and admin sign-in remain intentionally disabled with a clear setup message.
-- Anonymous public inserts are protected by RLS validation but public browser forms cannot provide the same abuse resistance as a server-side CAPTCHA/rate-limiter. Configure Supabase Auth/abuse controls and add CAPTCHA/Edge Function validation before high-volume production use.
-- Website Analytics and Visitor Audit are separate authenticated admin screens backed by Supabase analytics events, consent records, audit insights and role-gated RPCs. The public collector records only consented event metadata, not form values or keystrokes.
-- The CMS editor saves drafts, previews content, publishes versioned sections and restores a prior version to draft. It adds CMS-managed sections to existing pages; it does not rewrite the original page markup or form handlers.
-- Legacy server-runner instructions are not part of the active application. The deployed app is static HTML/CSS/JavaScript with Supabase as its backend; no Node.js server or SQLite runtime is required.
+## Website ↔ Supabase data flow
 
+| Website/admin feature | Supabase source |
+|---|---|
+| Public enquiry form → Admin Requests | `public.leads` |
+| Services | `public.services` |
+| Product catalogue | `public.products` |
+| Team profiles | `public.team_members` |
+| Projects | `public.public_portfolio_projects` |
+| Public reviews and moderation | `public.public_testimonials` |
+| Phone, email, address, map and opening hours | `public.website_site_settings` |
+| WhatsApp, phone and email links | `public.social_links` |
+| Page drafts, publishing and version restore | `website_cms_drafts`, `website_cms_published`, `website_cms_versions` |
+| Consent-gated visitor events and audit insights | `analytics_events`, `website_consent_records`, `website_audit_insights` |
 
-## Unified role-based admin portal
+The public enquiry form inserts directly into `public.leads` with consent and validation. The public review form inserts a pending, unpublished review. Only approved and active reviews are rendered on the website. Analytics stores event metadata only; it does not record form field values or keystrokes.
 
-The admin experience uses one shared sign-in and dashboard:
-- **Super Admin:** system oversight, full operational visibility, standard-admin/employee directories and security audit history.
-- **Admin:** operational management, standard-admin invitations and employee management. Super Admin identity/profile rows and audit history are not available to Admin accounts.
-- **Departmental roles:** assigned/department-scoped access is enforced by PostgreSQL RLS, not just hidden navigation.
+## Supabase demo content
 
-Super Admin identity data is deliberately excluded from the admin directory, employee profiles and role listings. The identity resolver returns only the caller's role code. Normal Admins cannot edit the role catalogue, permission grants, or assign privileged roles.
+The current Supabase project now contains editable website content:
 
-The single portal login is:
-`https://ns-matrix.github.io/karma-fire-protection0/backend/telegram-leads/admin-v2/index.html`
-The previous `/backend/telegram-leads/admin/` URL redirects to it.
+- 5 active service records using the existing local media.
+- 3 active demo product records, visibly labelled as demo on the public website.
+- 3 active demo team profiles, visibly labelled as demo on the public website.
+- 2 active demo project records, visibly labelled as demo on the public website.
+- 2 active demo review records, visibly labelled as demo; replace them with genuine customer-approved feedback before removing the demo flag.
+- 3 active contact links (WhatsApp, phone and email).
+- 1 website settings record with the existing Vikhroli West address and map.
+- 6 editable CMS drafts (Home, About, Services, Projects, Contact and Privacy).
 
-The operational schema includes Customers & Sites, Surveys & Audits, Quotations & BOQ, Projects, Service & AMC, Equipment & Assets, Inventory & Procurement, Compliance, and Tasks & Calendar. At the latest live schema check (2026-11-28), all 50 public tables had RLS enabled.
+Demo rows are marked with `is_demo = true` where supported. Demo records are active to populate the new design and are clearly labelled as demo on the public website. The admin editor lets you edit, deactivate or convert each record. Replace sample names, specifications, client details and testimonials with verified information, then clear the demo flag before presenting the content as genuine. Replace sample names, specifications, client details and testimonials with verified information, then clear the demo flag before presenting the content as genuine. The five active service descriptions are general service descriptions, not product certification claims.
 
-**Credential handling:** the browser config contains only the Supabase URL and publishable/anon key (which is designed to be public). Supabase service-role/secret keys remain in Supabase Edge Function secrets and must never be committed to GitHub or embedded in browser code. Environment files are excluded by `.gitignore`.
+The website settings use the existing location data:
+- **Address:** Police Station, 04, near Surya Nagar, Suryanagar No. 2, Surya Nagar, HMPL Surya Nagar, Vikhroli West, Mumbai, Maharashtra 400083.
+- **Map coordinates:** 19.119105, 72.922702.
+- **Phone:** +91 95949 67751.
+- **Email:** karmafireprotectionllp@gmail.com.
 
-## Deployment and security checks
+## Data preservation and cleanup
 
-GitHub Pages hosts the static HTML/CSS/JavaScript. Supabase provides authentication, PostgreSQL, RLS and Edge Functions. The `invite-crm-admin` and `invite-crm-employee` functions validate the caller on the server; employee invitations accept only approved operational roles.
+The rebuild removed only the two identified placeholder rows from the old website catalogue/review tables. Existing enquiries, visitor analytics, audit history and authorised Supabase Auth/admin accounts were retained. Do not use a broad table truncate or reset against the live project.
 
-Full workflow acceptance remains ongoing for private document storage, quotation PDFs/customer acceptance, automated project/AMC scheduling, reminders and mobile field-work. The UI and schema contracts are being checked against the live Supabase project; browser-based end-to-end acceptance still requires a real admin test session.
+## Supabase configuration and migration
+
+The browser uses only the Supabase publishable key in `js/supabase-config.js`. Never put a service-role or secret key in this repository.
+
+The rebuild migration is:
+
+`supabase/migrations/20261128120000_zip_website_admin_portal.sql`
+
+It adds the website settings table, content-management permissions, review moderation fields and demo website content. The migration SQL has been applied directly to the connected Supabase project and the live role/RLS behaviour was checked; this new migration has not yet been registered in the remote migration history. Its seed inserts use conflict-do-nothing semantics so a future re-run will not overwrite admin-edited content. The repository and remote migration history had a pre-existing timestamp/name mismatch, so reconcile `supabase migration list` and mark/reconcile the applied version before running `supabase db push`. Do not blindly replay the entire historical migration set against the existing production project.
+
+For a new development project, configure the project URL and publishable key in `js/supabase-config.js`, apply the schema/migrations in order, and set the Supabase Auth Site URL and Redirect URLs to:
+
+`https://ns-matrix.github.io/karma-fire-protection0/**`
+
+## Verification
+
+The rebuild includes static contract tests for:
+
+- ZIP desktop/mobile public and admin entry points.
+- Local media references and removal of the embedded fake website/admin datasets.
+- Supabase authentication, role resolution, website CRUD, CMS publishing/version restore and public form wiring.
+- Public map/contact settings and GitHub Pages URLs.
+- Demo seed content, RLS boundaries and preservation of operational data.
+
+A real password login and browser-based end-to-end workflow still require an authorised account session. No passwords or service-role keys are stored in this repository.
